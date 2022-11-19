@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FitnessUnitRepository extends CrudRepository<FitnessUnit, Long> {
+    void deleteByFitnessRoutineId(Long fitnessRoutineId);
 }

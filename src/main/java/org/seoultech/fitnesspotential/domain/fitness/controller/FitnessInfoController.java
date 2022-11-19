@@ -1,13 +1,16 @@
 package org.seoultech.fitnesspotential.domain.fitness.controller;
 
-import org.seoultech.fitnesspotential.domain.fitness.dto.request.info.FitnessInfoPostRequest;
-import org.seoultech.fitnesspotential.domain.fitness.dto.request.info.FitnessInfoPutRequest;
-import org.seoultech.fitnesspotential.domain.fitness.dto.response.info.FitnessInfoDeleteResponse;
-import org.seoultech.fitnesspotential.domain.fitness.dto.response.info.FitnessInfoResponse;
-import org.seoultech.fitnesspotential.domain.fitness.dto.response.info.FitnessInfoSummaryResponse;
+import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPostRequest;
+import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPutRequest;
+import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessInfo;
+import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessInfoSummary;
+import org.seoultech.fitnesspotential.domain.fitness.service.FitnessInfoService;
+import org.seoultech.fitnesspotential.domain.fitness.service.FitnessInfoSummaryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,33 +20,44 @@ import javax.validation.Valid;
 @RequestMapping("/fitness/info")
 public class FitnessInfoController {
 
-    @GetMapping("/{id}")
-    public ResponseEntity<FitnessInfoResponse> getFitnessInfo(@PathVariable Long id) {
+    private final FitnessInfoService fitnessInfoService;
+    private final FitnessInfoSummaryService fitnessInfoSummaryService;
 
-        return null;
+    @Autowired
+    public FitnessInfoController(FitnessInfoService fitnessInfoService, FitnessInfoSummaryService fitnessInfoSummaryService) {
+        this.fitnessInfoService = fitnessInfoService;
+        this.fitnessInfoSummaryService = fitnessInfoSummaryService;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FitnessInfo> getFitnessInfo(@PathVariable Long id) {
+
+        return new ResponseEntity<>(fitnessInfoService.getFitnessInfo(id), HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<FitnessInfoSummaryResponse>> getFitnessInfos(@PageableDefault Pageable pageable) {
-
-        return null;
+    public ResponseEntity<Page<FitnessInfoSummary>> getFitnessInfoSummaries(@PageableDefault Pageable pageable) {
+        Page<FitnessInfoSummary> fitnessInfoSummaries = fitnessInfoSummaryService.getFitnessInfoSummaries(pageable);
+        return fitnessInfoSummaries.isEmpty() ?
+                new ResponseEntity<>(fitnessInfoSummaries, HttpStatus.NO_CONTENT) :
+                new ResponseEntity<>(fitnessInfoSummaries, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<FitnessInfoResponse> postFitnessInfo(@RequestBody @Valid FitnessInfoPostRequest fitnessInfoPostRequest) {
+    public ResponseEntity<FitnessInfo> postFitnessInfo(@RequestBody @Valid FitnessInfoPostRequest fitnessInfoPostRequest) {
 
-        return null;
+        return new ResponseEntity<>(fitnessInfoService.postFitnessInfo(fitnessInfoPostRequest, 0L), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<FitnessInfoResponse> putFitnessInfo(@RequestBody @Valid FitnessInfoPutRequest fitnessInfoPutRequest) {
+    public ResponseEntity<FitnessInfo> putFitnessInfo(@RequestBody @Valid FitnessInfoPutRequest fitnessInfoPutRequest, Long id) {
 
-        return null;
+        return new ResponseEntity<>(fitnessInfoService.putFitnessInfo(fitnessInfoPutRequest, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<FitnessInfoDeleteResponse> deleteFitnessInfo(@PathVariable Long id) {
-
-        return null;
+    public ResponseEntity<Void> deleteFitnessInfo(@PathVariable Long id) {
+        fitnessInfoService.deleteFitnessInfo(id);
+        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
     }
 }

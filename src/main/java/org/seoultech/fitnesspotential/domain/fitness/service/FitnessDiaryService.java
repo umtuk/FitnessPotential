@@ -1,18 +1,16 @@
 package org.seoultech.fitnesspotential.domain.fitness.service;
 
-import org.seoultech.fitnesspotential.domain.fitness.dto.request.diary.FitnessDiaryPostRequest;
-import org.seoultech.fitnesspotential.domain.fitness.dto.request.diary.FitnessDiaryPutRequest;
-import org.seoultech.fitnesspotential.domain.fitness.dto.response.diary.FitnessDiaryDeleteResponse;
-import org.seoultech.fitnesspotential.domain.fitness.dto.response.diary.FitnessDiaryResponse;
-import org.seoultech.fitnesspotential.domain.fitness.dto.response.diary.FitnessDiarySummaryResponse;
+import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPostRequest;
+import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPutRequest;
+import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessDiary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface FitnessDiaryService {
 
-    FitnessDiaryResponse getFitnessDiary(Long id);
-    Page<FitnessDiarySummaryResponse> getFitnessDiaries(Pageable pageable);
-    FitnessDiaryResponse postFitnessDiary(FitnessDiaryPostRequest fitnessDiaryPostRequest);
-    FitnessDiaryResponse putFitnessDiary(FitnessDiaryPutRequest fitnessDiaryPutRequest);
-    FitnessDiaryDeleteResponse deleteFitnessDiary(Long id);
+    FitnessDiary getFitnessDiary(Long id);
+    Page<FitnessDiary> getFitnessDiaries(Pageable pageable);
+    FitnessDiary postFitnessDiary(FitnessDiaryPostRequest fitnessDiaryPostRequest, Long creatorId);
+    FitnessDiary putFitnessDiary(FitnessDiaryPutRequest fitnessDiaryPutRequest, Long id);
+    void deleteFitnessDiary(Long id);
 }

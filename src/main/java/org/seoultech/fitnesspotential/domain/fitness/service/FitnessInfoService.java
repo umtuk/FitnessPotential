@@ -1,18 +1,13 @@
 package org.seoultech.fitnesspotential.domain.fitness.service;
 
-import org.seoultech.fitnesspotential.domain.fitness.dto.request.info.FitnessInfoPostRequest;
-import org.seoultech.fitnesspotential.domain.fitness.dto.request.info.FitnessInfoPutRequest;
-import org.seoultech.fitnesspotential.domain.fitness.dto.response.info.FitnessInfoDeleteResponse;
-import org.seoultech.fitnesspotential.domain.fitness.dto.response.info.FitnessInfoResponse;
-import org.seoultech.fitnesspotential.domain.fitness.dto.response.info.FitnessInfoSummaryResponse;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPostRequest;
+import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPutRequest;
+import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessInfo;
 
 public interface FitnessInfoService {
 
-    FitnessInfoResponse getFitnessInfo(Long id);
-    Page<FitnessInfoSummaryResponse> getFitnessInfos(Pageable pageable);
-    FitnessInfoResponse postFitnessInfo(FitnessInfoPostRequest fitnessInfoPostRequest);
-    FitnessInfoResponse putFitnessInfo(FitnessInfoPutRequest fitnessInfoPutRequest);
-    FitnessInfoDeleteResponse deleteFitnessInfo(Long id);
+    FitnessInfo getFitnessInfo(Long id);
+    FitnessInfo postFitnessInfo(FitnessInfoPostRequest fitnessInfoPostRequest, Long creatorId);
+    FitnessInfo putFitnessInfo(FitnessInfoPutRequest fitnessInfoPutRequest, Long id);
+    void deleteFitnessInfo(Long id);
 }

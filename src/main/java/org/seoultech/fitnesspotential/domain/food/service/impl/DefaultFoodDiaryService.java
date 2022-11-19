@@ -1,10 +1,10 @@
 package org.seoultech.fitnesspotential.domain.food.service.impl;
 
-import org.seoultech.fitnesspotential.domain.food.dto.request.diary.FoodDiaryPostRequest;
-import org.seoultech.fitnesspotential.domain.food.dto.request.diary.FoodDiaryPutRequest;
-import org.seoultech.fitnesspotential.domain.food.dto.response.diary.FoodDiaryResponse;
-import org.seoultech.fitnesspotential.domain.food.dto.response.diary.FoodDiarySummaryResponse;
-import org.seoultech.fitnesspotential.domain.food.repository.FoodDiaryDeleteResponse;
+import org.seoultech.fitnesspotential.domain.food.dto.FoodDiaryPostRequest;
+import org.seoultech.fitnesspotential.domain.food.dto.FoodDiaryPutRequest;
+import org.seoultech.fitnesspotential.domain.food.entity.FoodDiary;
+import org.seoultech.fitnesspotential.domain.food.exception.FoodDiaryErrorMessage;
+import org.seoultech.fitnesspotential.domain.food.repository.FoodDiaryRepository;
 import org.seoultech.fitnesspotential.domain.food.service.FoodDiaryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,28 +12,50 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DefaultFoodDiaryService implements FoodDiaryService {
-    @Override
-    public FoodDiaryResponse getFoodDiary(Long id) {
-        return null;
+
+    private final FoodDiaryRepository foodDiaryRepository;
+
+    public DefaultFoodDiaryService(FoodDiaryRepository foodDiaryRepository) {
+        this.foodDiaryRepository = foodDiaryRepository;
     }
 
     @Override
-    public Page<FoodDiarySummaryResponse> getFoodDiaries(Pageable pageable) {
-        return null;
+    public FoodDiary getFoodDiary(Long id) {
+        return foodDiaryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(FoodDiaryErrorMessage.FOOD_DIARY_NOT_FOUND.toString()));
     }
 
     @Override
-    public FoodDiaryResponse postFoodDiary(FoodDiaryPostRequest foodDiaryPostRequest) {
-        return null;
+    public Page<FoodDiary> getFoodDiaries(Pageable pageable) {
+        return foodDiaryRepository.findAll(pageable);
     }
 
     @Override
-    public FoodDiaryResponse putFoodDiary(FoodDiaryPutRequest foodDiaryPutRequest) {
-        return null;
+    public FoodDiary postFoodDiary(FoodDiaryPostRequest foodDiaryPostRequest, Long creatorId) {
+        FoodDiary foodDiary = FoodDiary.builder()
+                .foodDiaryPostRequest(foodDiaryPostRequest)
+                .creatorId(creatorId)
+                .build();
+        return foodDiaryRepository.save(foodDiary);
     }
 
     @Override
-    public FoodDiaryDeleteResponse deleteFoodDiary(Long id) {
-        return null;
+    public FoodDiary putFoodDiary(FoodDiaryPutRequest foodDiaryPutRequest, Long id) {
+        FoodDiary foodDiary = foodDiaryRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException(FoodDiaryErrorMessage.FOOD_DIARY_NOT_FOUND.toString()));
+        FoodDiary updated = FoodDiary.builder()
+                .foodDiary(foodDiary)
+                .foodDiaryPutRequest(foodDiaryPutRequest)
+                .build();
+        return foodDiaryRepository.save(updated);
+    }
+
+    @Override
+    public void deleteFoodDiary(Long id) {
+        if(foodDiaryRepository.existsById(id)){
+            foodDiaryRepository.deleteById(id);
+        }else{
+            throw new IllegalArgumentException(FoodDiaryErrorMessage.FOOD_DIARY_NOT_FOUND.toString());
+        }
     }
 }
