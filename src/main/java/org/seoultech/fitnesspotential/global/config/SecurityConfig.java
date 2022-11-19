@@ -57,7 +57,7 @@ public class SecurityConfig {
 
                 .antMatchers("/user/**").hasRole("USER")
 
-                .antMatchers("/**").denyAll()
+                .antMatchers("/**").permitAll()
 
                 .and()
                 .oauth2Login()

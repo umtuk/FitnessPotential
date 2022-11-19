@@ -16,5 +16,8 @@
     ${user.nickname}
     <img src="${user.profileImageUrl}" alt="">
     <a href="/community"><h1>community</h1></a>
+    <a href="/fitness/diary"><h1>fitness_diary</h1></a>
+    <a href="/fitness/info"><h1>fitness_info</h1></a>
+    <a href="/fitness/routine"><h1>fitness_routine</h1></a>
 </body>
 </html>

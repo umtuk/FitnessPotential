@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/routine")
+@RequestMapping("/fitness/routine")
 public class FitnessRoutineViewController {
 
     private final FitnessRoutineService fitnessRoutineService;
@@ -40,14 +40,14 @@ public class FitnessRoutineViewController {
     public ModelAndView getFitnessRoutinesView(@PageableDefault()Pageable pageable, ModelMap model){
         Page<FitnessRoutine> fitnessRoutines = fitnessRoutineService.getFitnessRoutines(pageable);
         model.addAttribute("fitnessRoutines", fitnessRoutines);
-        return new ModelAndView("fitness/searchView", model);
+        return new ModelAndView("fitness/routine/submit/searchView", model);
     }
 
     @GetMapping("/{id}")
     public ModelAndView getFitnessRoutineView(@PathVariable Long id, ModelMap model){
         FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(id);
         model.addAttribute("fitnessRoutine", fitnessRoutine);
-        return new ModelAndView("fitness/routineView", model);
+        return new ModelAndView("fitness/routine/submit/routineView", model);
     }
 
     @PostMapping

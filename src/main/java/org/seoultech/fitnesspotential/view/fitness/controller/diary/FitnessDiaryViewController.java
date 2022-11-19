@@ -5,6 +5,7 @@ import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPostR
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessDiary;
 import org.seoultech.fitnesspotential.domain.fitness.service.*;
+import org.seoultech.fitnesspotential.domain.user.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -23,37 +24,49 @@ public class FitnessDiaryViewController {
     }
 
     @GetMapping
-    public ModelAndView getDefaultFitnessDiaryView(ModelMap model){
+    public ModelAndView getDefaultFitnessDiaryView(@SessionAttribute User user, ModelMap model){
         return new ModelAndView("forward:/fitness/diary/search?page=0&size=10", model);
     }
 
     @GetMapping("/search")
-    public ModelAndView getFitnessDiariesView(@PageableDefault() Pageable pageable, ModelMap model){
+    public ModelAndView getFitnessDiariesView(@PageableDefault() Pageable pageable, @SessionAttribute User user, ModelMap model){
         return new ModelAndView("fitness/diary/submit/searchView", model);
     }
 
     @GetMapping("/{id}")
-    public ModelAndView getFitnessDiaryView(@PathVariable Long id, ModelMap model){
+    public ModelAndView getFitnessDiaryView(@PathVariable Long id, @SessionAttribute User user, ModelMap model){
         FitnessDiary fitnessDiary = fitnessDiaryService.getFitnessDiary(id);
         model.addAttribute("fitnessDiary", fitnessDiary);
         return new ModelAndView("fitness/diary/submit/indexView", model);
     }
 
     @PostMapping
-    public ModelAndView postFitnessDiary(@ModelAttribute FitnessDiaryPostRequest fitnessDiaryPostRequest, ModelMap model){
-        FitnessDiary fitnessDiary = fitnessDiaryService.postFitnessDiary(fitnessDiaryPostRequest, 0L);
-        return new ModelAndView("redirect:/fitness/diary/submit/diaryCreate/" + fitnessDiary.getId(), model);
+    public ModelAndView postFitnessDiary(@ModelAttribute FitnessDiaryPostRequest fitnessDiaryPostRequest, @SessionAttribute User user, ModelMap model){
+        FitnessDiary fitnessDiary = fitnessDiaryService.postFitnessDiary(fitnessDiaryPostRequest, user.getId());
+        return new ModelAndView("redirect:/fitness/diary/" + fitnessDiary.getId(), model);
     }
 
     @PutMapping("/{id}")
-    public ModelAndView putFitnessDiary(@ModelAttribute FitnessDiaryPutRequest fitnessDiaryPutRequest, @PathVariable Long id, ModelMap model){
+    public ModelAndView putFitnessDiary(@ModelAttribute FitnessDiaryPutRequest fitnessDiaryPutRequest, @PathVariable Long id, @SessionAttribute User user, ModelMap model){
         FitnessDiary fitnessDiary = fitnessDiaryService.putFitnessDiary(fitnessDiaryPutRequest, id);
-        return new ModelAndView("redirect:/fitness/diary/submit/diaryUpdate" + fitnessDiary.getId(), model);
+        return new ModelAndView("redirect:/fitness/diary/" + fitnessDiary.getId(), model);
     }
 
     @DeleteMapping("/{id}")
-    public ModelAndView deleteFitnessDiary(@PathVariable Long id, ModelMap model){
+    public ModelAndView deleteFitnessDiary(@PathVariable Long id, @SessionAttribute User user, ModelMap model){
         fitnessDiaryService.deleteFitnessDiary(id);
         return new ModelAndView("redirect:/fitness/diary", model);
+    }
+
+    @GetMapping("/create")
+    public ModelAndView getFitnessDiaryCreateView(@SessionAttribute User user, ModelMap model){
+        return new ModelAndView("/fitness/diary/submit/diaryCreate", model);
+    }
+
+    @GetMapping("/update/{id}")
+    public ModelAndView getFitnessDiaryUpdateView(@SessionAttribute User user, @PathVariable Long id, ModelMap model){
+        FitnessDiary fitnessDiary = fitnessDiaryService.getFitnessDiary(id);
+        model.addAttribute("fitnessDiary", fitnessDiary);
+        return new ModelAndView("/fitness/diary/submit/diaryUpdate", model);
     }
 }
