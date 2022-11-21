@@ -4,6 +4,8 @@ import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPostReq
 import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessInfo;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessInfoService;
+import org.seoultech.fitnesspotential.domain.user.entity.User;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,8 @@ public class FitnessInfoViewController {
 
     @GetMapping("/search")
     public ModelAndView getFitnessInfosView(@PageableDefault() Pageable pageable, ModelMap model){
+        Page<FitnessInfo> fitnessInfos = fitnessInfoService.getFitnessInfos(pageable);
+        model.addAttribute("fitnessInfos", fitnessInfos);
         return new ModelAndView("fitness/info/submit/searchView", model);
     }
 
@@ -40,12 +44,24 @@ public class FitnessInfoViewController {
     @PostMapping
     public ModelAndView postFitnessDiary(@ModelAttribute FitnessInfoPostRequest fitnessInfoPostRequest, ModelMap model){
         FitnessInfo fitnessInfo = fitnessInfoService.postFitnessInfo(fitnessInfoPostRequest, 0L);
-        return new ModelAndView("redirect:/fitness/info/submit/infoCreate/" + fitnessInfo.getId(), model);
+        return new ModelAndView("redirect:/fitness/info/" + fitnessInfo.getId(), model);
     }
 
     @PutMapping("/{id}")
     public ModelAndView putFitnessDiary(@ModelAttribute FitnessInfoPutRequest fitnessInfoPutRequest, @PathVariable Long id, ModelMap model){
         FitnessInfo fitnessInfo = fitnessInfoService.putFitnessInfo(fitnessInfoPutRequest, id);
-        return new ModelAndView("redirect:/fitness/info/submit/infoUpdate/" + fitnessInfo.getId(), model);
+        return new ModelAndView("redirect:/fitness/info/" + fitnessInfo.getId(), model);
+    }
+
+    @GetMapping("/create")
+    public ModelAndView getFitnessInfoCreateView(@SessionAttribute User user, ModelMap model){
+        return new ModelAndView("/fitness/info/submit/infoCreate", model);
+    }
+
+    @GetMapping("/update/{id}")
+    public ModelAndView getFitnessInfoUpdateView(@SessionAttribute User user, @PathVariable Long id, ModelMap model){
+        FitnessInfo fitnessInfo = fitnessInfoService.getFitnessInfo(id);
+        model.addAttribute("fitnessInfo", fitnessInfo);
+        return new ModelAndView("/fitness/info/submit/infoUpdate", model);
     }
 }

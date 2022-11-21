@@ -7,6 +7,7 @@ import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPutRequ
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessRoutineService;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessUnitService;
+import org.seoultech.fitnesspotential.domain.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,7 +48,7 @@ public class FitnessRoutineViewController {
     public ModelAndView getFitnessRoutineView(@PathVariable Long id, ModelMap model){
         FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(id);
         model.addAttribute("fitnessRoutine", fitnessRoutine);
-        return new ModelAndView("fitness/routine/submit/routineView", model);
+        return new ModelAndView("fitness/routine/submit/indexView", model);
     }
 
     @PostMapping
@@ -74,28 +75,28 @@ public class FitnessRoutineViewController {
         return new ModelAndView("redirect:/fitness/routine/" + fitnessRoutine.getId(), model);
     }
 
-    @PutMapping("/unit/{id}")
+    @PutMapping("/unit/update/{id}")
     public ModelAndView putUnit(@ModelAttribute FitnessUnitPutRequest fitnessUnitPutRequest, @PathVariable Long id, ModelMap model){
         FitnessRoutine fitnessRoutine = fitnessUnitService.putFitnessUnit(fitnessUnitPutRequest, id);
         return new ModelAndView("redirect:/fitness/routine/"+fitnessRoutine.getId(), model);
     }
 
-    @DeleteMapping("/Unit/{id}")
+    @DeleteMapping("/unit/{id}")
     public ModelAndView deleteUnit(@PathVariable Long id, ModelMap model){
         Long fitnessRoutineId = fitnessUnitService.getFitnessRoutineId(id);
         fitnessUnitService.deleteFitnessUnit(id);
         return new ModelAndView("redirect:/fitness/routine/" + fitnessRoutineId, model);
     }
 
-    @GetMapping("/routine/create")
+    @GetMapping("/create")
     public ModelAndView getFitnessRoutineCreateView(ModelMap model){
-        return new ModelAndView("/fitness/routine/submit/fitnessRoutineCreateView", model);
+        return new ModelAndView("/fitness/routine/submit/routineCreate", model);
     }
 
-    @GetMapping("/routine/update/{id}")
+    @GetMapping("/update/{id}")
     public ModelAndView getFitnessRoutineUpdateView(@PathVariable Long id, ModelMap model){
         FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(id);
         model.addAttribute("fitnessRoutine", fitnessRoutine);
-        return new ModelAndView("/fitness/routine/submit/fitnessRoutineUpdateView", model);
+        return new ModelAndView("/fitness/routine/submit/routineUpdate", model);
     }
 }
