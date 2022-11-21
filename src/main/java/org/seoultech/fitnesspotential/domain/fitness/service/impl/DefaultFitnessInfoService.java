@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DefaultFitnessInfoService implements FitnessInfoService {
@@ -25,6 +26,12 @@ public class DefaultFitnessInfoService implements FitnessInfoService {
     public FitnessInfo getFitnessInfo(Long id) {
         return fitnessInfoRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException(FitnessInfoErrorMessage.FITNESS_INFO_NOT_FOUND.toString()));
+    }
+
+    @Override
+    @Transactional
+    public Page<FitnessInfo> getFitnessInfos(Pageable pageable){
+        return fitnessInfoRepository.findAll(pageable);
     }
 
     @Override
