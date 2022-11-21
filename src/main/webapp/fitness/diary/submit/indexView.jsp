@@ -13,7 +13,7 @@
 <body>
 <a href="/fitness/diary"><h1>back</h1></a>
 <jsp:include page="/fitness/diary/entity/diary.jsp">
-    <jsp:param name="fitnessDiary" value="${community}" />
+    <jsp:param name="fitnessDiary" value="${fitnessDiary}" />
 </jsp:include>
 <a href="/fitness/diary/update/${fitnessDiary.id}"><h1>update</h1></a>
 </body>

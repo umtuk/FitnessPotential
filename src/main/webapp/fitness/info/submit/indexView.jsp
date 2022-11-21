@@ -1,16 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: USER
-  Date: 2022-11-19
-  Time: 오후 12:44
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>FitnessInfo_indexView</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Potential</title>
 </head>
 <body>
-    FitnessInfo_indexView
+<a href="/fitness/info"><h1>back</h1></a>
+<jsp:include page="/fitness/info/entity/info.jsp">
+    <jsp:param name="fitnessInfo" value="${fitnessInfo}" />
+</jsp:include>
+<a href="/fitness/info/update/${fitnessInfo.id}"><h1>update</h1></a>
 </body>
 </html>
