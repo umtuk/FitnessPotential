@@ -19,5 +19,7 @@
     <a href="/fitness/diary"><h1>fitness_diary</h1></a>
     <a href="/fitness/info"><h1>fitness_info</h1></a>
     <a href="/fitness/routine"><h1>fitness_routine</h1></a>
+    <a href="/food/diary"><h1>food_diary</h1></a>
+    <a href="/food/info"><h1>food_info</h1></a>
 </body>
 </html>
