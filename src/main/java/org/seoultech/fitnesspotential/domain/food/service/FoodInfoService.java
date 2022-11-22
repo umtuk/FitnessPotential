@@ -7,5 +7,7 @@ import org.springframework.data.domain.Pageable;
 public interface FoodInfoService {
 
     FoodInfo getFoodInfo(Long id);
+
     Page<FoodInfo> getFoodInfos(Pageable pageable);
+    Page<FoodInfo> getFoodInfos(String majorCategory, String detailedCategory, Pageable pageable);
 }
