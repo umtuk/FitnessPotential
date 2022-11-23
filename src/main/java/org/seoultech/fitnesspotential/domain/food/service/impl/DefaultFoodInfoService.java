@@ -32,6 +32,8 @@ public class DefaultFoodInfoService implements FoodInfoService {
 
     @Override
     public Page<FoodInfo> getFoodInfos(String majorCategory, String detailedCategory, Pageable pageable) {
-        return foodInfoRepository.findByMajorCategoryAndDetailedCategory(majorCategory, detailedCategory, pageable);
+        return majorCategory.isEmpty() || detailedCategory.isEmpty() ?
+                foodInfoRepository.findAll(pageable) :
+                foodInfoRepository.findByMajorCategoryAndDetailedCategory(majorCategory, detailedCategory, pageable);
     }
 }
