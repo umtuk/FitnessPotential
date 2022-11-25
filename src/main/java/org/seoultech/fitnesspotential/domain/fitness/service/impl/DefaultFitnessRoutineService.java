@@ -2,6 +2,7 @@ package org.seoultech.fitnesspotential.domain.fitness.service.impl;
 
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePutRequest;
+import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutineResponse;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
 import org.seoultech.fitnesspotential.domain.fitness.exception.FitnessRoutineErrorMessage;
 import org.seoultech.fitnesspotential.domain.fitness.repository.FitnessRoutineRepository;
@@ -12,6 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class DefaultFitnessRoutineService implements FitnessRoutineService {
@@ -27,31 +31,40 @@ public class DefaultFitnessRoutineService implements FitnessRoutineService {
 
     @Override
     @Transactional
-    public FitnessRoutine getFitnessRoutine(Long id) {
-        return fitnessRoutineRepository.findById(id)
+    public FitnessRoutineResponse getFitnessRoutine(Long id) {
+        FitnessRoutine fitnessRoutine = fitnessRoutineRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(FitnessRoutineErrorMessage.FITNESS_ROUTINE_NOT_FOUND.toString()));
+        return FitnessRoutineResponse.builder()
+                .fitnessRoutine(fitnessRoutine)
+                .build();
     }
 
     @Override
     @Transactional
-    public Page<FitnessRoutine> getFitnessRoutines(Pageable pageable) {
-        return fitnessRoutineRepository.findAll(pageable);
+    public Iterable<FitnessRoutineResponse> getFitnessRoutines(Long creatorId) {
+        Iterable<FitnessRoutine> fitnessRoutines = fitnessRoutineRepository.findByCreatorId(creatorId);
+        Iterable<FitnessRoutineResponse> fitnessRoutineResponses = StreamSupport.stream(fitnessRoutines.spliterator(), false)
+                .map(fitnessRoutine -> FitnessRoutineResponse.builder().fitnessRoutine(fitnessRoutine).build())
+                .collect(Collectors.toList());
+        return fitnessRoutineResponses;
     }
 
     @Override
     @Transactional
-    public FitnessRoutine postFitnessRoutine(FitnessRoutinePostRequest fitnessRoutinePostRequest, Long creatorId) {
+    public FitnessRoutineResponse postFitnessRoutine(FitnessRoutinePostRequest fitnessRoutinePostRequest, Long creatorId) {
         FitnessRoutine fitnessRoutine = FitnessRoutine.builder()
                 .fitnessRoutinePostRequest(fitnessRoutinePostRequest)
                 .creatorId(creatorId)
                 .build();
 
-        return fitnessRoutineRepository.save(fitnessRoutine);
+        return FitnessRoutineResponse.builder()
+                .fitnessRoutine(fitnessRoutine)
+                .build();
     }
 
     @Override
     @Transactional
-    public FitnessRoutine putFitnessRoutine(FitnessRoutinePutRequest fitnessRoutinePutRequest, Long id) {
+    public FitnessRoutineResponse putFitnessRoutine(FitnessRoutinePutRequest fitnessRoutinePutRequest, Long id) {
         FitnessRoutine fitnessRoutine = fitnessRoutineRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(FitnessRoutineErrorMessage.FITNESS_ROUTINE_NOT_FOUND.toString()));
 
@@ -59,7 +72,10 @@ public class DefaultFitnessRoutineService implements FitnessRoutineService {
                 .fitnessRoutine(fitnessRoutine)
                 .fitnessRoutinePutRequest(fitnessRoutinePutRequest)
                 .build();
-        return fitnessRoutineRepository.save(updated);
+
+        return FitnessRoutineResponse.builder()
+                .fitnessRoutine(updated)
+                .build();
     }
 
     @Override

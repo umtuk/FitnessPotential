@@ -29,9 +29,9 @@ public class FoodDiaryController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<FoodDiary>> getFoodDiaries(@PageableDefault Pageable pageable) {
-        Page<FoodDiary> foodDiaries = foodDiaryService.getFoodDiaries(pageable);
-        return foodDiaries.isEmpty() ?
+    public ResponseEntity<Iterable<FoodDiary>> getFoodDiaries(@RequestParam Integer year, @RequestParam Integer month, @RequestParam Integer day) {
+        Iterable<FoodDiary> foodDiaries = foodDiaryService.getFoodDiaries(year, month, day, 0L);
+        return !foodDiaries.iterator().hasNext() ?
                 new ResponseEntity<>(foodDiaries, HttpStatus.NO_CONTENT) :
                 new ResponseEntity<>(foodDiaries, HttpStatus.OK);
     }
@@ -39,7 +39,7 @@ public class FoodDiaryController {
     @PostMapping
     public ResponseEntity<FoodDiary> postFoodDiary(@RequestBody @Valid FoodDiaryPostRequest foodDiaryPostRequest) {
 
-        return new ResponseEntity<>(foodDiaryService.postFoodDiary(foodDiaryPostRequest, 0L), HttpStatus.OK);
+        return new ResponseEntity<>(foodDiaryService.postFoodDiary(foodDiaryPostRequest, 0L), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

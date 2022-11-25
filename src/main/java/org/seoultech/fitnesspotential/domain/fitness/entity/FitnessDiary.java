@@ -8,6 +8,7 @@ import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPostR
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPutRequest;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -66,32 +67,22 @@ public class FitnessDiary {
         this.deletedAt = deletedAt;
     }
 
-    public static class FitnessDiaryBuilder{
+    public static class FitnessDiaryBuilder {
+
+        public static final String DELIM = "_";
 
         private Long id;
-
         private Long creatorId;
-
         private Long fitnessInfoId;
-
         private String title;
-
         private Integer sets;
-
         private String reps;
-
         private String breakTimesPerSet;
-
         private Integer year;
-
         private Integer month;
-
         private Integer day;
-
         private Long createdAt;
-
         private Long updatedAt;
-
         private Long deletedAt;
 
         public FitnessDiaryBuilder fitnessDiary(FitnessDiary fitnessDiary){
@@ -113,8 +104,8 @@ public class FitnessDiary {
 
         public FitnessDiaryBuilder fitnessDiaryPostRequest(FitnessDiaryPostRequest fitnessDiaryPostRequest){
             this.title = fitnessDiaryPostRequest.getTitle();
-            this.breakTimesPerSet = fitnessDiaryPostRequest.getBreakTimesPerSet();
-            this.reps = fitnessDiaryPostRequest.getReps();
+            this.breakTimesPerSet = toString(fitnessDiaryPostRequest.getBreakTimesPerSet());
+            this.reps = toString(fitnessDiaryPostRequest.getReps());
             this.sets = fitnessDiaryPostRequest.getSets();
             this.fitnessInfoId = fitnessDiaryPostRequest.getFitnessInfoId();
             this.year = fitnessDiaryPostRequest.getYear();
@@ -125,14 +116,26 @@ public class FitnessDiary {
         }
         public FitnessDiaryBuilder fitnessDiaryPutRequest(FitnessDiaryPutRequest fitnessDiaryPutRequest){
             this.title = fitnessDiaryPutRequest.getTitle() == null ? this.title : fitnessDiaryPutRequest.getTitle();
-            this.breakTimesPerSet = fitnessDiaryPutRequest.getBreakTimesPerSet() == null ? this.breakTimesPerSet : fitnessDiaryPutRequest.getBreakTimesPerSet();
-            this.reps = fitnessDiaryPutRequest.getReps() == null ? this.reps : fitnessDiaryPutRequest.getReps();
+            this.breakTimesPerSet = fitnessDiaryPutRequest.getBreakTimesPerSet() == null ? this.breakTimesPerSet : toString(fitnessDiaryPutRequest.getBreakTimesPerSet());
+            this.reps = fitnessDiaryPutRequest.getReps() == null ? this.reps : toString(fitnessDiaryPutRequest.getReps());
             this.sets = fitnessDiaryPutRequest.getSets() == null ? this.sets : fitnessDiaryPutRequest.getSets();
             this.year = fitnessDiaryPutRequest.getYear() == null ? this.year : fitnessDiaryPutRequest.getYear();
             this.month = fitnessDiaryPutRequest.getMonth() == null ? this.month : fitnessDiaryPutRequest.getMonth();
             this.day = fitnessDiaryPutRequest.getDay() == null ? this.day : fitnessDiaryPutRequest.getDay();
             this.updatedAt = System.currentTimeMillis();
             return this;
+        }
+
+        private String toString(List<Integer> intList) {
+            if (intList.size() == 0) {
+                return "";
+            }
+            StringBuffer sb = new StringBuffer();
+            sb.append(intList.get(0));
+            for (int i = 1; i < intList.size(); i++) {
+                sb.append(DELIM + intList.get(i));
+            }
+            return sb.toString();
         }
     }
 }

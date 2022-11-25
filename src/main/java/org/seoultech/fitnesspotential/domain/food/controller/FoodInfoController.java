@@ -1,7 +1,10 @@
 package org.seoultech.fitnesspotential.domain.food.controller;
 
+import org.seoultech.fitnesspotential.domain.food.dto.FoodInfoCategoryResponse;
 import org.seoultech.fitnesspotential.domain.food.entity.FoodInfo;
+import org.seoultech.fitnesspotential.domain.food.entity.FoodInfoCategory;
 import org.seoultech.fitnesspotential.domain.food.service.FoodInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,6 +18,7 @@ public class FoodInfoController {
 
     private final FoodInfoService foodInfoService;
 
+    @Autowired
     public FoodInfoController(FoodInfoService foodInfoService) {
         this.foodInfoService = foodInfoService;
     }
@@ -30,5 +34,10 @@ public class FoodInfoController {
         return foodInfos.isEmpty() ?
                 new ResponseEntity<>(foodInfos, HttpStatus.NO_CONTENT) :
                 new ResponseEntity<>(foodInfos, HttpStatus.OK);
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<FoodInfoCategoryResponse> getFoodInfoDetailedCategories() {
+        return new ResponseEntity<>(foodInfoService.getFoodInfoCategories(), HttpStatus.OK);
     }
 }

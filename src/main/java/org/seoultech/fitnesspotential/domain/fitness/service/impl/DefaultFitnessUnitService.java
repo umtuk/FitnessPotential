@@ -1,5 +1,6 @@
 package org.seoultech.fitnesspotential.domain.fitness.service.impl;
 
+import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutineResponse;
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
@@ -34,20 +35,22 @@ public class DefaultFitnessUnitService implements FitnessUnitService {
 
     @Override
     @Transactional
-    public FitnessRoutine postFitnessUnit(FitnessUnitPostRequest fitnessUnitPostRequest) {
+    public FitnessRoutineResponse postFitnessUnit(FitnessUnitPostRequest fitnessUnitPostRequest) {
         FitnessUnit fitnessUnit = FitnessUnit.builder()
                 .fitnessUnitPostRequest(fitnessUnitPostRequest)
                 .build();
         FitnessUnit posted = fitnessUnitRepository.save(fitnessUnit);
-
         Long fitnessRoutineId = posted.getFitnessRoutine().getId();
-        return fitnessRoutineRepository.findById(fitnessRoutineId)
+        FitnessRoutine fitnessRoutine = fitnessRoutineRepository.findById(fitnessRoutineId)
                 .orElseThrow(() -> new IllegalArgumentException(FitnessUnitErrorMessage.FITNESS_UNIT_NOT_FOUND.toString()));
+        return FitnessRoutineResponse.builder()
+                .fitnessRoutine(fitnessRoutine)
+                .build();
     }
 
     @Override
     @Transactional
-    public FitnessRoutine putFitnessUnit(FitnessUnitPutRequest fitnessUnitPutRequest, Long id) {
+    public FitnessRoutineResponse putFitnessUnit(FitnessUnitPutRequest fitnessUnitPutRequest, Long id) {
         FitnessUnit fitnessUnit = fitnessUnitRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(FitnessUnitErrorMessage.FITNESS_UNIT_NOT_FOUND.toString()));
 
@@ -59,9 +62,11 @@ public class DefaultFitnessUnitService implements FitnessUnitService {
         FitnessUnit updated = fitnessUnitRepository.save(fitnessUnit);
 
         Long fitnessRoutineId = updated.getFitnessRoutine().getId();
-
-        return fitnessRoutineRepository.findById(fitnessRoutineId)
-                .orElseThrow(() -> new IllegalArgumentException(FitnessUnitErrorMessage.FITNESS_UNIT_NOT_FOUND.toString()));
+        FitnessRoutine fitnessRoutine = fitnessRoutineRepository.findById(fitnessRoutineId)
+                .orElseThrow(() -> new IllegalArgumentException(FitnessUnitErrorMessage.FITNESS_UNIT_NOT_FOUND.toString()));;
+        return FitnessRoutineResponse.builder()
+                .fitnessRoutine(fitnessRoutine)
+                .build();
     }
 
     @Override

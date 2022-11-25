@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 public class FitnessRoutinePutRequest {
+
     @NotNull
     @Size(min = 1, max = 20)
     private String title;

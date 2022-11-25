@@ -56,4 +56,8 @@ public class FoodDiaryPutRequest {
     @Min(1)
     @Max(31)
     private Integer day;
+
+    @NotNull
+    @Positive
+    private Long intakeTime;
 }

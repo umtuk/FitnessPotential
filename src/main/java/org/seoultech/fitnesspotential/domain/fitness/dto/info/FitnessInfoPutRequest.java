@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Component
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,4 +24,15 @@ public class FitnessInfoPutRequest {
     @NotNull
     @Size(max = 1024)
     private String content;
+
+    @NotNull
+    private Long thumbnail;
+
+    @NotNull
+    @Size(min = 1, max = 4)
+    private Set<@Size(min = 1, max = 16) String> majorCategory;
+
+    @NotNull
+    @Size(min = 1, max = 4)
+    private Set<@Size(min = 1, max = 16) String> detailedCategory;
 }

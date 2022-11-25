@@ -4,6 +4,8 @@ import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessInfoSummary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Set;
+
 public interface FitnessInfoSummaryService {
-    Page<FitnessInfoSummary> getFitnessInfoSummaries(Pageable pageable);
+    Page<FitnessInfoSummary> getFitnessInfoSummaries(Set<String> majorCategory, Set<String> detailedCategory, Pageable pageable);
 }

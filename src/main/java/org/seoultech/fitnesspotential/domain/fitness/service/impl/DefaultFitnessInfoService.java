@@ -12,6 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.SecondaryTable;
+import java.util.Set;
+
 @Service
 public class DefaultFitnessInfoService implements FitnessInfoService {
 
@@ -30,11 +33,6 @@ public class DefaultFitnessInfoService implements FitnessInfoService {
 
     @Override
     @Transactional
-    public Page<FitnessInfo> getFitnessInfos(Pageable pageable){
-        return fitnessInfoRepository.findAll(pageable);
-    }
-
-    @Override
     public FitnessInfo postFitnessInfo(FitnessInfoPostRequest fitnessInfoPostRequest, Long creatorId) {
         FitnessInfo fitnessInfo = FitnessInfo.builder()
                 .creatorId(creatorId)
@@ -44,6 +42,7 @@ public class DefaultFitnessInfoService implements FitnessInfoService {
     }
 
     @Override
+    @Transactional
     public FitnessInfo putFitnessInfo(FitnessInfoPutRequest fitnessInfoPutRequest, Long id) {
         FitnessInfo fitnessInfo = fitnessInfoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(FitnessInfoErrorMessage.FITNESS_INFO_NOT_FOUND.toString()));
@@ -56,6 +55,7 @@ public class DefaultFitnessInfoService implements FitnessInfoService {
     }
 
     @Override
+    @Transactional
     public void deleteFitnessInfo(Long id) {
         if(fitnessInfoRepository.existsById(id)){
             fitnessInfoRepository.deleteById(id);
