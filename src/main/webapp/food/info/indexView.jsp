@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-    <jsp:include page="../../header.jsp"></jsp:include>
+    <jsp:include page="/header.jsp"></jsp:include>
     <div class="container-sm">
         <a href="/food/info">back</a><br>
     </div>

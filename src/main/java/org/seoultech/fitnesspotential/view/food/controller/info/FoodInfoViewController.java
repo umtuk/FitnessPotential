@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.NotNull;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Set;
 
 @Controller
@@ -31,7 +33,7 @@ public class FoodInfoViewController {
 
     @GetMapping
     public ModelAndView getDefaultFoodInfoView(ModelMap model){
-        return new ModelAndView("forward:/food/info/search?page=0&size=10", model);
+        return new ModelAndView("forward:/food/info/search?page=0&size=10&majorCategory=구이류&detailedCategory=육류구이", model);
     }
 
 //    @GetMapping("/search")
@@ -48,7 +50,7 @@ public class FoodInfoViewController {
         return new ModelAndView("food/info/indexView", model);
     }
     @GetMapping("/search")
-    public ModelAndView getFoodInfoByMajorCategoryAndDetailedCategoryView(@RequestParam String majorCategory, @RequestParam String detailedCategory, @PageableDefault() Pageable pageable, ModelMap model){
+    public ModelAndView getFoodInfoByMajorCategoryAndDetailedCategoryView(@RequestParam String majorCategory, @RequestParam String detailedCategory, @PageableDefault() Pageable pageable, ModelMap model) throws UnsupportedEncodingException {
         Page<FoodInfo> foodInfos = foodInfoService.getFoodInfos(majorCategory, detailedCategory, pageable);
         FoodInfoCategoryResponse foodInfoCategory = foodInfoService.getFoodInfoCategories();
         model.addAttribute("foodInfos", foodInfos);
