@@ -8,12 +8,11 @@
             <a href="/food/info/${foodInfos.id}">
                 <div class="d-flex gap-2 w-100 justify-content-between">
                 <div>
-                    name: ${foodInfos.name}<br>
-                    id: ${foodInfos.id} <br>
+                    ${foodInfos.name}<br>
                 </div>
                     <small class="opacity-50 text-nowrap">
-                        majorCategory: ${foodInfos.majorCategory}<br>
-                        detailedCategory: ${foodInfos.detailedCategory}<br>
+                        ${foodInfos.majorCategory}<br>
+                        ${foodInfos.detailedCategory}<br>
                     </small>
                 </div>
             </a>
@@ -25,6 +24,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <form action="/food/info/category" method="get">
+            <div class="majorCategory">
+                <c:forEach var="category" varStatus="status" items="${foodInfoCategory.categories.ketSet()}">
+                    
+                </c:forEach>
+            </div>
             majorCategory: <input type="text" id="majorCategory" name="majorCategory" value="${majorCategory}">
             detailedCategory: <input type="text" id="detailedCategory" name="detailedCategory" value="${detailedCategory}">
             <input type="submit" class="btn btn-outline-primary me-2" value="search">

@@ -30,8 +30,8 @@ public class FitnessDiaryViewController {
     }
 
     @GetMapping("/search")
-    public ModelAndView getFitnessDiariesView(@PageableDefault() Pageable pageable, @SessionAttribute User user, ModelMap model){
-        model.addAttribute("fitnessDiaries", fitnessDiaryService.getFitnessDiaries(pageable));
+    public ModelAndView getFitnessDiariesView(@RequestParam Integer year, @RequestParam Integer month, @RequestParam Integer day, @SessionAttribute User user, ModelMap model){
+        model.addAttribute("fitnessDiaries", fitnessDiaryService.getFitnessDiaries(year, month, day, user.getId()));
         return new ModelAndView("fitness/diary/searchView", model);
     }
 
