@@ -1,41 +1,53 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+    function majorChange(){
+        var major = document.getElementById("majorCategory");
+
+        var detailed = document.getElementById("foodInfoCategory");
+
+        var selectedOption = "";
+        for(var i=0;i<detailed.length;i++){
+            if(major == detailed.keys()){
+                selectedOption += "<option>"+detailed+"</option>";
+            }
+        }
+        document.getElementById("detailedCategory").innerHTML = selectedOption;
+    }
+</script>
 <div class="container-sm">
-<div class="foodInfos">
-    <c:forEach var="foodInfos" varStatus="status" items="${foodInfos.content}">
-        <div class="list-group w-auto">
-            <a href="/food/info/${foodInfos.id}">
-                <div class="d-flex gap-2 w-100 justify-content-between">
-                <div>
-                    ${foodInfos.name}<br>
-                </div>
-                    <small class="opacity-50 text-nowrap">
-                        ${foodInfos.majorCategory}<br>
-                        ${foodInfos.detailedCategory}<br>
-                    </small>
-                </div>
-            </a>
-            <hr>
-        </div>
-    </c:forEach>
-</div>
+    <div class="foodInfos">
+        <c:forEach var="foodInfos" varStatus="status" items="${foodInfos.content}">
+            <div class="list-group w-auto">
+                <a href="/food/info/${foodInfos.id}">
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                                ${foodInfos.name}<br>
+                        </div>
+                        <small class="opacity-50 text-nowrap">
+                                ${foodInfos.majorCategory}<br>
+                                ${foodInfos.detailedCategory}<br>
+                        </small>
+                    </div>
+                </a>
+                <hr>
+            </div>
+        </c:forEach>
+    </div>
 </div>
 <div class="container">
     <div class="row justify-content-center">
         <form action="/food/info/search" method="get">
-            <select name="majorCategory">
+            <select name="majorCategory" onchange="majorChange()">
                 <c:forEach var="category" varStatus="status" items="${foodInfoCategory.categories.keySet()}">
-                    <!-- c if category == ${majorCategory} 
-                        <option 아래랑 똑같이 selected="selected">
-                    -->
-                    <option value="${category}">${category}</option>
+                    <option value="${category}"<c:if test="${majorCategory eq category}">selected="selected"</c:if>>${category}</option>
                 </c:forEach>
             </select>
             <select name="detailedCategory">
                 <c:forEach var="categories" varStatus="status" items="${foodInfoCategory.categories.values()}">
                     <c:forEach var="category" varStatus="status" items="${categories}">
-                        <option value="${category}">${category}</option>
+                        <option value="${category}"<c:if test="${detailedCategory eq category}">selected="selected"</c:if>>${category}</option>
                     </c:forEach>
                 </c:forEach>
             </select>
@@ -60,9 +72,9 @@
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-                <c:forEach var="i" varStatus="status" begin="1" end="${foodInfos.totalPages}">
-                    <li class="page-item"><a class="page-link" href="/food/info/search?page=${i - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}">${i}</a></li>
-                </c:forEach>
+            <c:forEach var="i" varStatus="status" begin="1" end="${foodInfos.totalPages}">
+                <li class="page-item"><a class="page-link" href="/food/info/search?page=${i - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}">${i}</a></li>
+            </c:forEach>
             <li class="page-item">
                 <a class="page-link" href="/food/info/search?page=${foodInfos.totalPages - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>

@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>FitnessUnit_IndexView</title>
+    <jsp:include page="../../../head.jsp"></jsp:include>
 </head>
 <body>
-    FitnessUnit_IndexView
+    <jsp:include page="../../../header.jsp"></jsp:include>
 </body>
 </html>

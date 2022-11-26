@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<jsp:include page="../../../head.jsp"></jsp:include>
 <body>
 <jsp:include page="../../../header.jsp"></jsp:include>
 <div class="container-sm">

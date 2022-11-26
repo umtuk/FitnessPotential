@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
+<jsp:include page="../../../head.jsp"></jsp:include>
 <body>
-    <jsp:include page="/header.jsp"></jsp:include>
+    <jsp:include page="../../../header.jsp"></jsp:include>
     <div class="container-sm">
         <form action="/fitness/diary/${fitnessDiary.id}" method="post">
             <input type="hidden" name="_method" value="put">
