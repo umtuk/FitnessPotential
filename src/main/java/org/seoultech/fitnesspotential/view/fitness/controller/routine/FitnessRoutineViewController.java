@@ -41,14 +41,14 @@ public class FitnessRoutineViewController {
     public ModelAndView getFitnessRoutinesView(@PageableDefault()Pageable pageable, ModelMap model){
         Page<FitnessRoutine> fitnessRoutines = fitnessRoutineService.getFitnessRoutines(pageable);
         model.addAttribute("fitnessRoutines", fitnessRoutines);
-        return new ModelAndView("fitness/routine/submit/searchView", model);
+        return new ModelAndView("fitness/routine/searchView", model);
     }
 
     @GetMapping("/{id}")
     public ModelAndView getFitnessRoutineView(@PathVariable Long id, ModelMap model){
         FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(id);
         model.addAttribute("fitnessRoutine", fitnessRoutine);
-        return new ModelAndView("fitness/routine/submit/indexView", model);
+        return new ModelAndView("fitness/routine/indexView", model);
     }
 
     @PostMapping

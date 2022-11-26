@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<div id="foodDiary">
-    <h1>foodDiary</h1>
+<div class="container-sm">
+<div id="foodDiary" class="d-flex gap-2 w-100 justify-content-between">
     <div class="header">
-        id: ${foodDiary.id} <br>
+        <h3>${foodDiary.year}-${foodDiary.month}-${foodDiary.day}</h3><br><br>
+    </div>
+    <small class="opacity-50 text-nowrap">
         creatorId: ${foodDiary.creatorId} <br>
         createdAt: ${foodDiary.createdAt} <br>
-        updatedAt: ${foodDiary.updatedAt} <br>
-        deletedAt: ${foodDiary.deletedAt} <br>
-    </div>
+    </small>
+</div>
     <div class="content">
         content: ${foodDiary.content}<br>
         intake: ${foodDiary.intake}<br>
@@ -19,12 +19,9 @@
         carbs: ${foodDiary.carbs}<br>
         protein: ${foodDiary.protein}<br>
         fat: ${foodDiary.fat}<br>
-        year: ${foodDiary.year}<br>
-        month: ${foodDiary.month}<br>
-        day: ${foodDiary.day}<br>
     </div>
     <form action="/food/diary/${foodDiary.id}" method="post">
         <input type="hidden" name="_method" value="delete">
-        <input type="submit" value="delete"> <br>
+        <input class="btn btn-outline-primary me-2" type="submit" value="delete"> <br>
     </form>
 </div>

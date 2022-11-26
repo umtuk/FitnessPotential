@@ -35,14 +35,14 @@ public class FoodInfoViewController {
     public ModelAndView getFoodInfosView(@PageableDefault() Pageable pageable, ModelMap model){
         Page<FoodInfo> foodInfos = foodInfoService.getFoodInfos(pageable);
         model.addAttribute("foodInfos", foodInfos);
-        return new ModelAndView("food/info/submit/searchView", model);
+        return new ModelAndView("food/info/searchView", model);
     }
 
     @GetMapping("/{id}")
     public ModelAndView getFoodInfoView(@PathVariable Long id, ModelMap model){
         FoodInfo foodInfo = foodInfoService.getFoodInfo(id);
         model.addAttribute("foodInfo", foodInfo);
-        return new ModelAndView("food/info/submit/indexView", model);
+        return new ModelAndView("food/info/indexView", model);
     }
     @GetMapping("/category")
     public ModelAndView getFoodInfoByMajorCategoryAndDetailedCategoryView(@RequestParam String majorCategory, @RequestParam String detailedCategory, @PageableDefault() Pageable pageable, ModelMap model){
@@ -50,6 +50,6 @@ public class FoodInfoViewController {
         model.addAttribute("foodInfos", foodInfos);
         model.addAttribute("majorCategory", majorCategory);
         model.addAttribute("detailedCategory", detailedCategory);
-        return new ModelAndView("food/info/submit/searchView", model);
+        return new ModelAndView("food/info/searchView", model);
     }
 }
