@@ -1,9 +1,8 @@
 package org.seoultech.fitnesspotential.domain.fitness.controller;
 
-import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutineResponse;
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPutRequest;
-import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
+import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessUnit;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,13 +28,13 @@ public class FitnessUnitController {
 //    }
 
     @PostMapping
-    public ResponseEntity<FitnessRoutineResponse> postFitnessUnit(@RequestBody @Valid FitnessUnitPostRequest fitnessUnitPostRequest) {
+    public ResponseEntity<FitnessUnit> postFitnessUnit(@RequestBody @Valid FitnessUnitPostRequest fitnessUnitPostRequest) {
 
         return new ResponseEntity<>(fitnessUnitService.postFitnessUnit(fitnessUnitPostRequest), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FitnessRoutineResponse> putFitnessUnit(@RequestBody @Valid FitnessUnitPutRequest fitnessUnitPutRequest, @PathVariable Long id) {
+    public ResponseEntity<FitnessUnit> putFitnessUnit(@RequestBody @Valid FitnessUnitPutRequest fitnessUnitPutRequest, @PathVariable Long id) {
 
         return new ResponseEntity<>(fitnessUnitService.putFitnessUnit(fitnessUnitPutRequest, id), HttpStatus.OK);
     }

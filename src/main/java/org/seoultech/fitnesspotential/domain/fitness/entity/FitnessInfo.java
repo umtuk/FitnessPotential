@@ -32,12 +32,12 @@ public class FitnessInfo {
     private Long thumbnail;
 
     @ElementCollection
-    @CollectionTable(name = "major_category", joinColumns = @JoinColumn(name = "fitness_info_id"))
+    @CollectionTable(name = "fitness_info_major_category", joinColumns = @JoinColumn(name = "fitness_info_id"))
     @Column(length = 32)
     private Set<String> majorCategory;
 
     @ElementCollection
-    @CollectionTable(name = "detailed_category", joinColumns = @JoinColumn(name = "fitness_info_id"))
+    @CollectionTable(name = "fitness_info_detailed_category", joinColumns = @JoinColumn(name = "fitness_info_id"))
     @Column(length = 32)
     private Set<String> detailedCategory;
 

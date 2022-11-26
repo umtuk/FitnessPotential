@@ -29,10 +29,19 @@ public class FitnessDiary {
 
     @Column(nullable = false, name="sets")
     private Integer sets;
-    @Column(nullable = false, length = 128, name="reps")
-    private String reps;
-    @Column(nullable = false, length = 128, name="break_times_per_set")
-    private String breakTimesPerSet;
+    @ElementCollection
+    @CollectionTable(name = "fitness_diary_reps", joinColumns = @JoinColumn(name = "fitness_unit_id"))
+    @Column(length = 32)
+    private List<Integer> reps;
+    @ElementCollection
+    @CollectionTable(name = "fitness_diary_break_time_per_set", joinColumns = @JoinColumn(name = "fitness_unit_id"))
+    @Column(length = 32)
+    private List<Integer> breakTimesPerSet;
+
+    @ElementCollection
+    @CollectionTable(name = "fitness_diary_weights", joinColumns = @JoinColumn(name = "fitness_unit_id"))
+    @Column(length = 32)
+    private List<Integer> weights;
 
     @Column(nullable = false, name="year")
     private Integer year;
@@ -51,7 +60,7 @@ public class FitnessDiary {
     private Long deletedAt;
 
     @Builder
-    public FitnessDiary(Long id, Long creatorId, Long fitnessInfoId, String title, Integer sets, String reps, String breakTimesPerSet, Integer year, Integer month, Integer day, Long createdAt, Long updatedAt, Long deletedAt) {
+    public FitnessDiary(Long id, Long creatorId, Long fitnessInfoId, String title, Integer sets, List<Integer> reps, List<Integer> breakTimesPerSet, List<Integer> weights, Integer year, Integer month, Integer day, Long createdAt, Long updatedAt, Long deletedAt) {
         this.id = id;
         this.creatorId = creatorId;
         this.fitnessInfoId = fitnessInfoId;
@@ -59,6 +68,7 @@ public class FitnessDiary {
         this.sets = sets;
         this.reps = reps;
         this.breakTimesPerSet = breakTimesPerSet;
+        this.weights = weights;
         this.year = year;
         this.month = month;
         this.day = day;
@@ -69,15 +79,14 @@ public class FitnessDiary {
 
     public static class FitnessDiaryBuilder {
 
-        public static final String DELIM = "_";
-
         private Long id;
         private Long creatorId;
         private Long fitnessInfoId;
         private String title;
         private Integer sets;
-        private String reps;
-        private String breakTimesPerSet;
+        private List<Integer> reps;
+        private List<Integer> breakTimesPerSet;
+        private List<Integer> weights;
         private Integer year;
         private Integer month;
         private Integer day;
@@ -104,9 +113,10 @@ public class FitnessDiary {
 
         public FitnessDiaryBuilder fitnessDiaryPostRequest(FitnessDiaryPostRequest fitnessDiaryPostRequest){
             this.title = fitnessDiaryPostRequest.getTitle();
-            this.breakTimesPerSet = toString(fitnessDiaryPostRequest.getBreakTimesPerSet());
-            this.reps = toString(fitnessDiaryPostRequest.getReps());
             this.sets = fitnessDiaryPostRequest.getSets();
+            this.reps = fitnessDiaryPostRequest.getReps();
+            this.breakTimesPerSet = fitnessDiaryPostRequest.getBreakTimesPerSet();
+            this.weights = fitnessDiaryPostRequest.getWeights();
             this.fitnessInfoId = fitnessDiaryPostRequest.getFitnessInfoId();
             this.year = fitnessDiaryPostRequest.getYear();
             this.month = fitnessDiaryPostRequest.getMonth();
@@ -116,26 +126,15 @@ public class FitnessDiary {
         }
         public FitnessDiaryBuilder fitnessDiaryPutRequest(FitnessDiaryPutRequest fitnessDiaryPutRequest){
             this.title = fitnessDiaryPutRequest.getTitle() == null ? this.title : fitnessDiaryPutRequest.getTitle();
-            this.breakTimesPerSet = fitnessDiaryPutRequest.getBreakTimesPerSet() == null ? this.breakTimesPerSet : toString(fitnessDiaryPutRequest.getBreakTimesPerSet());
-            this.reps = fitnessDiaryPutRequest.getReps() == null ? this.reps : toString(fitnessDiaryPutRequest.getReps());
+            this.breakTimesPerSet = fitnessDiaryPutRequest.getBreakTimesPerSet() == null ? this.breakTimesPerSet : fitnessDiaryPutRequest.getBreakTimesPerSet();
+            this.reps = fitnessDiaryPutRequest.getReps() == null ? this.reps : fitnessDiaryPutRequest.getReps();
             this.sets = fitnessDiaryPutRequest.getSets() == null ? this.sets : fitnessDiaryPutRequest.getSets();
+            this.weights = fitnessDiaryPutRequest.getWeights() == null ? this.weights : fitnessDiaryPutRequest.getWeights();
             this.year = fitnessDiaryPutRequest.getYear() == null ? this.year : fitnessDiaryPutRequest.getYear();
             this.month = fitnessDiaryPutRequest.getMonth() == null ? this.month : fitnessDiaryPutRequest.getMonth();
             this.day = fitnessDiaryPutRequest.getDay() == null ? this.day : fitnessDiaryPutRequest.getDay();
             this.updatedAt = System.currentTimeMillis();
             return this;
-        }
-
-        private String toString(List<Integer> intList) {
-            if (intList.size() == 0) {
-                return "";
-            }
-            StringBuffer sb = new StringBuffer();
-            sb.append(intList.get(0));
-            for (int i = 1; i < intList.size(); i++) {
-                sb.append(DELIM + intList.get(i));
-            }
-            return sb.toString();
         }
     }
 }

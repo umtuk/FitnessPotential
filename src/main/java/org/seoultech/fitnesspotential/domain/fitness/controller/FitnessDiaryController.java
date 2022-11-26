@@ -2,14 +2,9 @@ package org.seoultech.fitnesspotential.domain.fitness.controller;
 
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPutRequest;
-import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryResponse;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessDiary;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessDiaryService;
-import org.seoultech.fitnesspotential.domain.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,26 +24,26 @@ public class FitnessDiaryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FitnessDiaryResponse> getFitnessDiary(@PathVariable Long id) {
+    public ResponseEntity<FitnessDiary> getFitnessDiary(@PathVariable Long id) {
         return new ResponseEntity<>(fitnessDiaryService.getFitnessDiary(id), HttpStatus.OK);
     }
 
     @GetMapping("/search")//pageable -> size(한페이지에 몇개의 element를 담을건지), page, sort
-    public ResponseEntity<Iterable<FitnessDiaryResponse>> getFitnessDiaries(@RequestParam Integer year, @RequestParam Integer month, @RequestParam Integer day) {
-        Iterable<FitnessDiaryResponse> fitnessDiaries = fitnessDiaryService.getFitnessDiaries(year, month, day, 0L);
+    public ResponseEntity<Iterable<FitnessDiary>> getFitnessDiaries(@RequestParam Integer year, @RequestParam Integer month, @RequestParam Integer day) {
+        Iterable<FitnessDiary> fitnessDiaries = fitnessDiaryService.getFitnessDiaries(year, month, day, 0L);
         return !fitnessDiaries.iterator().hasNext() ?
                 new ResponseEntity<>(fitnessDiaries, HttpStatus.NO_CONTENT) :
                 new ResponseEntity<>(fitnessDiaries, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<FitnessDiaryResponse> postFitnessDiary(@RequestBody @Valid FitnessDiaryPostRequest fitnessDiaryPostRequest) {
+    public ResponseEntity<FitnessDiary> postFitnessDiary(@RequestBody @Valid FitnessDiaryPostRequest fitnessDiaryPostRequest) {
 
         return new ResponseEntity<>(fitnessDiaryService.postFitnessDiary(fitnessDiaryPostRequest, 0L), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<FitnessDiaryResponse> putFitnessDiary(@RequestBody @Valid FitnessDiaryPutRequest fitnessDiaryPutRequest, Long id) {
+    public ResponseEntity<FitnessDiary> putFitnessDiary(@RequestBody @Valid FitnessDiaryPutRequest fitnessDiaryPutRequest, Long id) {
 
         return new ResponseEntity<>(fitnessDiaryService.putFitnessDiary(fitnessDiaryPutRequest, id), HttpStatus.OK);
     }

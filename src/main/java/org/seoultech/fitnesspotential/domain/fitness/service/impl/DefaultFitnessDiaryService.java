@@ -2,8 +2,8 @@ package org.seoultech.fitnesspotential.domain.fitness.service.impl;
 
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPutRequest;
-import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryResponse;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessDiary;
+import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
 import org.seoultech.fitnesspotential.domain.fitness.exception.FitnessDiaryErrorMessage;
 import org.seoultech.fitnesspotential.domain.fitness.repository.FitnessDiaryRepository;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessDiaryService;
@@ -27,50 +27,38 @@ public class DefaultFitnessDiaryService implements FitnessDiaryService {
 
     @Override
     @Transactional
-    public FitnessDiaryResponse getFitnessDiary(Long id) {
-        FitnessDiary fitnessDiary = fitnessDiaryRepository.findById(id)
+    public FitnessDiary getFitnessDiary(Long id) {
+        return fitnessDiaryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(FitnessDiaryErrorMessage.FITNESS_DIARY_NOT_FOUND.toString()));
-        return FitnessDiaryResponse.builder()
-                .fitnessDiary(fitnessDiary)
-                .build();
     }
 
     @Override
     @Transactional
-    public Iterable<FitnessDiaryResponse> getFitnessDiaries(Integer year, Integer month, Integer day, Long creatorId) {
-        Iterable<FitnessDiary> fitnessDiaries = fitnessDiaryRepository.findByYearAndMonthAndDayAndCreatorId(year, month, day, creatorId);
-        Iterable<FitnessDiaryResponse> fitnessDiaryResponses = StreamSupport.stream(fitnessDiaries.spliterator(), false)
-                .map(fitnessDiary -> FitnessDiaryResponse.builder().fitnessDiary(fitnessDiary).build()).collect(Collectors.toList());
-        return fitnessDiaryResponses;
+    public Iterable<FitnessDiary> getFitnessDiaries(Integer year, Integer month, Integer day, Long creatorId) {
+        return fitnessDiaryRepository.findByYearAndMonthAndDayAndCreatorId(year, month, day, creatorId);
     }
     //Iterable<FitnessDiary> 페이징이 필요없을 경우 사용
 
     @Override
     @Transactional
-    public FitnessDiaryResponse postFitnessDiary(FitnessDiaryPostRequest fitnessDiaryPostRequest, Long creatorId) {
+    public FitnessDiary postFitnessDiary(FitnessDiaryPostRequest fitnessDiaryPostRequest, Long creatorId) {
         FitnessDiary fitnessDiary = FitnessDiary.builder()
                 .creatorId(creatorId)
                 .fitnessDiaryPostRequest(fitnessDiaryPostRequest)
                 .build();
-        FitnessDiary saved = fitnessDiaryRepository.save(fitnessDiary);
-        return FitnessDiaryResponse.builder()
-                .fitnessDiary(fitnessDiary)
-                .build();
+        return fitnessDiaryRepository.save(fitnessDiary);
     }
 
     @Override
     @Transactional
-    public FitnessDiaryResponse putFitnessDiary(FitnessDiaryPutRequest fitnessDiaryPutRequest, Long id) {
+    public FitnessDiary putFitnessDiary(FitnessDiaryPutRequest fitnessDiaryPutRequest, Long id) {
         FitnessDiary fitnessDiary = fitnessDiaryRepository.findById(id).orElseThrow();
 
         FitnessDiary beforeUpdate = FitnessDiary.builder()
                 .fitnessDiary(fitnessDiary)
                 .fitnessDiaryPutRequest(fitnessDiaryPutRequest)
                 .build();
-        FitnessDiary updated = fitnessDiaryRepository.save(beforeUpdate);
-        return FitnessDiaryResponse.builder()
-                .fitnessDiary(updated)
-                .build();
+        return fitnessDiaryRepository.save(beforeUpdate);
     }
 
     @Override

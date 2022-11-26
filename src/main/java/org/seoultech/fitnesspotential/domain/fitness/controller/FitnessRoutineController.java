@@ -2,13 +2,9 @@ package org.seoultech.fitnesspotential.domain.fitness.controller;
 
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePutRequest;
-import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutineResponse;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessRoutineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -28,26 +24,26 @@ public class FitnessRoutineController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FitnessRoutineResponse> getFitnessRoutine(@PathVariable Long id) {
+    public ResponseEntity<FitnessRoutine> getFitnessRoutine(@PathVariable Long id) {
 
         return new ResponseEntity<>(fitnessRoutineService.getFitnessRoutine(id), HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Iterable<FitnessRoutineResponse>> getFitnessRoutines() {
-        Iterable<FitnessRoutineResponse> fitnessRoutines = fitnessRoutineService.getFitnessRoutines(0L);
+    public ResponseEntity<Iterable<FitnessRoutine>> getFitnessRoutines() {
+        Iterable<FitnessRoutine> fitnessRoutines = fitnessRoutineService.getFitnessRoutines(0L);
         return !fitnessRoutines.iterator().hasNext() ?
                 new ResponseEntity<>(fitnessRoutines, HttpStatus.NO_CONTENT) :
                 new ResponseEntity<>(fitnessRoutines, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<FitnessRoutineResponse> postFitnessRoutine(@RequestBody @Validated FitnessRoutinePostRequest fitnessRoutinePostRequest) {
+    public ResponseEntity<FitnessRoutine> postFitnessRoutine(@RequestBody @Validated FitnessRoutinePostRequest fitnessRoutinePostRequest) {
         return new ResponseEntity<>(fitnessRoutineService.postFitnessRoutine(fitnessRoutinePostRequest, 0L), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FitnessRoutineResponse> putFitnessRoutine(@RequestBody @Valid FitnessRoutinePutRequest fitnessRoutinePutRequest, @PathVariable Long id) {
+    public ResponseEntity<FitnessRoutine> putFitnessRoutine(@RequestBody @Valid FitnessRoutinePutRequest fitnessRoutinePutRequest, @PathVariable Long id) {
         return new ResponseEntity<>(fitnessRoutineService.putFitnessRoutine(fitnessRoutinePutRequest, id), HttpStatus.OK);
     }
 

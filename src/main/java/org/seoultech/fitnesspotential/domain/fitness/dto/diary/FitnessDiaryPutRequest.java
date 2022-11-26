@@ -19,11 +19,15 @@ public class FitnessDiaryPutRequest {
 
     @NotNull
     @Size(min = 1, max = 10)
-    private List<Integer> breakTimesPerSet;
+    private List<@Positive Integer> breakTimesPerSet;
 
     @NotNull
     @Size(min = 1, max = 10)
-    private List<Integer> reps;
+    private List<@Positive Integer> reps;
+
+    @NotNull
+    @Size(min = 1, max = 10)
+    private List<@Positive Integer> weights;
 
     @NotNull
     @Min(1)

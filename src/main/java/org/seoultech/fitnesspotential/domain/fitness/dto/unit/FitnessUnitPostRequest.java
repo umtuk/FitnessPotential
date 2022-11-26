@@ -1,9 +1,6 @@
 package org.seoultech.fitnesspotential.domain.fitness.dto.unit;
 
 import lombok.*;
-import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryResponse;
-import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
-import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessUnit;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.*;
@@ -37,13 +34,18 @@ public class FitnessUnitPostRequest {
     @Size(min = 1, max = 10)
     private List<@Positive Integer> breakTimesPerSet;
 
+    @NotNull
+    @Size(min = 1, max = 10)
+    private List<@Positive Integer> weights;
+
     @Builder
-    public FitnessUnitPostRequest(Long fitnessRoutineId, Long fitnessInfoId, String title, Integer sets, List<Integer> reps, List<Integer> breakTimesPerSet) {
+    public FitnessUnitPostRequest(Long fitnessRoutineId, Long fitnessInfoId, String title, Integer sets, List<@Positive Integer> reps, List<@Positive Integer> breakTimesPerSet, List<@Positive Integer> weights) {
         this.fitnessRoutineId = fitnessRoutineId;
         this.fitnessInfoId = fitnessInfoId;
         this.title = title;
         this.sets = sets;
         this.reps = reps;
         this.breakTimesPerSet = breakTimesPerSet;
+        this.weights = weights;
     }
 }
