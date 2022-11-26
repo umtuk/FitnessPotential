@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <jsp:include page="../../../head.jsp"></jsp:include>
     <script>
         function addUnit(event) {
             let text = document.querySelector('.units input[name="units"]').value;
