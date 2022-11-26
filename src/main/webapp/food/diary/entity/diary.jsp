@@ -19,6 +19,7 @@
         carbs: ${foodDiary.carbs}<br>
         protein: ${foodDiary.protein}<br>
         fat: ${foodDiary.fat}<br>
+        <img src="/storage/${foodDiary.thumbnail}" alt="" srcset="">
     </div>
     <form action="/food/diary/${foodDiary.id}" method="post">
         <input type="hidden" name="_method" value="delete">

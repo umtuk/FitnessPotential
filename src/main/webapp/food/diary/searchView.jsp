@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<jsp:include page="../../header.jsp"></jsp:include>
+<jsp:include page="/header.jsp"></jsp:include>
 <jsp:include page="/food/diary/entity/diaries.jsp">
     <jsp:param name="foodDiaries" value="${foodDiaries}" />
 </jsp:include>

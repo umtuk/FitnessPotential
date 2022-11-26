@@ -9,7 +9,7 @@
     <title>Signin Template · Bootstrap v5.2</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-
+    <script src="/js/storage.js"></script>
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
