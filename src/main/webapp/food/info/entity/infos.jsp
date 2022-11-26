@@ -26,6 +26,9 @@
         <form action="/food/info/search" method="get">
             <select name="majorCategory">
                 <c:forEach var="category" varStatus="status" items="${foodInfoCategory.categories.keySet()}">
+                    <!-- c if category == ${majorCategory} 
+                        <option 아래랑 똑같이 selected="selected">
+                    -->
                     <option value="${category}">${category}</option>
                 </c:forEach>
             </select>
@@ -38,6 +41,15 @@
             </select>
             <input type="submit" class="btn btn-outline-primary me-2" value="search">
         </form>
+    </div>
+    <div>
+        <c:forEach var="major" varStatus="status" items="${foodInfoCategory.categories.keySet()}">
+            ${major} <br>
+            <c:forEach var="detailed" varStatus="dStatus" items="${foodInfoCategory.categories.get(major)}">
+                ${detailed} <br>
+            </c:forEach>
+            <br>
+        </c:forEach>
     </div>
 </div><br>
 <div class="page">
