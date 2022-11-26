@@ -37,8 +37,13 @@ public class DefaultCommunityService implements CommunityService {
     @Override
     @Transactional
     public Community getCommunity(Long id) {
-        return communityRepository.findById(id)
+        Community community = communityRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(CommunityErrorMessage.COMMUNITY_NOT_FOUND.toString()));
+        Community updated = Community.builder()
+                .community(community)
+                .communityGetRequest()
+                .build();
+        return communityRepository.save(updated);
     }
 
     @Override
@@ -48,7 +53,6 @@ public class DefaultCommunityService implements CommunityService {
     }
 
     @Override
-    @Transactional
     public Page<CommunitySummary> getCommunities(Pageable pageable) {
         return  communitySummaryRepository.findAll(pageable);
     }

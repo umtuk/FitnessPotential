@@ -77,20 +77,6 @@ public class FitnessInfo {
         private Long updatedAt;
         private Long deletedAt;
 
-        public FitnessInfoBuilder(Long id, Long creatorId, Set<String> majorCategory, Set<String> detailedCategory, String title, String summary, String content, Long thumbnail, Long createdAt, Long updatedAt, Long deletedAt) {
-            this.id = id;
-            this.creatorId = creatorId;
-            this.majorCategory = majorCategory;
-            this.detailedCategory = detailedCategory;
-            this.title = title;
-            this.summary = summary;
-            this.content = content;
-            this.thumbnail = thumbnail;
-            this.createdAt = createdAt;
-            this.updatedAt = updatedAt;
-            this.deletedAt = deletedAt;
-        }
-
         public FitnessInfoBuilder fitnessInfo(FitnessInfo fitnessInfo) {
             this.id = fitnessInfo.id;
             this.creatorId = fitnessInfo.creatorId;

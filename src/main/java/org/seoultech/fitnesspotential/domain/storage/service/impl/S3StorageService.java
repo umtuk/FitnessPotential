@@ -2,6 +2,7 @@ package org.seoultech.fitnesspotential.domain.storage.service.impl;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.S3Object;
 import org.seoultech.fitnesspotential.domain.storage.entity.Storage;
 import org.seoultech.fitnesspotential.domain.storage.exception.StorageErrorMessage;
 import org.seoultech.fitnesspotential.domain.storage.repository.StorageRepository;
@@ -30,6 +31,7 @@ public class S3StorageService implements StorageService {
     }
 
     @Override
+    @Transactional
     public Storage getStorage(Long id) {
         return storageRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(StorageErrorMessage.STORAGE_NOT_FOUND.toString()));
@@ -38,7 +40,7 @@ public class S3StorageService implements StorageService {
     @Override
     @Transactional
     public Storage postStorage(MultipartFile multipartFile) throws IOException {
-        String bucket = awsConfig.getBucket();
+        String bucket = awsConfig.getBucket() + awsConfig.getDir();
         String s3FileName = UUID.randomUUID() + "_" + System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(multipartFile.getInputStream().available());
@@ -54,7 +56,7 @@ public class S3StorageService implements StorageService {
     @Override
     @Transactional
     public Storage putStorage(MultipartFile multipartFile, Long id) throws IOException {
-        String bucket = awsConfig.getBucket();
+        String bucket = awsConfig.getBucket() + awsConfig.getDir();
         Storage storage = getStorage(id);
         String deletedUrl = storage.getUrl();
         amazonS3.deleteObject(bucket, deletedUrl);
@@ -75,7 +77,7 @@ public class S3StorageService implements StorageService {
     @Override
     @Transactional
     public void deleteStorage(Long id) {
-        String bucket = awsConfig.getBucket();
+        String bucket = awsConfig.getBucket() + awsConfig.getDir();
         Storage storage = getStorage(id);
         String url = storage.getUrl();
         amazonS3.deleteObject(bucket, url);

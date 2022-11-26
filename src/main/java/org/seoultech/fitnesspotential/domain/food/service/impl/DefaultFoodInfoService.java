@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DefaultFoodInfoService implements FoodInfoService {
@@ -25,17 +26,20 @@ public class DefaultFoodInfoService implements FoodInfoService {
     }
 
     @Override
+    @Transactional
     public FoodInfo getFoodInfo(Long id) {
         return foodInfoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(FoodInfoErrorMessage.FOOD_INFO_NOT_FOUND.toString()));
     }
 
     @Override
+    @Transactional
     public Page<FoodInfo> getFoodInfos(Pageable pageable) {
         return foodInfoRepository.findAll(pageable);
     }
 
     @Override
+    @Transactional
     public Page<FoodInfo> getFoodInfos(String majorCategory, String detailedCategory, Pageable pageable) {
         return majorCategory.isEmpty() || detailedCategory.isEmpty() ?
                 foodInfoRepository.findAll(pageable) :
@@ -43,6 +47,7 @@ public class DefaultFoodInfoService implements FoodInfoService {
     }
 
     @Override
+    @Transactional
     public FoodInfoCategoryResponse getFoodInfoCategories() {
         return FoodInfoCategoryResponse.builder()
                 .foodInfoCategories(foodInfoMajorCategoryRepository.findDistinctBy())

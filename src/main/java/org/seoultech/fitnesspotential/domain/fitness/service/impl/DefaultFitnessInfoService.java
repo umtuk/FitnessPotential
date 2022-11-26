@@ -26,6 +26,7 @@ public class DefaultFitnessInfoService implements FitnessInfoService {
     }
 
     @Override
+    @Transactional
     public FitnessInfo getFitnessInfo(Long id) {
         return fitnessInfoRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException(FitnessInfoErrorMessage.FITNESS_INFO_NOT_FOUND.toString()));

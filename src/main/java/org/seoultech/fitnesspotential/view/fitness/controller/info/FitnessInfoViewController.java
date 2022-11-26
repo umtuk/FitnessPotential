@@ -3,8 +3,11 @@ package org.seoultech.fitnesspotential.view.fitness.controller.info;
 import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessInfo;
+import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessInfoSummary;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessInfoService;
+import org.seoultech.fitnesspotential.domain.fitness.service.FitnessInfoSummaryService;
 import org.seoultech.fitnesspotential.domain.user.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,9 +23,12 @@ import java.util.Set;
 public class FitnessInfoViewController {
 
     private final FitnessInfoService fitnessInfoService;
+    private final FitnessInfoSummaryService fitnessInfoSummaryService;
 
-    public FitnessInfoViewController(FitnessInfoService fitnessInfoService) {
+    @Autowired
+    public FitnessInfoViewController(FitnessInfoService fitnessInfoService, FitnessInfoSummaryService fitnessInfoSummaryService) {
         this.fitnessInfoService = fitnessInfoService;
+        this.fitnessInfoSummaryService = fitnessInfoSummaryService;
     }
 
     @GetMapping
@@ -31,8 +37,8 @@ public class FitnessInfoViewController {
     }
 
     @GetMapping("/search")
-    public ModelAndView getFitnessInfosView(@RequestParam Set<String> majorCategory, @RequestParam Set<String> detailedCategory, ModelMap model){
-        Iterable<FitnessInfo> fitnessInfos = fitnessInfoService.getFitnessInfos(majorCategory, detailedCategory);
+    public ModelAndView getFitnessInfosView(@RequestParam Set<String> majorCategory, @RequestParam Set<String> detailedCategory, @PageableDefault Pageable pageable, ModelMap model){
+        Page<FitnessInfoSummary> fitnessInfos = fitnessInfoSummaryService.getFitnessInfoSummaries(majorCategory, detailedCategory, pageable);
         model.addAttribute("fitnessInfos", fitnessInfos);
         return new ModelAndView("fitness/info/submit/searchView", model);
     }

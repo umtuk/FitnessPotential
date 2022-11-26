@@ -26,6 +26,7 @@ public class DefaultFitnessDiaryService implements FitnessDiaryService {
     }
 
     @Override
+    @Transactional
     public FitnessDiaryResponse getFitnessDiary(Long id) {
         FitnessDiary fitnessDiary = fitnessDiaryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(FitnessDiaryErrorMessage.FITNESS_DIARY_NOT_FOUND.toString()));
@@ -35,6 +36,7 @@ public class DefaultFitnessDiaryService implements FitnessDiaryService {
     }
 
     @Override
+    @Transactional
     public Iterable<FitnessDiaryResponse> getFitnessDiaries(Integer year, Integer month, Integer day, Long creatorId) {
         Iterable<FitnessDiary> fitnessDiaries = fitnessDiaryRepository.findByYearAndMonthAndDayAndCreatorId(year, month, day, creatorId);
         Iterable<FitnessDiaryResponse> fitnessDiaryResponses = StreamSupport.stream(fitnessDiaries.spliterator(), false)

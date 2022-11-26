@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DefaultUserService implements UserService {
@@ -22,24 +23,28 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    @Transactional
     public User getUser(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(UserErrorMessage.USER_NOT_FOUND.toString()));
     }
 
     @Override
+    @Transactional
     public User getUserBySocialId(Long socialId) {
         return userRepository.findBySocialId(socialId)
                 .orElseThrow(() -> new IllegalArgumentException(UserErrorMessage.USER_NOT_FOUND.toString()));
     }
 
     @Override
+    @Transactional
     public User getUserBySocialIdAndProvider(Long socialId, String provider) {
         return userRepository.findBySocialIdAndProvider(socialId, provider)
                 .orElseThrow(() -> new IllegalArgumentException(UserErrorMessage.USER_NOT_FOUND.toString()));
     }
 
     @Override
+    @Transactional
     public User postUser(UserPostRequest userPostRequest) {
         User user = User.builder()
                 .userPostRequest(userPostRequest)
@@ -49,6 +54,7 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    @Transactional
     public User putUser(UserPutRequest userPutRequest, Long id) {
         User user = getUser(id);
 
@@ -61,16 +67,19 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    @Transactional
     public boolean existsBySocialIdAndProvider(Long socialId, String provider) {
         return userRepository.existsBySocialIdAndProvider(socialId, provider);
     }
 
     @Override
+    @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return getUserBySocialId(Long.parseLong(username));
     }
