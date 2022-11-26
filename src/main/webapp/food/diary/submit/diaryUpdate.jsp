@@ -1,5 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
+    <head>
+        <script src="/js/storage.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.min.js"></script>
+    </head>
 <body>
 <jsp:include page="../../../header.jsp"></jsp:include>
     <div class="container-sm">

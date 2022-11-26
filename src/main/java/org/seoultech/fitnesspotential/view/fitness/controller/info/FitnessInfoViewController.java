@@ -32,8 +32,8 @@ public class FitnessInfoViewController {
     }
 
     @GetMapping
-    public ModelAndView getDefaultFitnessInfoView(ModelMap model){
-        return new ModelAndView("forward:/fitness/info/search?page=0&size=10", model);
+    public ModelAndView getDefaultFitnessInfoView(ModelMap model) {
+        return new ModelAndView("forward:/fitness/info/search?page=0&size=10&detailedCategory=null&majorCategory=null", model);
     }
 
     @GetMapping("/search")

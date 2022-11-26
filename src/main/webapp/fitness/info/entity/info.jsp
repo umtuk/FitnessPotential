@@ -16,7 +16,11 @@
     </div>
     <hr>
     <div class="content">
+        thumbnail: <img src="/storage/${fitnessInfo.thumbnail}" alt="" srcset=""> <br>
         content: ${fitnessInfo.content}<br>
         summary: ${fitnessInfo.summary}<br>
+
+        majorCategory: ${fitnessInfo.majorCategory} <br>
+        detailedCategory: ${fitnessInfo.detailedCategory}
     </div>
 </div>
