@@ -13,6 +13,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Set;
+
 @Controller
 @RequestMapping("/fitness/info")
 public class FitnessInfoViewController {
@@ -29,8 +31,8 @@ public class FitnessInfoViewController {
     }
 
     @GetMapping("/search")
-    public ModelAndView getFitnessInfosView(@PageableDefault() Pageable pageable, ModelMap model){
-        Page<FitnessInfo> fitnessInfos = fitnessInfoService.getFitnessInfos(pageable);
+    public ModelAndView getFitnessInfosView(@RequestParam Set<String> majorCategory, @RequestParam Set<String> detailedCategory, ModelMap model){
+        Iterable<FitnessInfo> fitnessInfos = fitnessInfoService.getFitnessInfos(majorCategory, detailedCategory);
         model.addAttribute("fitnessInfos", fitnessInfos);
         return new ModelAndView("fitness/info/searchView", model);
     }

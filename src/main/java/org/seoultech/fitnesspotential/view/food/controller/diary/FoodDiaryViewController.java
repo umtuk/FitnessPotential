@@ -29,8 +29,8 @@ public class FoodDiaryViewController {
     }
 
     @GetMapping("/search")
-    public ModelAndView getFoodDiariesView(@PageableDefault()Pageable pageable, @SessionAttribute User user, ModelMap model){
-        Page<FoodDiary> foodDiaries = foodDiaryService.getFoodDiaries(pageable);
+    public ModelAndView getFoodDiariesView(@RequestParam Integer year, @RequestParam Integer month, @RequestParam Integer day, @SessionAttribute User user, ModelMap model){
+        Iterable<FoodDiary> foodDiaries = foodDiaryService.getFoodDiaries(year, month, day, user.getId());
         model.addAttribute("foodDiaries", foodDiaries);
         return new ModelAndView("food/diary/searchView", model);
     }

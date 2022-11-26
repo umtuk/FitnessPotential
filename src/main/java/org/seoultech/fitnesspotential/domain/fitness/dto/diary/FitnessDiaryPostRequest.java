@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Component
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,12 +20,12 @@ public class FitnessDiaryPostRequest {
     private String title;
 
     @NotNull
-    @Size(min = 1, max = 128)
-    private String breakTimesPerSet;
+    @Size(min = 1, max = 10)
+    private List<Integer> breakTimesPerSet;
 
     @NotNull
-    @Size(min = 1, max = 128)
-    private String reps;
+    @Size(min = 1, max = 10)
+    private List<Integer> reps;
 
     @NotNull
     @Min(1)

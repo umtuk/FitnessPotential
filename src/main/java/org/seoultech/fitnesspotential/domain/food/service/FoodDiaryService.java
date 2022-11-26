@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 public interface FoodDiaryService {
 
     FoodDiary getFoodDiary(Long id);
-    Page<FoodDiary> getFoodDiaries(Pageable pageable);
+    Iterable<FoodDiary> getFoodDiaries(Integer year, Integer month, Integer day, Long creatorId);
     FoodDiary postFoodDiary(FoodDiaryPostRequest foodDiaryPostRequest, Long creatorId);
     FoodDiary putFoodDiary(FoodDiaryPutRequest foodDiaryPutRequest, Long id);
     void deleteFoodDiary(Long id);

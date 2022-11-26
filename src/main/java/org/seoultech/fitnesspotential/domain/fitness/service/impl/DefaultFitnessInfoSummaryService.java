@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class DefaultFitnessInfoSummaryService implements FitnessInfoSummaryService {
 
@@ -17,7 +19,7 @@ public class DefaultFitnessInfoSummaryService implements FitnessInfoSummaryServi
     }
 
     @Override
-    public Page<FitnessInfoSummary> getFitnessInfoSummaries(Pageable pageable) {
-        return fitnessInfoSummaryRepository.findAll(pageable);
+    public Page<FitnessInfoSummary> getFitnessInfoSummaries(Set<String> majorCategory, Set<String> detailedCategory, Pageable pageable) {
+        return fitnessInfoSummaryRepository.findByMajorCategoryInAndDetailedCategoryIn(majorCategory, detailedCategory, pageable);
     }
 }

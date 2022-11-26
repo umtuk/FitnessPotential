@@ -17,28 +17,29 @@ public class FoodInfo {
     private Long id;
     @Column(name="name", length = 32)
     private String name;
-    @Column(nullable = false, length = 32)
+    @Column(name = "major_category", nullable = false, length = 32)
     private String majorCategory;
-    @Column(nullable = false, length = 32)
+    @Column(name = "detailed_category", nullable = false, length = 32)
     private String detailedCategory;
-    @Column(nullable = false)
+    @Column(name = "serving_size", nullable = false)
     private Integer servingSize;
-    @Column(nullable = false, length = 8)
+    @Column(name = "serving_size_unit", nullable = false, length = 8)
     private String servingSizeUnit;
-    @Column(nullable = false)
+    @Column(name = "kcal", nullable = false)
     private Double kcal;
-    @Column(nullable = false)
+    @Column(name = "carbs", nullable = false)
     private Double carbs;
-    @Column(nullable = false)
+    @Column(name = "protein", nullable = false)
     private Double protein;
-    @Column(nullable = false)
+    @Column(name = "fat", nullable = false)
     private Double fat;
-    @Column(nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private Long updatedAt;
 
     @Builder
-    public FoodInfo(Long id, String majorCategory, String detailedCategory, Integer servingSize, String servingSizeUnit, Double kcal, Double carbs, Double protein, Double fat, Long updatedAt) {
+    public FoodInfo(Long id, String name, String majorCategory, String detailedCategory, Integer servingSize, String servingSizeUnit, Double kcal, Double carbs, Double protein, Double fat, Long updatedAt) {
         this.id = id;
+        this.name = name;
         this.majorCategory = majorCategory;
         this.detailedCategory = detailedCategory;
         this.servingSize = servingSize;
@@ -50,28 +51,18 @@ public class FoodInfo {
         this.updatedAt = updatedAt;
     }
 
-    public static class FoodInfoBuilder{
+    public static class FoodInfoBuilder {
 
         private Long id;
-
         private String name;
-
         private String majorCategory;
-
         private String detailedCategory;
-
         private Integer servingSize;
-
         private String servingSizeUnit;
-
         private Double kcal;
-
         private Double carbs;
-
         private Double protein;
-
         private Double fat;
-
         private Long updatedAt;
 
         public FoodInfoBuilder foodInfo(FoodInfo foodInfo){

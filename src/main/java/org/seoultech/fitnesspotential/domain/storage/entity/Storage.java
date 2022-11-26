@@ -15,22 +15,25 @@ public class Storage {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 32)
-    private String protocol;
-    @Column(nullable = false, length = 32)
-    private String scheme;
-    @Column(nullable = false, length = 32)
-    private String extension;
-
     @Column(nullable = false, length = 256)
     private String url;
+
 
     @Builder
     public Storage(Long id, String protocol, String scheme, String extension, String url) {
         this.id = id;
-        this.protocol = protocol;
-        this.scheme = scheme;
-        this.extension = extension;
         this.url = url;
+    }
+
+    public static class StorageBuilder {
+
+        private Long id;
+        private String url;
+
+        public StorageBuilder storage(Storage storage) {
+            this.id = storage.id;
+            this.url = storage.url;
+            return this;
+        }
     }
 }

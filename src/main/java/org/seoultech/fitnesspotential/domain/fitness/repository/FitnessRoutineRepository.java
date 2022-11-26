@@ -6,6 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FitnessRoutineRepository extends PagingAndSortingRepository<FitnessRoutine, Long> {
-
+public interface FitnessRoutineRepository extends CrudRepository<FitnessRoutine, Long> {
+    Iterable<FitnessRoutine> findByCreatorId(Long creatorId);
 }

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/fitness/info")
@@ -36,8 +37,8 @@ public class FitnessInfoController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<FitnessInfoSummary>> getFitnessInfoSummaries(@PageableDefault Pageable pageable) {
-        Page<FitnessInfoSummary> fitnessInfoSummaries = fitnessInfoSummaryService.getFitnessInfoSummaries(pageable);
+    public ResponseEntity<Page<FitnessInfoSummary>> getFitnessInfoSummaries(@RequestParam Set<String> majorCategory, @RequestParam Set<String> detailedCategory, @PageableDefault Pageable pageable) {
+        Page<FitnessInfoSummary> fitnessInfoSummaries = fitnessInfoSummaryService.getFitnessInfoSummaries(majorCategory, detailedCategory, pageable);
         return fitnessInfoSummaries.isEmpty() ?
                 new ResponseEntity<>(fitnessInfoSummaries, HttpStatus.NO_CONTENT) :
                 new ResponseEntity<>(fitnessInfoSummaries, HttpStatus.OK);
@@ -49,8 +50,8 @@ public class FitnessInfoController {
         return new ResponseEntity<>(fitnessInfoService.postFitnessInfo(fitnessInfoPostRequest, 0L), HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<FitnessInfo> putFitnessInfo(@RequestBody @Valid FitnessInfoPutRequest fitnessInfoPutRequest, Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<FitnessInfo> putFitnessInfo(@RequestBody @Valid FitnessInfoPutRequest fitnessInfoPutRequest, @PathVariable Long id) {
 
         return new ResponseEntity<>(fitnessInfoService.putFitnessInfo(fitnessInfoPutRequest, id), HttpStatus.OK);
     }

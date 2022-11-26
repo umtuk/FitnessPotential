@@ -9,6 +9,7 @@ import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPostReq
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPutRequest;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -48,20 +49,16 @@ public class FitnessUnit {
         this.breakTimesPerSet = breakTimesPerSet;
     }
 
-    public static class FitnessUnitBuilder{
+    public static class FitnessUnitBuilder {
+
+        public static final String DELIM = "_";
 
         private FitnessRoutine fitnessRoutine;
-
         private Long id;
-
         private Long fitnessInfoId;
-
         private String title;
-
         private Integer sets;
-
         private String reps;
-
         private String breakTimesPerSet;
 
         public FitnessUnitBuilder fitnessUnit(FitnessUnit fitnessUnit){
@@ -80,8 +77,8 @@ public class FitnessUnit {
             this.fitnessInfoId = fitnessUnitPostRequest.getFitnessInfoId();
             this.title = fitnessUnitPostRequest.getTitle();
             this.sets = fitnessUnitPostRequest.getSets();
-            this.reps = fitnessUnitPostRequest.getReps();
-            this.breakTimesPerSet = fitnessUnitPostRequest.getBreakTimesPerSet();
+            this.reps = toString(fitnessUnitPostRequest.getReps());
+            this.breakTimesPerSet = toString(fitnessUnitPostRequest.getBreakTimesPerSet());
             return this;
         }
 
@@ -89,9 +86,21 @@ public class FitnessUnit {
             this.fitnessInfoId = fitnessUnitPutRequest.getFitnessInfoId() == null ? this.fitnessInfoId : fitnessUnitPutRequest.getFitnessInfoId();
             this.title = fitnessUnitPutRequest.getTitle() == null ? this.title : fitnessUnitPutRequest.getTitle();
             this.sets = fitnessUnitPutRequest.getSets() == null ? this.sets : fitnessUnitPutRequest.getSets();
-            this.reps = fitnessUnitPutRequest.getReps() == null ? this.reps : fitnessUnitPutRequest.getReps();
-            this.breakTimesPerSet = fitnessUnitPutRequest.getBreakTimesPerSet();
+            this.reps = fitnessUnitPutRequest.getReps() == null ? this.reps : toString(fitnessUnitPutRequest.getReps());
+            this.breakTimesPerSet = toString(fitnessUnitPutRequest.getBreakTimesPerSet());
             return this;
+        }
+
+        private String toString(List<Integer> intList) {
+            if (intList.size() == 0) {
+                return "";
+            }
+            StringBuffer sb = new StringBuffer();
+            sb.append(intList.get(0));
+            for (int i = 1; i < intList.size(); i++) {
+                sb.append(DELIM + intList.get(i));
+            }
+            return sb.toString();
         }
     }
 }

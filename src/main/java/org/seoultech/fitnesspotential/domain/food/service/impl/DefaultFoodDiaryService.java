@@ -26,8 +26,8 @@ public class DefaultFoodDiaryService implements FoodDiaryService {
     }
 
     @Override
-    public Page<FoodDiary> getFoodDiaries(Pageable pageable) {
-        return foodDiaryRepository.findAll(pageable);
+    public Iterable<FoodDiary> getFoodDiaries(Integer year, Integer month, Integer day, Long creatorId) {
+        return foodDiaryRepository.findByYearAndMonthAndDayAndCreatorId(year, month, day, creatorId);
     }
 
     @Override

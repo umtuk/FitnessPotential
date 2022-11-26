@@ -39,6 +39,8 @@ public class FoodDiary {
     private Integer month;
     @Column(nullable = false, name="day")
     private Integer day;
+    @Column(nullable = false, name = "intake_time")
+    private Long intakeTime;
     @Column(nullable = false, name="created_at")
     private Long createdAt;
     @Column(name="updated_at")
@@ -47,7 +49,7 @@ public class FoodDiary {
     private Long deletedAt;
 
     @Builder
-    public FoodDiary(Long id, Long creatorId, String content, Integer intake, String intakeUnit, Double kcal, Double carbs, Double protein, Double fat, Integer year, Integer month, Integer day, Long createdAt, Long updatedAt, Long deletedAt) {
+    public FoodDiary(Long id, Long creatorId, String content, Integer intake, String intakeUnit, Double kcal, Double carbs, Double protein, Double fat, Integer year, Integer month, Integer day, Long intakeTime, Long createdAt, Long updatedAt, Long deletedAt) {
         this.id = id;
         this.creatorId = creatorId;
         this.content = content;
@@ -60,40 +62,30 @@ public class FoodDiary {
         this.year = year;
         this.month = month;
         this.day = day;
+        this.intakeTime = intakeTime;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
     }
 
-    public static class FoodDiaryBuilder{
+
+    public static class FoodDiaryBuilder {
+
         private Long id;
-
         private Long creatorId;
-
         private String content;
-
         private Integer intake;
-
         private String intakeUnit;
-
         private Double kcal;
-
         private Double carbs;
-
         private Double protein;
-
         private Double fat;
-
         private Integer year;
-
         private Integer month;
-
         private Integer day;
-
+        private Long intakeTime;
         private Long createdAt;
-
         private Long updatedAt;
-
         private Long deletedAt;
 
         public FoodDiaryBuilder foodDiary(FoodDiary foodDiary){
@@ -109,6 +101,7 @@ public class FoodDiary {
             this.year = foodDiary.year;
             this.month = foodDiary.month;
             this.day = foodDiary.day;
+            this.intakeTime = foodDiary.intakeTime;
             this.createdAt = foodDiary.createdAt;
             this.updatedAt = foodDiary.updatedAt;
             this.deletedAt = foodDiary.deletedAt;
@@ -126,21 +119,23 @@ public class FoodDiary {
             this.year = foodDiaryPostRequest.getYear();
             this.month = foodDiaryPostRequest.getMonth();
             this.day = foodDiaryPostRequest.getDay();
+            this.intakeTime = foodDiaryPostRequest.getIntakeTime();
             this.createdAt = System.currentTimeMillis();
             return this;
         }
 
         public FoodDiaryBuilder foodDiaryPutRequest(FoodDiaryPutRequest foodDiaryPutRequest){
-            this.content = foodDiaryPutRequest.getContent();
-            this.intake = foodDiaryPutRequest.getIntake();
-            this.intakeUnit = foodDiaryPutRequest.getIntakeUnit();
-            this.kcal = foodDiaryPutRequest.getKcal();
-            this.carbs = foodDiaryPutRequest.getCarbs();
-            this.protein = foodDiaryPutRequest.getProtein();
-            this.fat = foodDiaryPutRequest.getFat();
-            this.year = foodDiaryPutRequest.getYear();
-            this.month = foodDiaryPutRequest.getMonth();
-            this.day = foodDiaryPutRequest.getDay();
+            this.content = foodDiaryPutRequest.getContent() == null ? this.content : foodDiaryPutRequest.getContent();
+            this.intake = foodDiaryPutRequest.getIntake() == null ? this.intake : foodDiaryPutRequest.getIntake();
+            this.intakeUnit = foodDiaryPutRequest.getIntakeUnit() == null ? this.intakeUnit : foodDiaryPutRequest.getIntakeUnit();
+            this.kcal = foodDiaryPutRequest.getKcal() == null ? this.kcal : foodDiaryPutRequest.getKcal();
+            this.carbs = foodDiaryPutRequest.getCarbs() == null ? this.carbs : foodDiaryPutRequest.getCarbs();
+            this.protein = foodDiaryPutRequest.getProtein() == null ? this.protein : foodDiaryPutRequest.getProtein();
+            this.fat = foodDiaryPutRequest.getFat() == null ? this.fat : foodDiaryPutRequest.getFat();
+            this.year = foodDiaryPutRequest.getYear() == null ? this.year : foodDiaryPutRequest.getYear();
+            this.month = foodDiaryPutRequest.getMonth() == null ? this.month : foodDiaryPutRequest.getMonth();
+            this.day = foodDiaryPutRequest.getDay() == null ? this.day : foodDiaryPutRequest.getDay();
+            this.intakeTime = foodDiaryPutRequest.getIntakeTime() == null ? this.intakeTime : foodDiaryPutRequest.getIntakeTime();
             this.updatedAt = System.currentTimeMillis();
             return this;
         }

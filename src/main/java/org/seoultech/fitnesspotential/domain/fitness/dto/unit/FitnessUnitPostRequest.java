@@ -1,13 +1,13 @@
 package org.seoultech.fitnesspotential.domain.fitness.dto.unit;
 
 import lombok.*;
+import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryResponse;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
+import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessUnit;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.util.List;
 
 @Component
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,18 +26,19 @@ public class FitnessUnitPostRequest {
     private String title;
 
     @NotNull
-    @Min(value = 0, message = "The value must be positive")
+    @Positive
     private Integer sets;
 
     @NotNull
-    @Size(min = 1)
-    private String reps;
+    @Size(min = 1, max = 10)
+    private List<@Positive Integer> reps;
 
     @NotNull
-    private String breakTimesPerSet;
+    @Size(min = 1, max = 10)
+    private List<@Positive Integer> breakTimesPerSet;
 
     @Builder
-    public FitnessUnitPostRequest(Long fitnessRoutineId, Long fitnessInfoId, String title, Integer sets, String reps, String breakTimesPerSet){
+    public FitnessUnitPostRequest(Long fitnessRoutineId, Long fitnessInfoId, String title, Integer sets, List<Integer> reps, List<Integer> breakTimesPerSet) {
         this.fitnessRoutineId = fitnessRoutineId;
         this.fitnessInfoId = fitnessInfoId;
         this.title = title;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Component
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,14 +27,15 @@ public class FitnessUnitPutRequest {
     private Integer sets;
 
     @NotNull
-    @Size(min = 1)
-    private String reps;
+    @Size(min = 1, max = 10)
+    private List<Integer> reps;
 
     @NotNull
-    private String breakTimesPerSet;
+    @Size(min = 1, max = 10)
+    private List<Integer> breakTimesPerSet;
 
     @Builder
-    public FitnessUnitPutRequest(Long fitnessInfoId, String title, Integer sets, String reps, String breakTimesPerSet){
+    public FitnessUnitPutRequest(Long fitnessInfoId, String title, Integer sets, List<Integer> reps, List<Integer> breakTimesPerSet) {
         this.fitnessInfoId = fitnessInfoId;
         this.title = title;
         this.sets = sets;

@@ -2,6 +2,7 @@ package org.seoultech.fitnesspotential.view.fitness.controller.routine;
 
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePutRequest;
+import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutineResponse;
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
@@ -38,28 +39,28 @@ public class FitnessRoutineViewController {
     }
 
     @GetMapping("/search")
-    public ModelAndView getFitnessRoutinesView(@PageableDefault()Pageable pageable, ModelMap model){
-        Page<FitnessRoutine> fitnessRoutines = fitnessRoutineService.getFitnessRoutines(pageable);
+    public ModelAndView getFitnessRoutinesView(@SessionAttribute User user, ModelMap model){
+        Iterable<FitnessRoutineResponse> fitnessRoutines = fitnessRoutineService.getFitnessRoutines(user.getId());
         model.addAttribute("fitnessRoutines", fitnessRoutines);
         return new ModelAndView("fitness/routine/searchView", model);
     }
 
     @GetMapping("/{id}")
     public ModelAndView getFitnessRoutineView(@PathVariable Long id, ModelMap model){
-        FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(id);
+        FitnessRoutineResponse fitnessRoutine = fitnessRoutineService.getFitnessRoutine(id);
         model.addAttribute("fitnessRoutine", fitnessRoutine);
         return new ModelAndView("fitness/routine/indexView", model);
     }
 
     @PostMapping
     public ModelAndView postFitnessRoutine(@ModelAttribute FitnessRoutinePostRequest fitnessRoutinePostRequest, ModelMap model){
-        FitnessRoutine fitnessRoutine = fitnessRoutineService.postFitnessRoutine(fitnessRoutinePostRequest, 0L);
+        FitnessRoutineResponse fitnessRoutine = fitnessRoutineService.postFitnessRoutine(fitnessRoutinePostRequest, 0L);
         return new ModelAndView("redirect:/fitness/routine/"+fitnessRoutine.getId(), model);
     }
 
     @PutMapping("/{id}")
     public ModelAndView putFitnessRoutine(@ModelAttribute FitnessRoutinePutRequest fitnessRoutinePutRequest, @PathVariable Long id, ModelMap model){
-        FitnessRoutine fitnessRoutine = fitnessRoutineService.putFitnessRoutine(fitnessRoutinePutRequest, id);
+        FitnessRoutineResponse fitnessRoutine = fitnessRoutineService.putFitnessRoutine(fitnessRoutinePutRequest, id);
         return new ModelAndView("redirect:/fitness/routine/" + fitnessRoutine.getId(), model);
     }
 
@@ -71,13 +72,13 @@ public class FitnessRoutineViewController {
 
     @PostMapping("/unit")
     public ModelAndView postUnit(@ModelAttribute FitnessUnitPostRequest fitnessUnitPostRequest, ModelMap model){
-        FitnessRoutine fitnessRoutine = fitnessUnitService.postFitnessUnit(fitnessUnitPostRequest);
+        FitnessRoutineResponse fitnessRoutine = fitnessUnitService.postFitnessUnit(fitnessUnitPostRequest);
         return new ModelAndView("redirect:/fitness/routine/" + fitnessRoutine.getId(), model);
     }
 
     @PutMapping("/unit/update/{id}")
     public ModelAndView putUnit(@ModelAttribute FitnessUnitPutRequest fitnessUnitPutRequest, @PathVariable Long id, ModelMap model){
-        FitnessRoutine fitnessRoutine = fitnessUnitService.putFitnessUnit(fitnessUnitPutRequest, id);
+        FitnessRoutineResponse fitnessRoutine = fitnessUnitService.putFitnessUnit(fitnessUnitPutRequest, id);
         return new ModelAndView("redirect:/fitness/routine/"+fitnessRoutine.getId(), model);
     }
 
@@ -95,7 +96,7 @@ public class FitnessRoutineViewController {
 
     @GetMapping("/update/{id}")
     public ModelAndView getFitnessRoutineUpdateView(@PathVariable Long id, ModelMap model){
-        FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(id);
+        FitnessRoutineResponse fitnessRoutine = fitnessRoutineService.getFitnessRoutine(id);
         model.addAttribute("fitnessRoutine", fitnessRoutine);
         return new ModelAndView("/fitness/routine/submit/routineUpdate", model);
     }
