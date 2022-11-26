@@ -42,14 +42,14 @@ public class FitnessRoutineViewController {
     public ModelAndView getFitnessRoutinesView(@SessionAttribute User user, ModelMap model){
         Iterable<FitnessRoutineResponse> fitnessRoutines = fitnessRoutineService.getFitnessRoutines(user.getId());
         model.addAttribute("fitnessRoutines", fitnessRoutines);
-        return new ModelAndView("fitness/routine/submit/searchView", model);
+        return new ModelAndView("fitness/routine/searchView", model);
     }
 
     @GetMapping("/{id}")
     public ModelAndView getFitnessRoutineView(@PathVariable Long id, ModelMap model){
         FitnessRoutineResponse fitnessRoutine = fitnessRoutineService.getFitnessRoutine(id);
         model.addAttribute("fitnessRoutine", fitnessRoutine);
-        return new ModelAndView("fitness/routine/submit/indexView", model);
+        return new ModelAndView("fitness/routine/indexView", model);
     }
 
     @PostMapping

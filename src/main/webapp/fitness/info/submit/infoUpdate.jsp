@@ -1,17 +1,19 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>fitnessInfoUpdate</title>
-</head>
 <body>
-<form action="/fitness/info/${fitnessInfo.id}" method="post">
-    <input type="hidden" name="_method" value="put">
-    title: <input type="text" name="title" id="title" value="${fitnessInfo.title}"> <br>
-    summary: <input type="text" name="summary" id="summary" value="${fitnessInfo.summary}"><br>
-    content: <input type="text" name="content" id="content" value="${fitnessInfo.content}"><br>
-    <input type="submit" value="submit">
-</form>
-<a href="/fitness/info/${fitnessInfo.id}"><h1>back</h1></a>
+<jsp:include page="../../../header.jsp"></jsp:include>
+<div class="container-sm">
+    <form action="/fitness/info/${fitnessInfo.id}" method="post">
+        <input type="hidden" name="_method" value="put">
+        title:
+        <input type="text" name="title" id="title" value="${fitnessInfo.title}"> <br>
+        summary:
+        <input type="text" name="summary" id="summary" value="${fitnessInfo.summary}"><br>
+        content:
+        <textarea type="text" class="w-100" name="content" id="content" rows="10" cols="100">${fitnessInfo.content}</textarea>
+        <input type="submit" class="btn btn-outline-primary me-2" value="update">
+    </form>
+    <a href="/fitness/info/${fitnessInfo.id}">back</a>
+</div>
 </body>
 </html>
 

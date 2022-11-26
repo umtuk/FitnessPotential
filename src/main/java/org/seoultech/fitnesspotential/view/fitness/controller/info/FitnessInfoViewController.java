@@ -40,14 +40,14 @@ public class FitnessInfoViewController {
     public ModelAndView getFitnessInfosView(@RequestParam Set<String> majorCategory, @RequestParam Set<String> detailedCategory, @PageableDefault Pageable pageable, ModelMap model){
         Page<FitnessInfoSummary> fitnessInfos = fitnessInfoSummaryService.getFitnessInfoSummaries(majorCategory, detailedCategory, pageable);
         model.addAttribute("fitnessInfos", fitnessInfos);
-        return new ModelAndView("fitness/info/submit/searchView", model);
+        return new ModelAndView("fitness/info/searchView", model);
     }
 
     @GetMapping("/{id}")
     public ModelAndView getFitnessInfoView(@PathVariable Long id, ModelMap model){
         FitnessInfo fitnessInfo = fitnessInfoService.getFitnessInfo(id);
         model.addAttribute("fitnessInfo", fitnessInfo);
-        return new ModelAndView("fitness/info/submit/indexView", model);
+        return new ModelAndView("fitness/info/indexView", model);
     }
     @PostMapping
     public ModelAndView postFitnessDiary(@ModelAttribute FitnessInfoPostRequest fitnessInfoPostRequest, ModelMap model){

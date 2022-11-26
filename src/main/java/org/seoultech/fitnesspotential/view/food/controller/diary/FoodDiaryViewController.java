@@ -32,14 +32,14 @@ public class FoodDiaryViewController {
     public ModelAndView getFoodDiariesView(@RequestParam Integer year, @RequestParam Integer month, @RequestParam Integer day, @SessionAttribute User user, ModelMap model){
         Iterable<FoodDiary> foodDiaries = foodDiaryService.getFoodDiaries(year, month, day, user.getId());
         model.addAttribute("foodDiaries", foodDiaries);
-        return new ModelAndView("food/diary/submit/searchView", model);
+        return new ModelAndView("food/diary/searchView", model);
     }
 
     @GetMapping("/{id}")
     public ModelAndView getFoodDiaryView(@PathVariable Long id, @SessionAttribute User user, ModelMap model){
         FoodDiary foodDiary = foodDiaryService.getFoodDiary(id);
         model.addAttribute("foodDiary", foodDiary);
-        return new ModelAndView("food/diary/submit/indexView", model);
+        return new ModelAndView("food/diary/indexView", model);
     }
 
     @PostMapping

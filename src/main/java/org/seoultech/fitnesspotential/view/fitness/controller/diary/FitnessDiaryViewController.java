@@ -31,14 +31,15 @@ public class FitnessDiaryViewController {
 
     @GetMapping("/search")
     public ModelAndView getFitnessDiariesView(@PageableDefault() Pageable pageable, @SessionAttribute User user, ModelMap model){
-        return new ModelAndView("fitness/diary/submit/searchView", model);
+        model.addAttribute("fitnessDiaries", fitnessDiaryService.getFitnessDiaries(pageable));
+        return new ModelAndView("fitness/diary/searchView", model);
     }
 
     @GetMapping("/{id}")
     public ModelAndView getFitnessDiaryView(@PathVariable Long id, @SessionAttribute User user, ModelMap model){
         FitnessDiaryResponse fitnessDiary = fitnessDiaryService.getFitnessDiary(id);
         model.addAttribute("fitnessDiary", fitnessDiary);
-        return new ModelAndView("fitness/diary/submit/indexView", model);
+        return new ModelAndView("fitness/diary/indexView", model);
     }
 
     @PostMapping

@@ -1,43 +1,52 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<div class="container-sm">
 <div class="foodInfos">
-    <h1>foodInfos</h1>
     <c:forEach var="foodInfos" varStatus="status" items="${foodInfos.content}">
-        <li>
+        <div class="list-group w-auto">
             <a href="/food/info/${foodInfos.id}">
-                id: ${foodInfos.id} <br>
-                name: ${foodInfos.name}<br>
-                majorCategory: ${foodInfos.majorCategory}<br>
-                detailedCategory: ${foodInfos.detailedCategory}<br>
+                <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    name: ${foodInfos.name}<br>
+                    id: ${foodInfos.id} <br>
+                </div>
+                    <small class="opacity-50 text-nowrap">
+                        majorCategory: ${foodInfos.majorCategory}<br>
+                        detailedCategory: ${foodInfos.detailedCategory}<br>
+                    </small>
+                </div>
             </a>
-        </li>
+            <hr>
+        </div>
     </c:forEach>
 </div>
-<div>
-<%--    <select name="majorCategory" id="majorCategory">--%>
-<%--        <option>구이류</option>--%>
-<%--        <option>국 및 탕류</option>--%>
-<%--        <option>볶음류</option>--%>
-<%--        <option>기타</option>--%>
-<%--        <option>튀김류</option>--%>
-<%--        <option>회류</option>--%>
-<%--        <option>찌개 및 전골류</option>--%>
-<%--    </select>--%>
-    <form action="/food/info/category" method="get">
-        majorCategory: <input type="text" id="majorCategory" name="majorCategory" value="${majorCategory}">
-        detailedCategory: <input type="text" id="detailedCategory" name="detailedCategory" value="${detailedCategory}">
-        <input type="submit" value="search">
-    </form>
 </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <form action="/food/info/category" method="get">
+            majorCategory: <input type="text" id="majorCategory" name="majorCategory" value="${majorCategory}">
+            detailedCategory: <input type="text" id="detailedCategory" name="detailedCategory" value="${detailedCategory}">
+            <input type="submit" class="btn btn-outline-primary me-2" value="search">
+        </form>
+    </div>
+</div><br>
 <div class="page">
-    <h1>page</h1>
-    totalPage: ${foodInfos.totalPages} <br>
-    totalElement: ${foodInfos.totalElements} <br>
-    size: ${foodInfos.size} <br>
-    number: ${foodInfos.number} <br>
-    <c:forEach var="i" varStatus="status" begin="1" end="${foodInfos.totalPages}">
-        <a href="/food/info/category?page=${i - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}">${i}</a>
-    </c:forEach>
+    <nav aria-label="Standard pagination example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="/food/info/category?page=0&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+                <c:forEach var="i" varStatus="status" begin="1" end="${foodInfos.totalPages}">
+                    <li class="page-item"><a class="page-link" href="/food/info/category?page=${i - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}">${i}</a></li>
+                </c:forEach>
+            <li class="page-item">
+                <a class="page-link" href="/food/info/category?page=${foodInfos.totalPages - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>

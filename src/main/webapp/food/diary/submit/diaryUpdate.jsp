@@ -1,23 +1,33 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>fitnessFoodUpdate</title>
-</head>
 <body>
-<form action="/food/diary/${fitnessFood.id}" method="post">
-    <input type="hidden" name="_method" value="put">
-    content: <input type="text" name="content" id="content" value="${fitnessFood.content}"><br>
-    intake: <input type="text" name="intake" id="intake" value="${fitnessFood.intake}"><br>
-    intakeUnit:<input type="text" name="intakeUnit" id="intakeUnit" value="${fitnessFood.intakeUnit}"><br>
-    kcal: <input type="text" name="kcal" id="kcal" value="${fitnessFood.kcal}"><br>
-    carbs: <input type="text" name="carbs" id="carbs" value="${fitnessFood.carbs}"><br>
-    protein: <input type="text" name="protein" id="protein" value="${fitnessFood.protein}"><br>
-    fat:<input type="text" name="fat" id="fat" value="${fitnessFood.fat}"><br>
-    year: <input type="text" name="year" id="year" value="${fitnessFood.year}"><br>
-    month: <input type="text" name="month" id="month" value="${fitnessFood.month}"><br>
-    day: <input type="text" name="day" id="day" value="${fitnessFood.day}"><br>
-    <input type="submit" value="submit">
-</form>
-<a href="/food/diary/${fitnessFood.id}"><h1>back</h1></a>
+<jsp:include page="../../../header.jsp"></jsp:include>
+    <div class="container-sm">
+        <form action="/food/diary/${foodDiary.id}" method="post">
+            <input type="hidden" name="_method" value="put">
+            intake:
+            <input type="text" name="intake" id="intake" value="${foodDiary.intake}"><br><br>
+            intakeUnit:
+            <input type="text" name="intakeUnit" id="intakeUnit" value="${foodDiary.intakeUnit}"><br><br>
+            kcal:
+            <input type="text" name="kcal" id="kcal" value="${foodDiary.kcal}"><br><br>
+            carbs:
+            <input type="text" name="carbs" id="carbs" value="${foodDiary.carbs}"><br><br>
+            protein:
+            <input type="text" name="protein" id="protein" value="${foodDiary.protein}"><br><br>
+            fat:
+            <input type="text" name="fat" id="fat" value="${foodDiary.fat}"><br><br>
+            year:
+            <input type="text" name="year" id="year" value="${foodDiary.year}"><br><br>
+            month:
+            <input type="text" name="month" id="month" value="${foodDiary.month}"><br><br>
+            day:
+            <input type="text" name="day" id="day" value="${foodDiary.day}"><br><br>
+            content:
+            <textarea type="text" name="content" id="content" row="10" cols="100">${foodDiary.content}</textarea><br><br>
+            <input type="submit" class="btn btn-outline-primary me-2" value="update">
+        </form>
+        <a href="/food/diary/${foodDiary.id}"><h1>back</h1></a>
+    </div>
 </body>
 </html>

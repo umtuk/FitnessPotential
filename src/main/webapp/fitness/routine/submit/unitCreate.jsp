@@ -9,5 +9,5 @@
     sets : <input type="text" name="sets"><br>
     reps : <input type="text" name="reps"><br>
     breakTimesPerSet : <input type="text" name="breakTimesPerSet"><br>
-    <input type="submit" value="addUnit">
+    <input class="btn btn-outline-primary me-2" type="submit" value="addUnit">
 </form>

@@ -5,10 +5,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness Potential</title>
     <script>
         function addUnit(event) {
             let text = document.querySelector('.units input[name="units"]').value;
@@ -43,14 +39,18 @@
     </script>
 </head>
 <body>
-<form action="/fitness/routine" method="post">
-    title: <input type="text" name="title" id="title"> <br>
-
-    <input type="submit" value="submit">
-</form>
-<span class="unit">
-        <input type="text" name="unit" id="unit"> <input type="button" onclick="addUnit(event)" value="addUnit"> <br>
-    </span>
-<a href="/fitness/routine"><h1>back</h1></a>
+    <jsp:include page="../../../header.jsp"></jsp:include>
+    <div class="container-sm">
+        <form action="/fitness/routine" method="post">
+            title:
+            <input type="text" class="w-100" name="title" id="title"> <br>
+            <br>
+            <input type="submit" class="btn btn-outline-primary me-2" value="submit">
+        </form><br>
+        <span class="unit">
+            <input type="text" name="unit" id="unit"> <input class="btn btn-outline-primary me-2" type="button" onclick="addUnit(event)" value="addUnit"> <br>
+        </span><br>
+        <a href="/fitness/routine"><h1>back</h1></a>
+    </div>
 </body>
 </html>
