@@ -21,6 +21,7 @@ public class FoodDiary {
 
     @Column(nullable = false, length = 128, name="content")
     private String content;
+
     @Column(name="intake")
     private Integer intake;
     @Column(name="intake_unit")
@@ -33,14 +34,22 @@ public class FoodDiary {
     private Double protein;
     @Column(nullable = false, name="fat")
     private Double fat;
+
     @Column(nullable = false, name="year")
     private Integer year;
     @Column(nullable = false, name="month")
     private Integer month;
     @Column(nullable = false, name="day")
     private Integer day;
-    @Column(nullable = false, name = "intake_time")
-    private Long intakeTime;
+
+    @Column(nullable = false, name = "hour")
+    private Integer hour;
+    @Column(nullable = false, name = "minute")
+    private Integer minute;
+
+    @Column(name = "thumbnail")
+    private Long thumbnail;
+
     @Column(nullable = false, name="created_at")
     private Long createdAt;
     @Column(name="updated_at")
@@ -49,7 +58,7 @@ public class FoodDiary {
     private Long deletedAt;
 
     @Builder
-    public FoodDiary(Long id, Long creatorId, String content, Integer intake, String intakeUnit, Double kcal, Double carbs, Double protein, Double fat, Integer year, Integer month, Integer day, Long intakeTime, Long createdAt, Long updatedAt, Long deletedAt) {
+    public FoodDiary(Long id, Long creatorId, String content, Integer intake, String intakeUnit, Double kcal, Double carbs, Double protein, Double fat, Integer year, Integer month, Integer day, Integer hour, Integer minute, Long thumbnail, Long createdAt, Long updatedAt, Long deletedAt) {
         this.id = id;
         this.creatorId = creatorId;
         this.content = content;
@@ -62,7 +71,9 @@ public class FoodDiary {
         this.year = year;
         this.month = month;
         this.day = day;
-        this.intakeTime = intakeTime;
+        this.hour = hour;
+        this.minute = minute;
+        this.thumbnail = thumbnail;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -83,7 +94,9 @@ public class FoodDiary {
         private Integer year;
         private Integer month;
         private Integer day;
-        private Long intakeTime;
+        private Integer hour;
+        private Integer minute;
+        private Long thumbnail;
         private Long createdAt;
         private Long updatedAt;
         private Long deletedAt;
@@ -101,7 +114,9 @@ public class FoodDiary {
             this.year = foodDiary.year;
             this.month = foodDiary.month;
             this.day = foodDiary.day;
-            this.intakeTime = foodDiary.intakeTime;
+            this.hour = foodDiary.hour;
+            this.minute = foodDiary.minute;
+            this.thumbnail = foodDiary.thumbnail;
             this.createdAt = foodDiary.createdAt;
             this.updatedAt = foodDiary.updatedAt;
             this.deletedAt = foodDiary.deletedAt;
@@ -119,7 +134,9 @@ public class FoodDiary {
             this.year = foodDiaryPostRequest.getYear();
             this.month = foodDiaryPostRequest.getMonth();
             this.day = foodDiaryPostRequest.getDay();
-            this.intakeTime = foodDiaryPostRequest.getIntakeTime();
+            this.hour = foodDiaryPostRequest.getHour();
+            this.minute = foodDiaryPostRequest.getMinute();
+            this.thumbnail = foodDiaryPostRequest.getThumbnail();
             this.createdAt = System.currentTimeMillis();
             return this;
         }
@@ -135,7 +152,9 @@ public class FoodDiary {
             this.year = foodDiaryPutRequest.getYear() == null ? this.year : foodDiaryPutRequest.getYear();
             this.month = foodDiaryPutRequest.getMonth() == null ? this.month : foodDiaryPutRequest.getMonth();
             this.day = foodDiaryPutRequest.getDay() == null ? this.day : foodDiaryPutRequest.getDay();
-            this.intakeTime = foodDiaryPutRequest.getIntakeTime() == null ? this.intakeTime : foodDiaryPutRequest.getIntakeTime();
+            this.hour = foodDiaryPutRequest.getHour() == null ? this.hour : foodDiaryPutRequest.getHour();
+            this.minute = foodDiaryPutRequest.getMinute() == null ? this.minute : foodDiaryPutRequest.getMinute();
+            this.thumbnail = foodDiaryPutRequest.getThumbnail() == null ? this.thumbnail : foodDiaryPutRequest.getThumbnail();
             this.updatedAt = System.currentTimeMillis();
             return this;
         }

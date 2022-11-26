@@ -6,12 +6,14 @@ import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPutRe
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryResponse;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessDiary;
 import org.seoultech.fitnesspotential.domain.fitness.service.*;
+import org.seoultech.fitnesspotential.domain.storage.service.StorageService;
 import org.seoultech.fitnesspotential.domain.user.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -19,9 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class FitnessDiaryViewController {
 
     private final FitnessDiaryService fitnessDiaryService;
+    private final StorageService storageService;
 
-    public FitnessDiaryViewController(FitnessDiaryService fitnessDiaryService) {
+    public FitnessDiaryViewController(FitnessDiaryService fitnessDiaryService, StorageService storageService) {
         this.fitnessDiaryService = fitnessDiaryService;
+        this.storageService = storageService;
     }
 
     @GetMapping
@@ -43,7 +47,7 @@ public class FitnessDiaryViewController {
     }
 
     @PostMapping
-    public ModelAndView postFitnessDiary(@ModelAttribute FitnessDiaryPostRequest fitnessDiaryPostRequest, @SessionAttribute User user, ModelMap model){
+    public ModelAndView postFitnessDiary(@ModelAttribute FitnessDiaryPostRequest fitnessDiaryPostRequest, @SessionAttribute User user, ModelMap model) {
         FitnessDiaryResponse fitnessDiary = fitnessDiaryService.postFitnessDiary(fitnessDiaryPostRequest, user.getId());
         return new ModelAndView("redirect:/fitness/diary/" + fitnessDiary.getId(), model);
     }

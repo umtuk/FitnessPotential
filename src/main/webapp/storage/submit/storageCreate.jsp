@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form action="/storage" enctype="multipart/form-data" method="post">
+<div class="storage-create">
     <input type="file" name="images">
-    <input type="submit" value="submit" class="axios">
-</form>
+    <button onclick="storageSubmit(event, '${targetSelector}')">submit</button>
+</div>

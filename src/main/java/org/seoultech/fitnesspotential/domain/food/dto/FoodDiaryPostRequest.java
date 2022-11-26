@@ -57,6 +57,14 @@ public class FoodDiaryPostRequest {
     private Integer day;
 
     @NotNull
-    @Positive
-    private Long intakeTime;
+    @Min(0)
+    @Max(23)
+    private Integer hour;
+
+    @NotNull
+    @Min(0)
+    @Max(59)
+    private Integer minute;
+
+    private Long thumbnail;
 }
