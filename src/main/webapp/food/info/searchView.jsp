@@ -6,13 +6,12 @@
 <html lang="en">
 <head>
     <jsp:include page="/head.jsp"></jsp:include>
+    <script src="/js/foodInfo.js"></script>
 </head>
 <body>
-<head>
-    <jsp:include page="/head.jsp"></jsp:include>
-</head>
-<jsp:include page="/food/info/entity/infos.jsp">
-    <jsp:param name="foodInfos" value="${foodInfos}" />
-</jsp:include>
+    <jsp:include page="/header.jsp"></jsp:include>
+    <jsp:include page="/food/info/entity/infos.jsp">
+        <jsp:param name="foodInfos" value="${foodInfos}" />
+    </jsp:include>
 </body>
 </html>

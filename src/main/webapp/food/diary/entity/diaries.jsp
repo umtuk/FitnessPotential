@@ -7,8 +7,13 @@
             <div class="list-group w-auto">
                 <a href="/food/diary/${foodDiary.id}">
                     <div class="d-flex gap-2 w-100 justify-content-between">
-                        <h3 class="mb-0">${foodDiary.content}-${foodDiary.kcal} kcal-탄수화물 ${foodDiary.carbs}g-단백질 ${foodDiary.protein}g-지방 ${foodDiary.fat}g</h3>
+                        <h3 class="mb-0">${foodDiary.content}</h3>
                         <small class="opacity-50 text-nowrap">
+                            섭취량: ${foodDiary.intake} ${foodDiary.intakeUnit}<br>
+                            칼로리: ${foodDiary.kcal} kcal <br>
+                            탄수화물: ${foodDiary.carbs}g <br>
+                            단백질: ${foodDiary.protein}g <br>
+                            지방: ${foodDiary.fat}g
                         </small>
                     </div>
                 </a>
@@ -18,11 +23,12 @@
     </div>
 </div>
 <div class="container-sm">
-    <a href="/food/diary/create">create diary</a>
+    <a href="/food/diary/create">식단 일지 생성하기</a>
 </div>
 <form method="get" action="/food/diary/search">
-    year: <input type="number" name="year" value="${year}"> <br>
-    month: <input type="number" name="month" value="${month}"> <br>
-    day: <input type="number" name="day" value="${day}"> <br>
+    날짜(yyyy-mm-dd): 
+    <input type="number" name="year" value="${year}">-
+    <input type="number" name="month" value="${month}">-
+    <input type="number" name="day" value="${day}">-
     <input type="submit" value="submit">
 </form>

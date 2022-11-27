@@ -33,7 +33,7 @@ public class FoodInfoViewController {
 
     @GetMapping
     public ModelAndView getDefaultFoodInfoView(ModelMap model){
-        return new ModelAndView("forward:/food/info/search?page=0&size=10&majorCategory=구이류&detailedCategory=육류구이", model);
+        return new ModelAndView("forward:/food/info/search?page=0&size=10&majorCategory=곡류 및 서류&detailedCategory=떡류", model);
     }
 
 //    @GetMapping("/search")

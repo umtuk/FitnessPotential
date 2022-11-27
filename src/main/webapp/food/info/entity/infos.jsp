@@ -1,21 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script>
-    function majorChange(){
-        var major = document.getElementById("majorCategory");
-
-        var detailed = document.getElementById("foodInfoCategory");
-
-        var selectedOption = "";
-        for(var i=0;i<detailed.length;i++){
-            if(major == detailed.keys()){
-                selectedOption += "<option>"+detailed+"</option>";
-            }
-        }
-        document.getElementById("detailedCategory").innerHTML = selectedOption;
-    }
-</script>
 <div class="container-sm">
     <div class="foodInfos">
         <c:forEach var="foodInfos" varStatus="status" items="${foodInfos.content}">
@@ -26,42 +11,24 @@
                                 ${foodInfos.name}<br>
                         </div>
                         <small class="opacity-50 text-nowrap">
-                                ${foodInfos.majorCategory}<br>
-                                ${foodInfos.detailedCategory}<br>
+                                1회 제공량: ${foodInfos.servingSize} ${foodInfos.servingSizeUnit}<br>
+                                칼로리: ${foodInfos.kcal} kcal<br>
+                                탄수화물: ${foodInfos.carbs} g<br>
+                                단백질: ${foodInfos.protein} g<br>
+                                지방: ${foodInfos.fat} g<br>
                         </small>
                     </div>
                 </a>
                 <hr>
-            </div>
+            </div>  
         </c:forEach>
     </div>
 </div>
 <div class="container">
     <div class="row justify-content-center">
-        <form action="/food/info/search" method="get">
-            <select name="majorCategory" onchange="majorChange()">
-                <c:forEach var="category" varStatus="status" items="${foodInfoCategory.categories.keySet()}">
-                    <option value="${category}"<c:if test="${majorCategory eq category}">selected="selected"</c:if>>${category}</option>
-                </c:forEach>
-            </select>
-            <select name="detailedCategory">
-                <c:forEach var="categories" varStatus="status" items="${foodInfoCategory.categories.values()}">
-                    <c:forEach var="category" varStatus="status" items="${categories}">
-                        <option value="${category}"<c:if test="${detailedCategory eq category}">selected="selected"</c:if>>${category}</option>
-                    </c:forEach>
-                </c:forEach>
-            </select>
-            <input type="submit" class="btn btn-outline-primary me-2" value="search">
-        </form>
-    </div>
-    <div>
-        <c:forEach var="major" varStatus="status" items="${foodInfoCategory.categories.keySet()}">
-            ${major} <br>
-            <c:forEach var="detailed" varStatus="dStatus" items="${foodInfoCategory.categories.get(major)}">
-                ${detailed} <br>
-            </c:forEach>
-            <br>
-        </c:forEach>
+        <c:set var="majorCategory" value="${majorCategory}" scope="request"></c:set>
+        <c:set var="detailedCategory" value="${detailedCategory}" scope="request"></c:set>
+        <jsp:include page="/food/info/entity/infoCategory.jsp"></jsp:include>
     </div>
 </div><br>
 <div class="page">

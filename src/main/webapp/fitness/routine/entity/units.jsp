@@ -8,12 +8,12 @@
             <li class="list-group-item">
                 <div class="d-flex gap-2 w-100 justify-content-between">
                     <!-- id: ${units.id} <br> -->
-                    title: ${units.title}<br>
+                    ${units.title}<br>
                     <small class="opacity-50 text-nowrap">
-                        sets: ${units.sets}<br>
-                        reps: ${units.reps}<br>
-                        reps: ${units.weights}<br>
-                        breakTimesPerSet: ${units.breakTimesPerSet}<br>
+                        세트수: ${units.sets}<br>
+                        반복횟수: ${units.reps}<br>
+                        중량(kg): ${units.weights}<br>
+                        휴식시간(초): ${units.breakTimesPerSet}<br>
                     </small>
                 </div>
 

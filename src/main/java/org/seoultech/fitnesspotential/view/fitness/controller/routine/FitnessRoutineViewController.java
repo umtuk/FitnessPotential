@@ -1,5 +1,6 @@
 package org.seoultech.fitnesspotential.view.fitness.controller.routine;
 
+import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePutRequest;
@@ -7,6 +8,7 @@ import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPostReq
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessUnit;
+import org.seoultech.fitnesspotential.domain.fitness.service.FitnessDiaryService;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessInfoService;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessRoutineService;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessUnitService;
@@ -17,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -24,15 +27,15 @@ import java.util.List;
 public class FitnessRoutineViewController {
 
     private final FitnessRoutineService fitnessRoutineService;
-    private final FitnessInfoService fitnessInfoService;
+    private final FitnessDiaryService fitnessDiaryService;
     private final FitnessUnitService fitnessUnitService;
 
     @Autowired
     public FitnessRoutineViewController(FitnessRoutineService fitnessRoutineService,
-                                        FitnessInfoService fitnessInfoService,
+                                        FitnessDiaryService fitnessDiaryService,
                                         FitnessUnitService fitnessUnitService) {
         this.fitnessRoutineService = fitnessRoutineService;
-        this.fitnessInfoService = fitnessInfoService;
+        this.fitnessDiaryService = fitnessDiaryService;
         this.fitnessUnitService = fitnessUnitService;
     }
 
@@ -133,10 +136,14 @@ public class FitnessRoutineViewController {
     }
 
     @PostMapping("/start")
-    public ModelAndView postFitnessRoutineStartView(@RequestParam Long fitnessRoutineId, @RequestParam Integer unitIndex, @ModelAttribute FitnessInfoPostRequest fitnessInfoPostRequest, @SessionAttribute User user, ModelMap model) {
+    public ModelAndView postFitnessRoutineStartView(@RequestParam Long fitnessRoutineId, @RequestParam Integer unitIndex, @ModelAttribute FitnessDiaryPostRequest fitnessDiaryPostRequest, @SessionAttribute User user, ModelMap model) {
         FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(fitnessRoutineId);
+        Calendar calendar = Calendar.getInstance();
+        fitnessDiaryPostRequest.setDay(calendar.get(Calendar.DAY_OF_MONTH));
+        fitnessDiaryPostRequest.setMonth(calendar.get(Calendar.MONTH) + 1);
+        fitnessDiaryPostRequest.setYear(calendar.get(Calendar.YEAR));
         List<FitnessUnit> units = fitnessRoutine.getUnits();
-        fitnessInfoService.postFitnessInfo(fitnessInfoPostRequest, user.getId());
+        fitnessDiaryService.postFitnessDiary(fitnessDiaryPostRequest, user.getId());
         if (unitIndex == units.size()) {
             return new ModelAndView("redirect:/fitness/diary", model);
         }

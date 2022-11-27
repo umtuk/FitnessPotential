@@ -11,8 +11,8 @@
 <body>
     <jsp:include page="/header.jsp"></jsp:include>
     <div class="container-sm">
-        <a href="/fitness/routine">back</a><br>
-        <a href="/fitness/routine/update/${fitnessRoutine.id}">update</a>
+        <a href="/fitness/routine">뒤로가기</a><br>
+        <a href="/fitness/routine/update/${fitnessRoutine.id}">루틴 제목 수정하기</a>
     </div>
     <jsp:include page="/fitness/routine/entity/routine.jsp">
         <jsp:param name="fitnessRoutine" value="${fitnessRoutine}" />

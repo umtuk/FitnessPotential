@@ -16,18 +16,11 @@
             <div class="d-flex gap-2 w-100 justify-content-between">
                 <div>
                     <h6 class="mb-0">${communitySummary.title}</h6><br>
-                    tags: ${communitySummary.tags}
-<%--                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>--%>
+                    태그: ${communitySummary.tags}
                 </div>
                 <small class="opacity-50 text-nowrap">
-                    views: ${communitySummary.views} <br>
-                    likes: ${communitySummary.likes} <br>
-                    createdAt: ${communitySummary.createdAt} <br>
+                    조회수: ${communitySummary.views} <br>
                 </small>
-<%--                id: ${communitySummary.id} <br>--%>
-<%--                creatorId: ${communitySummary.creatorId} <br>--%>
-<%--                updatedAt: ${communitySummary.updatedAt} <br>--%>
-<%--                deletedAt: ${communitySummary.deletedAt} <br>--%>
             </div>
             </a>
             <hr>
@@ -36,16 +29,9 @@
 </div>
 </div>
 <div class="container-sm">
-      <a href="/community/create">create community</a>
+    <a href="/community/create">게시판 생성하기</a>
 </div>
 <div class="page">
-<%--    totalPage: ${communitySummaries.totalPages} <br>--%>
-<%--    totalElement: ${communitySummaries.totalElements} <br>--%>
-<%--    size: ${communitySummaries.size} <br>--%>
-<%--    number: ${communitySummaries.number} <br>--%>
-<%--    <c:forEach var="i" varStatus="status" begin="1" end="${communitySummaries.totalPages}">--%>
-<%--        <a href="/community/search?page=${i - 1}">${i}</a>--%>
-<%--    </c:forEach>--%>
     <nav aria-label="Standard pagination example">
         <ul class="pagination justify-content-center">
             <li class="page-item">

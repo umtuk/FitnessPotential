@@ -8,7 +8,7 @@
         반복 횟수: <input type="number" name="reps[]" value="${unit.reps.get(i)}"> <br>
         중량: <input type="number" name="weights[]" value="${unit.weights.get(i)}"> <br>
     </div>
-    ${breakTime} 초 휴식
-    <button>휴식 시작</button>
-    <button>다음 세트 시작</button>
+    <h1 class="clock">${unit.breakTimesPerSet.get(i)}</h1>
+    <button class="breakStart">휴식 시작</button>
+    <button class="nextSet">다음 세트 시작</button>
 </div>

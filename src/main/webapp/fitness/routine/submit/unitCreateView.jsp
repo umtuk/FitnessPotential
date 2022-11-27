@@ -2,7 +2,6 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <jsp:include page="/head.jsp"></jsp:include>
@@ -11,7 +10,7 @@
 <body>
     <jsp:include page="/header.jsp"></jsp:include>
     <form id="fitnessUnitCreate" method="post" action="/fitness/routine/unit">
-        title : <input type="text" name="title" value="${param.title}" readonly><br>
+        제목: <input type="text" name="title" value="${param.title}" readonly><br>
         <input type="hidden" name="fitnessRoutineId" value="${param.fitnessRoutineId}" readonly>
         <input type="hidden" name="fitnessInfoId" value="${param.fitnessInfoId}" readonly>
         <input type="hidden" name="sets">

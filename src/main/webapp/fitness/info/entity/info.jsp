@@ -4,24 +4,19 @@
 <div class="container-sm">
     <div id="fitnessInfo" class="d-flex gap-2 w-100 justify-content-between">
         <div class="title">
-            <h1>title: ${fitnessInfo.title}</h1>
+            <h1>${fitnessInfo.title}</h1>
         </div>
         <div class="header">
             <small class="opacity-50 text-nowrap">
-                id: ${fitnessInfo.id} <br>
-                creatorId: ${fitnessInfo.creatorId} <br>
-                createdAt: ${fitnessInfo.createdAt} <br>
+                주 타겟 부위: ${fitnessInfo.majorCategory} <br>
+                세부 타겟 부위: ${fitnessInfo.detailedCategory}
             </small>
         </div>
     </div>
     <hr>
     <div class="content">
-        thumbnail: <img src="/storage/${fitnessInfo.thumbnail}" alt="" srcset=""> <br>
-        content: ${fitnessInfo.content}<br>
-        summary: ${fitnessInfo.summary}<br>
-
-        majorCategory: ${fitnessInfo.majorCategory} <br>
-        detailedCategory: ${fitnessInfo.detailedCategory}
+        <img src="/storage/${fitnessInfo.thumbnail}" alt="" srcset=""> <br>
+        ${fitnessInfo.content}<br>
     </div>
     <c:if test="${not empty param.fitnessRoutineId}">
         <a href="/fitness/routine/submit/unitCreateView.jsp?fitnessRoutineId=${param.fitnessRoutineId}&title=${fitnessInfo.title}&fitnessInfoId=${fitnessInfo.id}">운동 추가하기</a>

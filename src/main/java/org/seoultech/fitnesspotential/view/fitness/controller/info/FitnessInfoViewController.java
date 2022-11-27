@@ -44,7 +44,10 @@ public class FitnessInfoViewController {
     }
 
     @GetMapping("/search")
-    public ModelAndView getFitnessInfosView(@RequestParam String majorCategory, @RequestParam String detailedCategory, @RequestParam(required = false) Long fitnessRoutineId, @PageableDefault Pageable pageable, ModelMap model){
+    public ModelAndView getFitnessInfosView(@RequestParam String majorCategory,
+                                            @RequestParam String detailedCategory,
+                                            @RequestParam(required = false) Long fitnessRoutineId,
+                                            @PageableDefault Pageable pageable, ModelMap model){
         Page<FitnessInfoSummary> fitnessInfos = fitnessInfoSummaryService.getFitnessInfoSummaries(majorCategory, detailedCategory, pageable);
         model.addAttribute("fitnessInfos", fitnessInfos);
         model.addAttribute("majorCategory", majorCategory);

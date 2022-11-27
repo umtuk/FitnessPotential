@@ -7,22 +7,21 @@
         <h3>${foodDiary.year}-${foodDiary.month}-${foodDiary.day}</h3><br><br>
     </div>
     <small class="opacity-50 text-nowrap">
-        creatorId: ${foodDiary.creatorId} <br>
-        createdAt: ${foodDiary.createdAt} <br>
     </small>
 </div>
     <div class="content">
-        content: ${foodDiary.content}<br>
-        intake: ${foodDiary.intake}<br>
-        intakeUnit: ${foodDiary.intakeUnit}<br>
-        kcal: ${foodDiary.kcal}<br>
-        carbs: ${foodDiary.carbs}<br>
-        protein: ${foodDiary.protein}<br>
-        fat: ${foodDiary.fat}<br>
-        <img src="/storage/${foodDiary.thumbnail}" alt="" srcset="">
+        내용: ${foodDiary.content}<br>
+        섭취량: ${foodDiary.intake} ${foodDiary.intakeUnit}<br>
+        칼로리(kcal): ${foodDiary.kcal}<br>
+        탄수화물(g): ${foodDiary.carbs}<br>
+        단백질: ${foodDiary.protein}<br>
+        지방: ${foodDiary.fat}<br>
+        <c:if test="${not empty foodDiary.thumbnail}">
+            <img src="/storage/${foodDiary.thumbnail}" alt="" srcset="">
+        </c:if>
     </div>
     <form action="/food/diary/${foodDiary.id}" method="post">
         <input type="hidden" name="_method" value="delete">
-        <input class="btn btn-outline-primary me-2" type="submit" value="delete"> <br>
+        <input class="btn btn-outline-primary me-2" type="submit" value="삭제하기"> <br>
     </form>
 </div>

@@ -4,13 +4,16 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
 <body>
     <jsp:include page="/header.jsp"></jsp:include>
     <div class="container-sm">
-        <a href="/food/info">back</a><br>
+        <a href="/food/info">뒤로가기</a><br>
     </div>
-        <jsp:include page="/food/info/entity/info.jsp">
-            <jsp:param name="foodInfo" value="${foodInfo}" />
-        </jsp:include>
+    <jsp:include page="/food/info/entity/info.jsp">
+        <jsp:param name="foodInfo" value="${foodInfo}" />
+    </jsp:include>
 </body>
 </html>

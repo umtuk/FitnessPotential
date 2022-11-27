@@ -10,8 +10,8 @@
 <body>
     <jsp:include page="/header.jsp"></jsp:include>
     <div class="container-sm">
-        <a href="/fitness/diary">back</a><br>
-        <a href="/fitness/diary/update/${fitnessDiary.id}">update</a>
+        <a href="/fitness/diary">뒤로가기</a><br>
+        <!-- <a href="/fitness/diary/update/${fitnessDiary.id}">운동 일지 수정하기</a> -->
     </div>
     <jsp:include page="/fitness/diary/entity/diary.jsp">
         <jsp:param name="fitnessDiary" value="${fitnessDiary}" />

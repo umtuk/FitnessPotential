@@ -4,17 +4,16 @@
 <div class="container-sm">
     <div id="foodInfo" class="d-flex gap-2 w-100 justify-content-between">
         <div class="header">
-            <h1>name: ${foodInfo.name}</h1><br>
+            <h1>${foodInfo.name}</h1><br>
         </div>
             <small class="opacity-50 text-nowrap">
-                majorCategory: ${foodInfo.majorCategory}<br>
-                detailedCategory: ${foodInfo.detailedCategory}<br>
+                식품 대분류: ${foodInfo.majorCategory}<br>
+                식품 상세분류: ${foodInfo.detailedCategory}<br>
             </small>
     </div>
-        servingSize: ${foodInfo.servingSize}<br>
-        servingSizeUnit: ${foodInfo.servingSizeUnit}<br>
-        kcal: ${foodInfo.kcal}<br>
-        carbs: ${foodInfo.carbs}<br>
-        protein: ${foodInfo.protein}<br>
-        fat: ${foodInfo.fat}<br>
+        1회 제공량: ${foodInfo.servingSize} ${foodInfo.servingSizeUnit}<br>
+        칼로리: ${foodInfo.kcal} kcal<br>
+        탄수화물: ${foodInfo.carbs} g<br>
+        단백질: ${foodInfo.protein} g<br>
+        지방: ${foodInfo.fat} g<br>
 </div>

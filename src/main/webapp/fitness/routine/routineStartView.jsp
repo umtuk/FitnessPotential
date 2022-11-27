@@ -7,25 +7,33 @@
 <head>
     <jsp:include page="/head.jsp"></jsp:include>
     <script src="/js/fitnessUnit.js"></script>
+    <script src="/js/routineStart.js"></script>
 </head>
 <body>
     <jsp:include page="/header.jsp"></jsp:include>
-    <form action="" method="post">
+    <form action="/fitness/routine/start?unitIndex=${unitIndex + 1}&fitnessRoutineId=${unit.fitnessRoutine.id}" method="post" id="routineStart">
         <h2>${unit.title}</h2>
-        <c:forEach var="i" varStatus="status" begin="0" end="${unit.sets - 1}">
-            <div class="set">
-                <div class="info">
-                    반복 횟수: ${unit.reps.get(i)} <br>
-                    중량: ${unit.weights.get(i)} <br>
-                    <button class="">운동 시작</button>
+        <div class="sets">
+            <input type="hidden" name="title" value="${unit.title}">
+            <input type="hidden" name="sets" value="${unit.sets}">
+            <c:forEach var="i" varStatus="status" begin="0" end="${unit.sets - 1}">
+                <div class="set">
+                    <div class="info">
+                        반복 횟수: ${unit.reps.get(i)} <br>
+                        중량: ${unit.weights.get(i)} <br>
+                        <button class="startFitness">세트 완료</button>
+                    </div>
+                    <input type="hidden" name="breakTimesPerSet[]" value="${unit.breakTimesPerSet.get(i)}">
+                    <jsp:include page="/fitness/routine/util/breakTimeTimer.jsp"></jsp:include>
                 </div>
-                <input type="hidden" name="breakTimesPerSet[]" value="${unit.breakTimesPerSet.get(i)}">
-                <jsp:include page="/fitness/routine/util/breakTimeTimer.jsp"></jsp:include>
-            </div>
-        </c:forEach>
+            </c:forEach>
+        </div>
         <input type="submit" value="다음 운동 진행하기">
     </form>
     <a href="/fitness/info"><h2>종료하기</h2></a>
     <a href="/fitness/routine/start?unitIndex=${unitIndex + 1}&fitnessRoutineId=${unit.fitnessRoutine.id}"><h2>건너뛰기</h2></a>
+    <script>
+        initRoutineStart();
+    </script>
 </body>
 </html>

@@ -9,10 +9,10 @@
                 <a href="/fitness/info/${fitnessInfos.id}?fitnessRoutineId=${fitnessRoutineId}">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <img src="/storage/${fitnessInfos.thumbnail}" alt="" width="50" height="50">
-                        title: ${fitnessInfos.title}<br>
-                        summary: ${fitnessInfos.summary}<br>
+                        ${fitnessInfos.title}<br>
+                        ${fitnessInfos.summary}<br>
                         <small class="opacity-50 text-nowrap">
-                            createdAt: ${fitnessInfos.createdAt}
+                            
                         </small>
                     </div>
                 </a>
@@ -20,9 +20,13 @@
             <hr>
         </c:forEach>
     </div>
+
+    <!-- 삭제 예정 -->
     <div class="container-sm">
         <a href="/fitness/info/create">create info</a>
     </div>
+
+
 </div>
 
 <c:set var="majorCategory" value="${majorCategory}" scope="request"></c:set>
@@ -32,15 +36,15 @@
 <nav aria-label="Standard pagination example">
     <ul class="pagination justify-content-center">
         <li class="page-item">
-            <a class="page-link" href="/fitness/info/search?page=0&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}$fitnessRoutineId=${fitnessRoutineId}" aria-label="Previous">
+            <a class="page-link" href="/fitness/info/search?page=0&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}&fitnessRoutineId=${fitnessRoutineId}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
             <c:forEach var="i" varStatus="status" begin="1" end="${fitnessInfos.totalPages}">
-                <li class="page-item"><a class="page-link" href="/fitness/info/search?page=${i - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}$fitnessRoutineId=${fitnessRoutineId}">${i}</a></li>
+                <li class="page-item"><a class="page-link" href="/fitness/info/search?page=${i - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}&fitnessRoutineId=${fitnessRoutineId}">${i}</a></li>
             </c:forEach>
         <li class="page-item">
-            <a class="page-link" href="/fitness/info/search?page=${fitnessInfos.totalPages - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}$fitnessRoutineId=${fitnessRoutineId}" aria-label="Next">
+            <a class="page-link" href="/fitness/info/search?page=${fitnessInfos.totalPages - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}&fitnessRoutineId=${fitnessRoutineId}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

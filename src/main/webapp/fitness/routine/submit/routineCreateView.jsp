@@ -12,12 +12,12 @@
     <jsp:include page="/header.jsp"></jsp:include>
     <div class="container-sm">
         <form action="/fitness/routine" method="post">
-            title:
+            제목:
             <input type="text" class="w-100" name="title" id="title"> <br>
             <br>
-            <input type="submit" class="btn btn-outline-primary me-2" value="submit">
+            <input type="submit" class="btn btn-outline-primary me-2" value="운동 루틴 생성하기">
         </form><br>
-        <a href="/fitness/routine"><h1>back</h1></a>
+        <a href="/fitness/routine"><h1>뒤로가기</h1></a>
     </div>
 </body>
 </html>
