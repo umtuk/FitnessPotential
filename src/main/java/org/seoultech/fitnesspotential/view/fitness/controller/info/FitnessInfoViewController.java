@@ -1,5 +1,6 @@
 package org.seoultech.fitnesspotential.view.fitness.controller.info;
 
+import lombok.extern.slf4j.Slf4j;
 import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessInfo;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Set;
 
+@Slf4j
 @Controller
 @RequestMapping("/fitness/info")
 public class FitnessInfoViewController {
@@ -33,13 +35,21 @@ public class FitnessInfoViewController {
 
     @GetMapping
     public ModelAndView getDefaultFitnessInfoView(ModelMap model) {
-        return new ModelAndView("forward:/fitness/info/search?page=0&size=10&detailedCategory=null&majorCategory=null", model);
+        return new ModelAndView("forward:/fitness/info/search?page=0&size=10&detailedCategory=전체&majorCategory=전체", model);
+    }
+
+    @GetMapping("/selection")
+    public ModelAndView getDefaultFitnessInfoSelectionView(@RequestParam Long fitnessRoutineId, ModelMap model) {
+        return new ModelAndView("forward:/fitness/info/search?page=0&size=10&detailedCategory=전체&majorCategory=전체&fitnessUnitId=" + fitnessRoutineId, model);
     }
 
     @GetMapping("/search")
-    public ModelAndView getFitnessInfosView(@RequestParam Set<String> majorCategory, @RequestParam Set<String> detailedCategory, @PageableDefault Pageable pageable, ModelMap model){
+    public ModelAndView getFitnessInfosView(@RequestParam String majorCategory, @RequestParam String detailedCategory, @RequestParam(required = false) Long fitnessRoutineId, @PageableDefault Pageable pageable, ModelMap model){
         Page<FitnessInfoSummary> fitnessInfos = fitnessInfoSummaryService.getFitnessInfoSummaries(majorCategory, detailedCategory, pageable);
         model.addAttribute("fitnessInfos", fitnessInfos);
+        model.addAttribute("majorCategory", majorCategory);
+        model.addAttribute("detailedCategory", detailedCategory);
+        model.addAttribute("fitnessRoutineId", fitnessRoutineId);
         return new ModelAndView("fitness/info/searchView", model);
     }
 
@@ -50,8 +60,8 @@ public class FitnessInfoViewController {
         return new ModelAndView("fitness/info/indexView", model);
     }
     @PostMapping
-    public ModelAndView postFitnessDiary(@ModelAttribute FitnessInfoPostRequest fitnessInfoPostRequest, ModelMap model){
-        FitnessInfo fitnessInfo = fitnessInfoService.postFitnessInfo(fitnessInfoPostRequest, 0L);
+    public ModelAndView postFitnessDiary(@ModelAttribute FitnessInfoPostRequest fitnessInfoPostRequest, @SessionAttribute User user, ModelMap model){
+        FitnessInfo fitnessInfo = fitnessInfoService.postFitnessInfo(fitnessInfoPostRequest, user.getId());
         return new ModelAndView("redirect:/fitness/info/" + fitnessInfo.getId(), model);
     }
 
@@ -63,13 +73,13 @@ public class FitnessInfoViewController {
 
     @GetMapping("/create")
     public ModelAndView getFitnessInfoCreateView(@SessionAttribute User user, ModelMap model){
-        return new ModelAndView("/fitness/info/submit/infoCreate", model);
+        return new ModelAndView("/fitness/info/submit/infoCreateView", model);
     }
 
     @GetMapping("/update/{id}")
     public ModelAndView getFitnessInfoUpdateView(@SessionAttribute User user, @PathVariable Long id, ModelMap model){
         FitnessInfo fitnessInfo = fitnessInfoService.getFitnessInfo(id);
         model.addAttribute("fitnessInfo", fitnessInfo);
-        return new ModelAndView("/fitness/info/submit/infoUpdate", model);
+        return new ModelAndView("/fitness/info/submit/infoUpdateView", model);
     }
 }

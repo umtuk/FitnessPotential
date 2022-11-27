@@ -29,10 +29,10 @@ public class FitnessInfoPutRequest {
     private Long thumbnail;
 
     @NotNull
-    @Size(min = 1, max = 4)
-    private Set<@Size(min = 1, max = 16) String> majorCategory;
+    @Size(min = 1, max = 32)
+    private String majorCategory;
 
     @NotNull
-    @Size(min = 1, max = 4)
-    private Set<@Size(min = 1, max = 16) String> detailedCategory;
+    @Size(min = 1, max = 32)
+    private String detailedCategory;
 }

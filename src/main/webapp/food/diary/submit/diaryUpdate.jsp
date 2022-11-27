@@ -8,7 +8,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.min.js"></script>
     </head>
 <body>
-<jsp:include page="../../../header.jsp"></jsp:include>
+<head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
     <div class="container-sm">
         <c:set var="targetSelector" value='.thumbnail' scope="request"></c:set>
         <jsp:include page="/storage/submit/storageCreate.jsp"></jsp:include>

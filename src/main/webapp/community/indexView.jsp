@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<jsp:include page="../head.jsp"></jsp:include>
+<head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
 <body>
-    <jsp:include page="../header.jsp"></jsp:include>
+    <head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
     <div class="container-sm">
         <a href="/community">back</a><br>
         <a href="/community/update/${community.id}">update</a><br>

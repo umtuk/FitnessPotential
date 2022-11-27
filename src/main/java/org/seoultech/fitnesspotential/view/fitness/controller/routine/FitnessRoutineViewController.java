@@ -1,11 +1,13 @@
 package org.seoultech.fitnesspotential.view.fitness.controller.routine;
 
+import org.seoultech.fitnesspotential.domain.fitness.dto.info.FitnessInfoPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessUnit;
+import org.seoultech.fitnesspotential.domain.fitness.service.FitnessInfoService;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessRoutineService;
 import org.seoultech.fitnesspotential.domain.fitness.service.FitnessUnitService;
 import org.seoultech.fitnesspotential.domain.user.entity.User;
@@ -15,17 +17,22 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/fitness/routine")
 public class FitnessRoutineViewController {
 
     private final FitnessRoutineService fitnessRoutineService;
-
+    private final FitnessInfoService fitnessInfoService;
     private final FitnessUnitService fitnessUnitService;
 
     @Autowired
-    public FitnessRoutineViewController(FitnessRoutineService fitnessRoutineService, FitnessUnitService fitnessUnitService) {
+    public FitnessRoutineViewController(FitnessRoutineService fitnessRoutineService,
+                                        FitnessInfoService fitnessInfoService,
+                                        FitnessUnitService fitnessUnitService) {
         this.fitnessRoutineService = fitnessRoutineService;
+        this.fitnessInfoService = fitnessInfoService;
         this.fitnessUnitService = fitnessUnitService;
     }
 
@@ -50,8 +57,8 @@ public class FitnessRoutineViewController {
     }
 
     @PostMapping
-    public ModelAndView postFitnessRoutine(@ModelAttribute FitnessRoutinePostRequest fitnessRoutinePostRequest, ModelMap model){
-        FitnessRoutine fitnessRoutine = fitnessRoutineService.postFitnessRoutine(fitnessRoutinePostRequest, 0L);
+    public ModelAndView postFitnessRoutine(@ModelAttribute FitnessRoutinePostRequest fitnessRoutinePostRequest, @SessionAttribute User user, ModelMap model){
+        FitnessRoutine fitnessRoutine = fitnessRoutineService.postFitnessRoutine(fitnessRoutinePostRequest, user.getId());
         return new ModelAndView("redirect:/fitness/routine/"+fitnessRoutine.getId(), model);
     }
 
@@ -70,13 +77,13 @@ public class FitnessRoutineViewController {
     @PostMapping("/unit")
     public ModelAndView postUnit(@ModelAttribute FitnessUnitPostRequest fitnessUnitPostRequest, ModelMap model){
         FitnessUnit fitnessUnit = fitnessUnitService.postFitnessUnit(fitnessUnitPostRequest);
-        return new ModelAndView("redirect:/fitness/routine/" + fitnessUnit.getId(), model);
+        return new ModelAndView("redirect:/fitness/routine/" + fitnessUnit.getFitnessRoutine().getId(), model);
     }
 
     @PutMapping("/unit/update/{id}")
     public ModelAndView putUnit(@ModelAttribute FitnessUnitPutRequest fitnessUnitPutRequest, @PathVariable Long id, ModelMap model){
         FitnessUnit fitnessUnit = fitnessUnitService.putFitnessUnit(fitnessUnitPutRequest, id);
-        return new ModelAndView("redirect:/fitness/routine/"+ fitnessUnit.getId(), model);
+        return new ModelAndView("redirect:/fitness/routine/"+ fitnessUnit.getFitnessRoutine().getId(), model);
     }
 
     @DeleteMapping("/unit/{id}")
@@ -88,13 +95,55 @@ public class FitnessRoutineViewController {
 
     @GetMapping("/create")
     public ModelAndView getFitnessRoutineCreateView(ModelMap model){
-        return new ModelAndView("/fitness/routine/submit/routineCreate", model);
+        return new ModelAndView("/fitness/routine/submit/routineCreateView", model);
     }
 
     @GetMapping("/update/{id}")
     public ModelAndView getFitnessRoutineUpdateView(@PathVariable Long id, ModelMap model){
         FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(id);
         model.addAttribute("fitnessRoutine", fitnessRoutine);
-        return new ModelAndView("/fitness/routine/submit/routineUpdate", model);
+        return new ModelAndView("/fitness/routine/submit/routineUpdateView", model);
+    }
+
+    @GetMapping("/start")
+    public ModelAndView getFitnessRoutineStartView(@RequestParam Long fitnessRoutineId, @RequestParam Integer unitIndex, ModelMap model) {
+        FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(fitnessRoutineId);
+        List<FitnessUnit> units = fitnessRoutine.getUnits();
+        if (unitIndex == units.size()) {
+            return new ModelAndView("redirect:/fitness/diary", model);
+        }
+        else {
+            model.addAttribute("unit", units.get(unitIndex));
+            model.addAttribute("unitIndex", unitIndex);
+            return new ModelAndView("/fitness/routine/routineStartView", model);
+        }
+    }
+
+    @GetMapping("/before")
+    public ModelAndView getFitnessRoutineBeforeView(@RequestParam Long fitnessRoutineId, @RequestParam Integer unitIndex, ModelMap model) {
+        FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(fitnessRoutineId);
+        List<FitnessUnit> units = fitnessRoutine.getUnits();
+        model.addAttribute("unit", units.get(unitIndex));
+        if (unitIndex == 0) {
+            return new ModelAndView("redirect:/fitness/routine" + fitnessRoutineId, model);
+        }
+        else {
+            return new ModelAndView("/fitness/routine/start?unitIndex" + (unitIndex - 1), model);
+        }
+    }
+
+    @PostMapping("/start")
+    public ModelAndView postFitnessRoutineStartView(@RequestParam Long fitnessRoutineId, @RequestParam Integer unitIndex, @ModelAttribute FitnessInfoPostRequest fitnessInfoPostRequest, @SessionAttribute User user, ModelMap model) {
+        FitnessRoutine fitnessRoutine = fitnessRoutineService.getFitnessRoutine(fitnessRoutineId);
+        List<FitnessUnit> units = fitnessRoutine.getUnits();
+        fitnessInfoService.postFitnessInfo(fitnessInfoPostRequest, user.getId());
+        if (unitIndex == units.size()) {
+            return new ModelAndView("redirect:/fitness/diary", model);
+        }
+        else {
+            model.addAttribute("unit", units.get(unitIndex));
+            model.addAttribute("unitIndex", unitIndex);
+            return new ModelAndView("/fitness/routine/routineStartView", model);
+        }
     }
 }

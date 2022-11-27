@@ -9,7 +9,9 @@
                 <div class="d-flex gap-2 w-100 justify-content-between">
                     <h2>title: ${fitnessRoutine.title}<br></h2>
                     <small class="opacity-50 text-nowrap">
-                        createdAt: ${fitnessRoutine.createdAt} <br>
+                        <c:forEach var="unit" varStatus="uStatus" items="${fitnessRoutine.units}">
+                            ${unit.title} <br>
+                        </c:forEach>
                     </small>
                 </div>
             </a>

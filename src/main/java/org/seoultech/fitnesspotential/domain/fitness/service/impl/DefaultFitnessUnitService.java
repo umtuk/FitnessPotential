@@ -1,5 +1,6 @@
 package org.seoultech.fitnesspotential.domain.fitness.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.unit.FitnessUnitPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 public class DefaultFitnessUnitService implements FitnessUnitService {
 
     private final FitnessUnitRepository fitnessUnitRepository;
@@ -29,6 +31,7 @@ public class DefaultFitnessUnitService implements FitnessUnitService {
     public Long getFitnessRoutineId(Long id) {
         FitnessUnit fitnessUnit = fitnessUnitRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException(FitnessUnitErrorMessage.FITNESS_UNIT_NOT_FOUND.toString()));
+        log.info("{}", fitnessUnit);
         return fitnessUnit.getFitnessRoutine().getId();
     }
 

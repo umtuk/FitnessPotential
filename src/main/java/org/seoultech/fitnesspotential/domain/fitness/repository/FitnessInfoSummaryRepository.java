@@ -10,5 +10,6 @@ import java.util.Collection;
 
 @Repository
 public interface FitnessInfoSummaryRepository extends ReadOnlyPagingAndSortingRepository<FitnessInfoSummary, Long> {
-    Page<FitnessInfoSummary> findByMajorCategoryInAndDetailedCategoryIn(Collection<String> majorCategory, Collection<String> detailedCategory, Pageable pageable);
+    Page<FitnessInfoSummary> findByMajorCategoryAndDetailedCategory(String majorCategory, String detailedCategory, Pageable pageable);
+    Iterable<FitnessInfoSummary> findByMajorCategoryAndDetailedCategory(String majorCategory, String detailedCategory);
 }

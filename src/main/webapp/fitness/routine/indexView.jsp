@@ -4,9 +4,12 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<jsp:include page="../../head.jsp"></jsp:include>s
+<head>
+    <jsp:include page="/head.jsp"></jsp:include>
+    <script src="/js/fitnessUnit.js"></script>
+</head>
 <body>
-    <jsp:include page="../../header.jsp"></jsp:include>
+    <jsp:include page="/header.jsp"></jsp:include>
     <div class="container-sm">
         <a href="/fitness/routine">back</a><br>
         <a href="/fitness/routine/update/${fitnessRoutine.id}">update</a>

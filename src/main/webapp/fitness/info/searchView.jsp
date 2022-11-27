@@ -4,11 +4,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<jsp:include page="../../head.jsp"></jsp:include>
+<head>
+    <jsp:include page="/head.jsp"></jsp:include>
+    <script src="/js/fitnessInfo.js"></script>
+</head>
 <body>
-<jsp:include page="../../header.jsp"></jsp:include>
-<jsp:include page="/fitness/info/entity/infos.jsp">
-    <jsp:param name="fitnessInfos" value="${fitnessInfos}" />
-</jsp:include>
+    <jsp:include page="/header.jsp"></jsp:include>
+    <jsp:include page="/fitness/info/entity/infos.jsp">
+        <jsp:param name="fitnessInfos" value="${fitnessInfos}" />
+    </jsp:include>
 </body>
 </html>

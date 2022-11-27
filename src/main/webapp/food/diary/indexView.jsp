@@ -4,7 +4,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<jsp:include page="../../header.jsp"></jsp:include>
+<head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
 <div class="container-sm">
     <a href="/food/diary">back</a><br>
     <a href="/food/diary/update/${foodDiary.id}">update</a>

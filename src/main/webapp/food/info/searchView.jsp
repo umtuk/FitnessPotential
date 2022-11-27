@@ -4,9 +4,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<jsp:include page="../../head.jsp"></jsp:include>
+<head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
 <body>
-<jsp:include page="../../header.jsp"></jsp:include>
+<head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
 <jsp:include page="/food/info/entity/infos.jsp">
     <jsp:param name="foodInfos" value="${foodInfos}" />
 </jsp:include>

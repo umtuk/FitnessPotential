@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import java.util.Set;
 
 public interface FitnessInfoSummaryService {
-    Page<FitnessInfoSummary> getFitnessInfoSummaries(Set<String> majorCategory, Set<String> detailedCategory, Pageable pageable);
+    Page<FitnessInfoSummary> getFitnessInfoSummaries(String majorCategory, String detailedCategory, Pageable pageable);
 }

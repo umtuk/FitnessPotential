@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="../../head.jsp"></jsp:include>
+    <head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
     <script>
         function addTag(event) {
             let text = document.querySelector('.tags input[name="tag"]').value;
@@ -36,7 +38,9 @@
     </script>
 </head>
 <body>
-    <jsp:include page="../../header.jsp"></jsp:include>
+    <head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
     <div class="container-sm">
         <form action="/community/${community.id}" method="post">
             <input type="hidden" name="_method" value="put">

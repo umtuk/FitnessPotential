@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<jsp:include page="../../../head.jsp"></jsp:include>
+<head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
 <body>
-    <jsp:include page="../../../header.jsp"></jsp:include>
+    <head>
+    <jsp:include page="/head.jsp"></jsp:include>
+</head>
     <div class="container-sm">
         <form action="/fitness/diary" method="post">
             title:

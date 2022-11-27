@@ -12,6 +12,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 @Controller
 @RequestMapping("/fitness/diary")
 public class FitnessDiaryViewController {
@@ -26,12 +29,20 @@ public class FitnessDiaryViewController {
 
     @GetMapping
     public ModelAndView getDefaultFitnessDiaryView(@SessionAttribute User user, ModelMap model){
-        return new ModelAndView("forward:/fitness/diary/search?page=0&size=10", model);
+        Calendar calendar = Calendar.getInstance();
+        Integer year = calendar.get(Calendar.YEAR);
+        Integer month = calendar.get(Calendar.MONTH) + 1;
+        Integer day = calendar.get(Calendar.DAY_OF_MONTH);
+        return new ModelAndView("forward:/fitness/diary/search?page=0&size=10&year=" + year + "&month=" + month + "&day=" + day, model);
     }
 
     @GetMapping("/search")
     public ModelAndView getFitnessDiariesView(@RequestParam Integer year, @RequestParam Integer month, @RequestParam Integer day, @SessionAttribute User user, ModelMap model){
-        model.addAttribute("fitnessDiaries", fitnessDiaryService.getFitnessDiaries(year, month, day, user.getId()));
+        Iterable<FitnessDiary> fitnessDiaries = fitnessDiaryService.getFitnessDiaries(year, month, day, user.getId());
+        model.addAttribute("fitnessDiaries", fitnessDiaries);
+        model.addAttribute("year", year);
+        model.addAttribute("month", month);
+        model.addAttribute("day", day);
         return new ModelAndView("fitness/diary/searchView", model);
     }
 

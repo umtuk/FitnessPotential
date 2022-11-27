@@ -31,15 +31,11 @@ public class FitnessInfo {
     @Column(name = "thumbnail", nullable = false)
     private Long thumbnail;
 
-    @ElementCollection
-    @CollectionTable(name = "fitness_info_major_category", joinColumns = @JoinColumn(name = "fitness_info_id"))
     @Column(length = 32)
-    private Set<String> majorCategory;
+    private String majorCategory;
 
-    @ElementCollection
-    @CollectionTable(name = "fitness_info_detailed_category", joinColumns = @JoinColumn(name = "fitness_info_id"))
     @Column(length = 32)
-    private Set<String> detailedCategory;
+    private String detailedCategory;
 
     @Column(nullable = false, name="created_at")
     private Long createdAt;
@@ -49,7 +45,7 @@ public class FitnessInfo {
     private Long deletedAt;
 
     @Builder
-    public FitnessInfo(Long id, Long creatorId, String title, String summary, String content, Long thumbnail, Set<String> majorCategory, Set<String> detailedCategory, Long createdAt, Long updatedAt, Long deletedAt) {
+    public FitnessInfo(Long id, Long creatorId, String title, String summary, String content, Long thumbnail, String majorCategory, String detailedCategory, Long createdAt, Long updatedAt, Long deletedAt) {
         this.id = id;
         this.creatorId = creatorId;
         this.title = title;
@@ -67,8 +63,8 @@ public class FitnessInfo {
 
         private Long id;
         private Long creatorId;
-        private Set<String> majorCategory;
-        private Set<String> detailedCategory;
+        private String majorCategory;
+        private String detailedCategory;
         private String title;
         private String summary;
         private String content;

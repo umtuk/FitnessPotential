@@ -23,4 +23,7 @@
         majorCategory: ${fitnessInfo.majorCategory} <br>
         detailedCategory: ${fitnessInfo.detailedCategory}
     </div>
+    <c:if test="${not empty param.fitnessRoutineId}">
+        <a href="/fitness/routine/submit/unitCreateView.jsp?fitnessRoutineId=${param.fitnessRoutineId}&title=${fitnessInfo.title}&fitnessInfoId=${fitnessInfo.id}">운동 추가하기</a>
+    </c:if>
 </div>

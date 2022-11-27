@@ -37,7 +37,7 @@ public class FitnessInfoController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<FitnessInfoSummary>> getFitnessInfoSummaries(@RequestParam Set<String> majorCategory, @RequestParam Set<String> detailedCategory, @PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<FitnessInfoSummary>> getFitnessInfoSummaries(@RequestParam String majorCategory, @RequestParam String detailedCategory, @PageableDefault Pageable pageable) {
         Page<FitnessInfoSummary> fitnessInfoSummaries = fitnessInfoSummaryService.getFitnessInfoSummaries(majorCategory, detailedCategory, pageable);
         return fitnessInfoSummaries.isEmpty() ?
                 new ResponseEntity<>(fitnessInfoSummaries, HttpStatus.NO_CONTENT) :

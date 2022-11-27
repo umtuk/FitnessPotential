@@ -1,9 +1,6 @@
 package org.seoultech.fitnesspotential.domain.fitness.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.routine.FitnessRoutinePutRequest;
 
@@ -13,6 +10,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Table(name="fitness_routine")
 public class FitnessRoutine {
 

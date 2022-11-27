@@ -14,14 +14,13 @@
     </div><br>
     <form action="/fitness/routine/${fitnessRoutine.id}" method="post">
         <input type="hidden" name="_method" value="delete">
-        <input class="btn btn-outline-primary me-2" type="submit" value="delete"> <br>
+        <input class="btn btn-outline-primary me-2" type="submit" value="삭제"> <br>
     </form><br>
-    <c:set var="fitnessRoutine" value="${fitnessRoutine}" scope="request"></c:set>
-    <c:set var="units" value="${fitnessRoutine.units}" scope="request"></c:set>
 
+    <c:set var="fitnessRoutineId" value="${fitnessRoutine.id}" scope="request"></c:set>
+    <c:set var="units" value="${fitnessRoutine.units}" scope="request"></c:set>
     <jsp:include page="/fitness/routine/entity/units.jsp"></jsp:include>
 
-    <h2>create units</h2>
-    <c:set var="parent" value="${null}" scope="request"></c:set>
-    <jsp:include page="/fitness/routine/submit/unitCreate.jsp"></jsp:include>
+    <a href="/fitness/info/selection?fitnessRoutineId=${fitnessRoutine.id}"><h2>운동 추가하기</h2></a>
+    <a href="/fitness/routine/start?fitnessRoutineId=${fitnessRoutine.id}&unitIndex=0"><h2>운동 시작하기</h2></a>
 </div>
