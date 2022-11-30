@@ -12,5 +12,6 @@
     <jsp:include page="/community/entity/communitySummaries.jsp">
         <jsp:param name="communitySummaries" value="${communitySummaries}" />
     </jsp:include>
+      <jsp:include page="/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -17,5 +17,13 @@
             <li><a href="/food/info" class="nav-link px-2 link-dark">음식정보</a></li>
             <li><a href="/food/diary" class="nav-link px-2 link-dark">식단일지</a></li>
         </ul>
+        <c:if test="${not empty sessionScope.user}">
+            <a href="/user/my">
+                <img class="rounded-circle" src="${sessionScope.user.profileImageUrl}" alt="" width="50px" height="50px">
+            </a>
+        </c:if>
+        <c:if test="${empty sessionScope.user}">
+            <a href="/oauth2/authorization/kakao" class="nav-link px-2 link-dark">로그인</a>
+        </c:if>
     </header>
 </div>

@@ -65,6 +65,7 @@
     </form>
     <a href="/fitness/info/${fitnessInfo.id}">back</a>
 </div>
+      <jsp:include page="/footer.jsp"></jsp:include>
 </body>
 </html>
 

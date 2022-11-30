@@ -81,6 +81,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/fitness/info/**/{id}").access("hasRole(\"USER\") and @fitnessInfoOnlyMeAccess.isMine(authentication, #id)")
 
                 .antMatchers(HttpMethod.GET, "/fitness/routine/**").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/fitness/routine/{id}").access("hasRole(\"USER\") and @fitnessRoutineOnlyMeAccess.isMine(authentication, #id)")
                 .antMatchers(HttpMethod.POST, "/fitness/routine/**").hasRole("USER")
                 .antMatchers(HttpMethod.PUT, "/fitness/routine/{id}").access("hasRole(\"USER\") and @fitnessRoutineOnlyMeAccess.isMine(authentication, #id)")
                 .antMatchers(HttpMethod.DELETE, "/fitness/routine/{id}").access("hasRole(\"USER\") and @fitnessRoutineOnlyMeAccess.isMine(authentication, #id)")
@@ -89,6 +90,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/fitness/routine/unit/{id}").access("hasRole(\"USER\") and @fitnessUnitOnlyMeAccess.isMine(authentication, #id)")
 
                 .antMatchers(HttpMethod.GET, "/food/diary/**").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/food/diary/**/{id}").access("hasRole(\"USER\") and @foodDiaryOnlyMeAccess.isMine(authentication, #id)")
                 .antMatchers(HttpMethod.POST, "/food/diary/**").hasRole("USER")
                 .antMatchers(HttpMethod.PUT, "/food/diary/**/{id}").access("hasRole(\"USER\") and @foodDiaryOnlyMeAccess.isMine(authentication, #id)")
                 .antMatchers(HttpMethod.DELETE, "/food/diary/**/{id}").access("hasRole(\"USER\") and @foodDiaryOnlyMeAccess.isMine(authentication, #id)")
@@ -103,6 +105,9 @@ public class SecurityConfig {
                 .oauth2Login()
                 .successHandler(successHandler)
                 .userInfoEndpoint().userService(oAuth2UserService);
+
+        http.logout()
+                .logoutSuccessUrl("/");
 
         return  http.build();
     }

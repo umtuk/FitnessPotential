@@ -62,5 +62,6 @@
         </form>
         <a href="/community/${community.id}"><h1>뒤로가기</h1></a>
     </div>
+      <jsp:include page="/footer.jsp"></jsp:include>
 </body>
 </html>

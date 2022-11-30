@@ -70,4 +70,5 @@
         </form>
         <a href="/fitness/info"><h1>back</h1></a>
     </div>
+      <jsp:include page="/footer.jsp"></jsp:include>
 </body>

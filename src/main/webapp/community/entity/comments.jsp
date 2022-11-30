@@ -14,18 +14,16 @@
                 <div class="d-flex gap-2 w-100 justify-content-between">
                     ${comment.content} <br>
                     <small class="opacity-50 text-nowrap">
-                        <form action="/community/comment/${comment.id}" method="post">
-                            <input class="btn btn-outline-primary me-2" type="hidden" name="_method" value="delete">
-                            <input class="btn btn-outline-primary me-2" type="submit" value="댓글 삭제하기"> <br>
-                        </form>
+                        <c:if test="${comment.creatorId == sessionScope.user.id}">
+                            <form action="/community/comment/${comment.id}" method="post">
+                                <input class="btn btn-outline-primary me-2" type="hidden" name="_method" value="delete">
+                                <input class="btn btn-outline-primary me-2" type="submit" value="댓글 삭제하기"> <br>
+                            </form>
+                        </c:if>
                     </small>
                 </div>
-                <!-- <c:set var="community" value="${community}" scope="request"></c:set>
-                <c:set var="comment" value="${comment}" scope="request"></c:set>
-                <c:set var="parent" value="${comment}" scope="request"></c:set>
-                <p>create child comment
-                <jsp:include page="/community/submit/commentCreate.jsp"></jsp:include></p> -->
             </div>
+            <hr>
         </c:forEach>
     </div>
 </div>

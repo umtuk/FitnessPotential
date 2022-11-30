@@ -26,10 +26,12 @@
         </div>
     </span>
     <hr class="opacity-50">
-    <form action="/community/${community.id}" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <input class="btn btn-outline-primary me-2" type="submit" value="게시판 삭제하기"> <br>
-    </form>
+    <c:if test="${community.creatorId == sessionScope.user.id}">
+        <form action="/community/${community.id}" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input class="btn btn-outline-primary me-2" type="submit" value="게시판 삭제하기"> <br>
+        </form>
+    </c:if>
     <c:set var="community" value="${community}" scope="request"></c:set>
     <c:set var="comments" value="${community.comments}" scope="request"></c:set>
     <br><br>

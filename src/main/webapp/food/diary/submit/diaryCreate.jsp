@@ -48,5 +48,6 @@
             </form>
             <a href="/food/diary"><h1>back</h1></a>
         </div>
-    </body> 
+          <jsp:include page="/footer.jsp"></jsp:include>
+</body> 
 </html>

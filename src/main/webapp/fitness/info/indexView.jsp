@@ -16,5 +16,6 @@
     <jsp:include page="/fitness/info/entity/info.jsp">
         <jsp:param name="fitnessInfo" value="${fitnessInfo}" />
     </jsp:include>
+      <jsp:include page="/footer.jsp"></jsp:include>
 </body>
 </html>

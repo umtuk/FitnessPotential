@@ -57,5 +57,6 @@
         </span>
         <a href="/community"><h1>back</h1></a>
     </div>
+      <jsp:include page="/footer.jsp"></jsp:include>
 </body>
 </html>

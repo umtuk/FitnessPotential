@@ -19,5 +19,6 @@
         </form><br>
         <a href="/fitness/routine"><h1>뒤로가기</h1></a>
     </div>
+      <jsp:include page="/footer.jsp"></jsp:include>
 </body>
 </html>
