@@ -24,11 +24,11 @@
                         <button class="startFitness">세트 완료</button>
                     </div>
                     <input type="hidden" name="breakTimesPerSet[]" value="${unit.breakTimesPerSet.get(i)}">
+                    <c:set var="isLast" value="${i == unit.sets - 1}" scope="request"></c:set>
                     <jsp:include page="/fitness/routine/util/breakTimeTimer.jsp"></jsp:include>
                 </div>
             </c:forEach>
         </div>
-        <input type="submit" value="다음 운동 진행하기">
     </form>
     <a href="/fitness/info"><h2>종료하기</h2></a>
     <a href="/fitness/routine/start?unitIndex=${unitIndex + 1}&fitnessRoutineId=${unit.fitnessRoutine.id}"><h2>건너뛰기</h2></a>

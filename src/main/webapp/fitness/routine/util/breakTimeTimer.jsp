@@ -10,5 +10,10 @@
     </div>
     <h1 class="clock">${unit.breakTimesPerSet.get(i)}</h1>
     <button class="breakStart">휴식 시작</button>
-    <button class="nextSet">다음 세트 시작</button>
+    <c:if test="${isLast}">
+        <input type="submit" value="다음 운동 진행하기">
+    </c:if>
+    <c:if test="${!isLast}">
+        <button class="nextSet">다음 세트 시작</button>
+    </c:if>
 </div>
