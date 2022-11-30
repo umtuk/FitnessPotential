@@ -11,8 +11,6 @@
 <body>
     <jsp:include page="/header.jsp"></jsp:include>
     <div class="container-sm">
-        <jsp:include page="/header.jsp"></jsp:include>
-
         <form id="fitnessUnitCreate" method="post" action="/fitness/diary">
             제목: <input type="text" name="title" value="${param.title}" readonly required minlength="5" maxlength="64"><br>
             <input type="hidden" name="fitnessInfoId" value="${param.fitnessInfoId}" readonly required>
