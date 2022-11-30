@@ -24,12 +24,13 @@
                             중량: ${unit.weights.get(i)} <br><br>
                             <button class="startFitness btn btn-outline-primary me-2">세트 완료</button><br>
                         </div>
+                        <c:set var="isLast" value="${i == unit.sets - 1}" scope="request"></c:set>
                         <input type="hidden" name="breakTimesPerSet[]" value="${unit.breakTimesPerSet.get(i)}">
                         <jsp:include page="/fitness/routine/util/breakTimeTimer.jsp"></jsp:include>
                     </div>
                 </c:forEach>
             </div>
-            <input type="submit" class="btn btn-outline-primary me-2" value="다음 운동 진행하기"><br><br>
+            <br><br>
         </form>
         <a href="/fitness/info"><h2>종료하기</h2></a>
         <a href="/fitness/routine/start?unitIndex=${unitIndex + 1}&fitnessRoutineId=${unit.fitnessRoutine.id}"><h2>건너뛰기</h2></a>
