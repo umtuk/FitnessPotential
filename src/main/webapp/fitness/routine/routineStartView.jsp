@@ -19,7 +19,7 @@
                 <input type="hidden" name="sets" value="${unit.sets}">
                 <c:forEach var="i" varStatus="status" begin="0" end="${unit.sets - 1}">
                     <div class="set">
-                        <div class="info">
+                        <div class="info container-sm border border-primary rounded-3">
                             반복 횟수: ${unit.reps.get(i)} <br>
                             중량: ${unit.weights.get(i)} <br><br>
                             <button class="startFitness btn btn-outline-primary me-2">세트 완료</button><br>

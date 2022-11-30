@@ -7,25 +7,19 @@
         <c:forEach var="fitnessInfos" varStatus="status" items="${fitnessInfos.content}">
             <div class="list-group w-auto">
                 <a href="/fitness/info/${fitnessInfos.id}">
-                    <div class="d-flex gap-2 w-100 justify-content-between">
-                        <img src="/storage/${fitnessInfos.thumbnail}" alt="" width="50" height="50">
-                        ${fitnessInfos.title}<br>
-                        ${fitnessInfos.summary}<br>
-                        <small class="opacity-50 text-nowrap">
-                            
-                        </small>
+                    <div class="row justify-content-start">
+                        <div class="col col-4">
+                            <img src="/storage/${fitnessInfos.thumbnail}" alt="" width="50" height="50">
+                        </div><div class="col col-4">
+                            ${fitnessInfos.title}<br>
+                            ${fitnessInfos.summary}
+                        </div>
                     </div>
                 </a>
             </div>
             <hr>
         </c:forEach>
     </div>
-
-    <!-- 삭제 예정 -->
-    <div class="container-sm">
-        <a href="/fitness/info/create">create info</a>
-    </div>
-
 
 </div>
 
