@@ -25,10 +25,11 @@
 <div class="container-sm">
     <a href="/food/diary/create">식단 일지 생성하기</a>
 </div>
-<form method="get" action="/food/diary/search">
-    날짜(yyyy-mm-dd): 
-    <input type="number" name="year" value="${year}">-
-    <input type="number" name="month" value="${month}">-
-    <input type="number" name="day" value="${day}">-
-    <input type="submit" value="submit">
-</form>
+<div class="container-sm">
+    <form method="get" action="/food/diary/search">
+        <input type="number" name="year" value="${year}">-
+        <input type="number" name="month" value="${month}">-
+        <input type="number" name="day" value="${day}">&nbsp;&nbsp;
+        <input type="submit" class="btn btn-outline-primary me-2" value="검색">
+    </form>
+</div>

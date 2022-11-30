@@ -11,11 +11,10 @@
     </head>
     <body>
         <jsp:include page="/header.jsp"></jsp:include>
-
-        <c:set var="targetSelector" value='.thumbnail' scope="request"></c:set>
-        <jsp:include page="/storage/submit/storageCreate.jsp"></jsp:include>
-
         <div class="container-sm">
+            <c:set var="targetSelector" value='.thumbnail' scope="request"></c:set>
+            <jsp:include page="/storage/submit/storageCreate.jsp"></jsp:include>
+            <br>
             <form action="/food/diary" method="post">
                 <input type="hidden" name="thumbnail" class="thumbnail">
                 내용:
@@ -38,10 +37,10 @@
                 날짜(yyyy-mm-dd):
                 <input type="number" name="year" id="year" min="0" max="9999" required>-
                 <input type="number" name="month" id="month" min="1" max="12" required>-
-                <input type="number" name="day" id="day" min="1" max="31" required>
+                <input type="number" name="day" id="day" min="1" max="31" required><br><br>
 
                 시간:
-                <input type="number" name="hour" id="hour" min="0" max="23" required><br><br>
+                <input type="number" name="hour" id="hour" min="0" max="23" required>&nbsp;&nbsp;
 
                 분:
                 <input type="number" name="minute" id="minute" min="0" max="59" required><br><br>
