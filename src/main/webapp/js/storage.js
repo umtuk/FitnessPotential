@@ -26,3 +26,9 @@ function storageSubmit(event, targetSelector) {
         console.log(err);
     });
 }
+function storageDelete(event, targetSelector){
+    let form = event.target.parentNode;
+    let targetInput = document.querySelector(targetSelector);
+    form.removeChild(form.lastChild);
+    targetInput.value = null;
+}

@@ -5,4 +5,5 @@
 <div class="storage-create">
     <input type="file" name="images">
     <button onclick="storageSubmit(event, '${targetSelector}')">submit</button>
+    <button onclick="storageDelete(event, '${targetSelector}')">delete</button>
 </div>
