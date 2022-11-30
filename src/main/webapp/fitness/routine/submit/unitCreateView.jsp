@@ -10,19 +10,23 @@
 <body>
     <jsp:include page="/header.jsp"></jsp:include>
 
-    <form id="fitnessUnitCreate" method="post" action="/fitness/routine/unit">
-        제목: <input type="text" name="title" value="${param.title}" readonly><br>
-        <input type="hidden" name="fitnessRoutineId" value="${sessionScope.fitnessRoutineId}" readonly>
-        <input type="hidden" name="fitnessInfoId" value="${param.fitnessInfoId}" readonly>
-        <input type="hidden" name="sets">
-    
+    <form id="fitnessUnitCreate" class="container-sm" method="post" action="/fitness/routine/unit">
+        <div class="row">
+            제목: <input type="text" name="title" class="col" value="${param.title}" readonly><br>
+            <input type="hidden" class="col" name="fitnessRoutineId" value="${sessionScope.fitnessRoutineId}" readonly>
+            <input type="hidden" class="col" name="fitnessInfoId" value="${param.fitnessInfoId}" readonly>
+            <input type="hidden" class="col" name="sets">
+        </div>
+        <br>
         <div class="sets">
             
         </div>
     
-        <input type="submit" value="운동 추가히기">
+        <input type="submit" class="btn btn-outline-primary me-2" value="운동 추가히기">
     </form>
-    <button onclick="addSetInputs(event)">세트 추가하기</button>
+    <div class="container-sm">
+        <button class="btn btn-outline-primary me-2" onclick="addSetInputs(event)">세트 추가하기</button>
+    </div>
     <script>
         addSetInputs();
     </script>

@@ -9,6 +9,7 @@ function addSetInputs(event) {
     let weights = createNumberInput("weights[]");
     let deleteButton = document.createElement("button");
     deleteButton.innerText = "삭제"
+    deleteButton.className="btn btn-outline-primary me-2";
     deleteButton.addEventListener('click', event => {
         event.preventDefault();
         deleteSetInputs(event);
@@ -16,13 +17,16 @@ function addSetInputs(event) {
     setClass.appendChild(document.createTextNode("반복 횟수"));
     setClass.appendChild(repsInput);
     setClass.appendChild(document.createElement('br'));
+    setClass.appendChild(document.createElement('br'));
 
     setClass.appendChild(document.createTextNode("쉬는 시간(초)"));
     setClass.appendChild(breakTimesPerSet);
     setClass.appendChild(document.createElement('br'));
+    setClass.appendChild(document.createElement('br'));
 
     setClass.appendChild(document.createTextNode("중량(kg)"));
     setClass.appendChild(weights);
+    setClass.appendChild(document.createElement('br'));
     setClass.appendChild(document.createElement('br'));
 
     setClass.appendChild(deleteButton);

@@ -12,7 +12,7 @@
     <jsp:include page="/header.jsp"></jsp:include>
     <div class="container-sm">
         <c:set var="targetSelector" value='.thumbnail' scope="request"></c:set>
-        <jsp:include page="/storage/submit/storageCreate.jsp"></jsp:include>
+        <jsp:include page="/storage/submit/storageCreate.jsp"></jsp:include><br>
         <form action="/food/diary/${foodDiary.id}" method="post">
             <input type="hidden" name="_method" value="put">
             <input type="hidden" name="thumbnail" class="thumbnail" value="${foodDiary.thumbnail}">
