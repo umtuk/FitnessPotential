@@ -14,6 +14,9 @@
             input.name = "tags[]";
             input.value = text;
             input.readOnly = true;
+            input.required = true;
+            input.minlength = "4";
+            input.maxlength = "32";
             let btn = document.createElement('input');
             btn.type = "button";
             btn.value = "X";
@@ -45,9 +48,9 @@
         <form action="/community/${community.id}" method="post">
             <input type="hidden" name="_method" value="put">
             제목:
-            <input type="text" class="w-100" name="title" id="title" value="${community.title}"> <br>
+            <input type="text" class="w-100" name="title" id="title" value="${community.title}" required minlength="5" maxlength="64"> <br>
             내용:
-            <textarea type="text" class="w-100" name="content" id="content" rows="10" cols="100">${community.content}</textarea>
+            <textarea type="text" class="w-100" name="content" id="content" rows="10" cols="100" minlength="10" maxlength="300">${community.content}</textarea>
             <span class="tags">
                 <input type="text" name="tag" id="tag"> <input type="button" class="btn btn-outline-primary me-2" onclick="addTag(event)" value="태그 추가"> <br>
             </span>

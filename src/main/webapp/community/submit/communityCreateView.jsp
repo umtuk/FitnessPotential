@@ -14,6 +14,9 @@
             input.name = "tags[]";
             input.value = text;
             input.readOnly = true;
+            input.required = true;
+            input.minlength = "4";
+            input.maxlength = "32";
             let btn = document.createElement('input');
             btn.type = "button";
             btn.value = "X";
@@ -44,10 +47,10 @@
     <div class="container-sm">
         <form action="/community" method="post">
             제목:
-            <input type="text" class="w-100" name="title" id="title"> <br>
+            <input type="text" class="w-100" name="title" id="title" required minlength="5" maxlength="64"> <br>
 
             내용:
-            <textarea type="text" name="content" id="content" rows="10" cols="100" class="w-100">
+            <textarea type="text" name="content" id="content" rows="10" cols="100" class="w-100" required minlength="10" maxlength="300">
 
             </textarea>
             <input class="btn btn-outline-primary me-2" type="submit" value="게시판 생성하기">

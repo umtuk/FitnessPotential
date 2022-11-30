@@ -6,6 +6,6 @@
     <input class="btn btn-outline-primary me-2" type="hidden" name="_method" value="put">
     <input class="btn btn-outline-primary me-2" type="hidden" name="communityId" value="${community.id}" readonly>
     <input class="btn btn-outline-primary me-2" type="hidden" name="parentCommentId" value="${comment.id}" readonly>
-    <input class="btn btn-outline-primary me-2" type="text" name="content" value="${comment.content}">
-    <input class="btn btn-outline-primary me-2" type="submit" value="submit">
+    <input class="btn btn-outline-primary me-2" type="text" name="content" value="${comment.content}" minlength="5" maxlength="150" required>
+    <input class="btn btn-outline-primary me-2" type="submit" value="댓글 수정하기">
 </form>

@@ -13,7 +13,7 @@
         <form action="/fitness/routine/${fitnessRoutine.id}" method="post">
             <input type="hidden" name="_method" value="put">
             제목:
-            <input type="text" class="w-100" name="title" id="title" value="${fitnessRoutine.title}"> <br>
+            <input type="text" class="w-100" name="title" id="title" value="${fitnessRoutine.title}" minlength="1" maxlength="20" required> <br>
             <br>
             <input class="btn btn-outline-primary me-2" type="submit" value="수정하기">
         </form>

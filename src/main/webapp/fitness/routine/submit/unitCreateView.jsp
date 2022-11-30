@@ -15,7 +15,7 @@
             제목: <input type="text" name="title" class="col" value="${param.title}" readonly><br>
             <input type="hidden" class="col" name="fitnessRoutineId" value="${sessionScope.fitnessRoutineId}" readonly>
             <input type="hidden" class="col" name="fitnessInfoId" value="${param.fitnessInfoId}" readonly>
-            <input type="hidden" class="col" name="sets">
+            <input type="hidden" class="col" name="sets" required>
         </div>
         <br>
         <div class="sets">

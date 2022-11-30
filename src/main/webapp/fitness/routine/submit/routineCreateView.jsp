@@ -13,7 +13,7 @@
     <div class="container-sm">
         <form action="/fitness/routine" method="post">
             제목:
-            <input type="text" class="w-100" name="title" id="title"> <br>
+            <input type="text" class="w-100" name="title" id="title" minlength="1" maxlength="20" required> <br>
             <br>
             <input type="submit" class="btn btn-outline-primary me-2" value="운동 루틴 생성하기">
         </form><br>
