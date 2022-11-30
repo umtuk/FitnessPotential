@@ -63,7 +63,7 @@
         <br>
         <input type="submit" class="btn btn-outline-primary me-2" value="update">
     </form>
-    <a href="/fitness/info/${fitnessInfo.id}">back</a>
+    <a href="/fitness/info/${fitnessInfo.id}">뒤로가기</a>
 </div>
       <jsp:include page="/footer.jsp"></jsp:include>
 </body>

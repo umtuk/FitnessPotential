@@ -12,6 +12,7 @@
     <jsp:include page="/header.jsp"></jsp:include>
     <div class="container-sm">
         <c:set var="targetSelector" value='.thumbnail' scope="request"></c:set>
+        <c:set var="putValue" value='${foodDiary.thumbnail}' scope="request"></c:set>
         <jsp:include page="/storage/submit/storageCreate.jsp"></jsp:include><br>
         <form action="/food/diary/${foodDiary.id}" method="post">
             <input type="hidden" name="_method" value="put">
@@ -44,10 +45,15 @@
 
             분:
             <input type="number" name="minute" id="minute" min="0" max="59" value="${foodDiary.minute}"  min="0" max="59" required><br><br>
-            <input type="submit" class="btn btn-outline-primary me-2" value="update">
+            <input type="submit" class="btn btn-outline-primary me-2" value="식단일지 수정하기">
         </form>
-        <a href="/food/diary/${foodDiary.id}"><h1>back</h1></a>
+        <a href="/food/diary/${foodDiary.id}"><h1>뒤로가기</h1></a>
     </div>
-      <jsp:include page="/footer.jsp"></jsp:include>
+    <c:if test="${not empty putValue}">
+        <script>
+            putImg('${targetSelector}', {data: "${putValue}"});
+        </script>
+    </c:if>
+    <jsp:include page="/footer.jsp"></jsp:include>
 </body>
 </html>

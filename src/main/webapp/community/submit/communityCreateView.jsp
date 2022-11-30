@@ -58,7 +58,7 @@
         <span class="tags">
             <input type="text" name="tag" id="tag"> <input type="button" class="btn btn-outline-primary me-2" onclick="addTag(event)" value="태그 추가"> <br>
         </span>
-        <a href="/community"><h1>back</h1></a>
+        <a href="/community"><h1>뒤로가기</h1></a>
     </div>
       <jsp:include page="/footer.jsp"></jsp:include>
 </body>

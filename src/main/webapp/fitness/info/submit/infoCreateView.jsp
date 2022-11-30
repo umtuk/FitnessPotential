@@ -68,7 +68,7 @@
             <br>
             <input type="submit" class="btn btn-outline-primary me-2" value="create info">
         </form>
-        <a href="/fitness/info"><h1>back</h1></a>
+        <a href="/fitness/info"><h1>뒤로가기</h1></a>
     </div>
       <jsp:include page="/footer.jsp"></jsp:include>
 </body>

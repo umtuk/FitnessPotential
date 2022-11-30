@@ -154,7 +154,7 @@ public class FoodDiary {
             this.day = foodDiaryPutRequest.getDay() == null ? this.day : foodDiaryPutRequest.getDay();
             this.hour = foodDiaryPutRequest.getHour() == null ? this.hour : foodDiaryPutRequest.getHour();
             this.minute = foodDiaryPutRequest.getMinute() == null ? this.minute : foodDiaryPutRequest.getMinute();
-            this.thumbnail = foodDiaryPutRequest.getThumbnail() == null ? this.thumbnail : foodDiaryPutRequest.getThumbnail();
+            this.thumbnail = foodDiaryPutRequest.getThumbnail();
             this.updatedAt = System.currentTimeMillis();
             return this;
         }

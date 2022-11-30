@@ -1,8 +1,6 @@
 function storageSubmit(event, targetSelector) {
     let form = event.target.parentNode;
-    console.log(form);
     let imagesInput = form.querySelector("input[name='images']");
-    console.log(imagesInput);
     let formData = new FormData();
     formData.append("images", imagesInput.files[0]);
     axios.post("/storage", formData, {
@@ -10,18 +8,7 @@ function storageSubmit(event, targetSelector) {
             'Content-Type': 'multipart/form-data'
         }
     }).then((res) => {
-        console.log(res);
-        let targetInput = document.querySelector(targetSelector);
-        targetInput.value = res.data;
-        let img = document.createElement("img");
-        img.src = "/storage/" + res.data;
-        let prev = form.querySelector("img");
-        if (Boolean(prev)) {
-            form.replaceNode(img, prev);
-        }
-        else {
-            form.appendChild(img);
-        }
+        putImg(targetSelector, res)
     }).catch((err) => {
         console.log(err);
     });
@@ -31,4 +18,24 @@ function storageDelete(event, targetSelector){
     let targetInput = document.querySelector(targetSelector);
     form.removeChild(form.lastChild);
     targetInput.value = null;
+}
+
+function putImg(targetSelector, res) {
+    console.log(targetSelector);
+    console.log(res);
+    console.log(res.data);
+    let form = document.querySelector(".storage-create");
+    console.log(form);
+    let targetInput = document.querySelector(targetSelector);
+    console.log(targetInput);
+    targetInput.value = res.data;
+    let img = document.createElement("img");
+    img.src = "/storage/" + res.data;
+    let prev = form.querySelector("img");
+    if (Boolean(prev)) {
+        form.replaceNode(img, prev);
+    }
+    else {
+        form.appendChild(img);
+    }
 }

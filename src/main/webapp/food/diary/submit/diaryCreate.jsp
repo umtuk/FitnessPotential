@@ -46,7 +46,7 @@
                 <input type="number" name="minute" id="minute" min="0" max="59" required><br><br>
                 <input type="submit" class="btn btn-outline-primary me-2" value="create diary">
             </form>
-            <a href="/food/diary"><h1>back</h1></a>
+            <a href="/food/diary"><h1>뒤로가기</h1></a>
         </div>
           <jsp:include page="/footer.jsp"></jsp:include>
 </body> 
