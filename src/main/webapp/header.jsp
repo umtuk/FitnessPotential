@@ -11,8 +11,11 @@
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="/" class="nav-link px-2 link-secondary">메인</a></li>
             <li><a href="/community" class="nav-link px-2 link-dark">게시판</a></li>
-            <li><a href="/fitness" class="nav-link px-2 link-dark">운동</a></li>
-            <li><a href="/food" class="nav-link px-2 link-dark">식단</a></li>
+            <li><a href="/fitness/info" class="nav-link px-2 link-dark">운동기구정보</a></li>
+            <li><a href="/fitness/routine" class="nav-link px-2 link-dark">운동루틴</a></li>
+            <li><a href="/fitness/diary" class="nav-link px-2 link-dark">운동일지</a></li>
+            <li><a href="/food/info" class="nav-link px-2 link-dark">음식정보</a></li>
+            <li><a href="/food/diary" class="nav-link px-2 link-dark">식단일지</a></li>
         </ul>
     </header>
 </div>
