@@ -14,9 +14,5 @@
             <li><a href="/fitness" class="nav-link px-2 link-dark">운동</a></li>
             <li><a href="/food" class="nav-link px-2 link-dark">식단</a></li>
         </ul>
-
-        <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='/oauth2/authorization/kakao' ">Sign-in</button>
-        </div>
     </header>
 </div>

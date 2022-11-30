@@ -18,7 +18,12 @@
         <img src="/storage/${fitnessInfo.thumbnail}" alt="" srcset=""> <br>
         ${fitnessInfo.content}<br>
     </div>
-    <c:if test="${not empty param.fitnessRoutineId}">
+
+    <c:if test="${sessionScope.fitnessInfoStatus eq 'fitnessRoutineSelect'}">
         <a href="/fitness/routine/submit/unitCreateView.jsp?fitnessRoutineId=${param.fitnessRoutineId}&title=${fitnessInfo.title}&fitnessInfoId=${fitnessInfo.id}">운동 추가하기</a>
+    </c:if>
+
+    <c:if test="${sessionScope.fitnessInfoStatus eq 'fitnessDiarySelect'}">
+        <a href="/fitness/diary/submit/diaryCreateView.jsp?title=${fitnessInfo.title}&fitnessInfoId=${fitnessInfo.id}">운동 추가하기</a>
     </c:if>
 </div>

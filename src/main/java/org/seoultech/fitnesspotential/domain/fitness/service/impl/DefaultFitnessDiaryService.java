@@ -1,8 +1,10 @@
 package org.seoultech.fitnesspotential.domain.fitness.service.impl;
 
+import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryInfo;
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessDiary;
+import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessInfo;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessRoutine;
 import org.seoultech.fitnesspotential.domain.fitness.exception.FitnessDiaryErrorMessage;
 import org.seoultech.fitnesspotential.domain.fitness.repository.FitnessDiaryRepository;
@@ -37,7 +39,18 @@ public class DefaultFitnessDiaryService implements FitnessDiaryService {
     public Iterable<FitnessDiary> getFitnessDiaries(Integer year, Integer month, Integer day, Long creatorId) {
         return fitnessDiaryRepository.findByYearAndMonthAndDayAndCreatorId(year, month, day, creatorId);
     }
-    //Iterable<FitnessDiary> 페이징이 필요없을 경우 사용
+
+    @Override
+    @Transactional
+    public Iterable<FitnessDiary> getFitnessDiaries(Long fitnessInfoId, Long creatorId) {
+        return fitnessDiaryRepository.findByFitnessInfoIdAndCreatorId(fitnessInfoId, creatorId);
+    }
+
+    @Override
+    @Transactional
+    public Iterable<FitnessDiaryInfo> getFitnessDiaryInfos(Long creatorId) {
+        return fitnessDiaryRepository.findByCreatorId(creatorId);
+    }
 
     @Override
     @Transactional

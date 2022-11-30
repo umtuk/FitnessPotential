@@ -1,6 +1,7 @@
 package org.seoultech.fitnesspotential.view.fitness.controller.diary;
 
 
+import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryInfo;
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessDiary;
@@ -12,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,7 +41,9 @@ public class FitnessDiaryViewController {
     @GetMapping("/search")
     public ModelAndView getFitnessDiariesView(@RequestParam Integer year, @RequestParam Integer month, @RequestParam Integer day, @SessionAttribute User user, ModelMap model){
         Iterable<FitnessDiary> fitnessDiaries = fitnessDiaryService.getFitnessDiaries(year, month, day, user.getId());
+        Iterable<FitnessDiaryInfo> fitnessDiaryInfos = fitnessDiaryService.getFitnessDiaryInfos(user.getId());
         model.addAttribute("fitnessDiaries", fitnessDiaries);
+        model.addAttribute("fitnessDiaryInfos", fitnessDiaryInfos);
         model.addAttribute("year", year);
         model.addAttribute("month", month);
         model.addAttribute("day", day);
@@ -71,15 +75,16 @@ public class FitnessDiaryViewController {
         return new ModelAndView("redirect:/fitness/diary", model);
     }
 
-    @GetMapping("/create")
-    public ModelAndView getFitnessDiaryCreateView(@SessionAttribute User user, ModelMap model){
-        return new ModelAndView("/fitness/diary/submit/diaryCreate", model);
-    }
-
     @GetMapping("/update/{id}")
     public ModelAndView getFitnessDiaryUpdateView(@SessionAttribute User user, @PathVariable Long id, ModelMap model){
         FitnessDiary fitnessDiary = fitnessDiaryService.getFitnessDiary(id);
         model.addAttribute("fitnessDiary", fitnessDiary);
         return new ModelAndView("/fitness/diary/submit/diaryUpdate", model);
+    }
+
+    @GetMapping("/select")
+    public ModelAndView getFitnessInfoSelectView(HttpSession session, ModelMap model) {
+        session.setAttribute("fitnessInfoStatus", "fitnessDiarySelect");
+        return new ModelAndView("forward:/fitness/info/search?page=0&size=10&detailedCategory=전체&majorCategory=전체", model);
     }
 }

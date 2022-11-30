@@ -6,7 +6,7 @@
     <div class="fitnessInfos">
         <c:forEach var="fitnessInfos" varStatus="status" items="${fitnessInfos.content}">
             <div class="list-group w-auto">
-                <a href="/fitness/info/${fitnessInfos.id}?fitnessRoutineId=${fitnessRoutineId}">
+                <a href="/fitness/info/${fitnessInfos.id}">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <img src="/storage/${fitnessInfos.thumbnail}" alt="" width="50" height="50">
                         ${fitnessInfos.title}<br>
@@ -36,15 +36,15 @@
 <nav aria-label="Standard pagination example">
     <ul class="pagination justify-content-center">
         <li class="page-item">
-            <a class="page-link" href="/fitness/info/search?page=0&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}&fitnessRoutineId=${fitnessRoutineId}" aria-label="Previous">
+            <a class="page-link" href="/fitness/info/search?page=0&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
             <c:forEach var="i" varStatus="status" begin="1" end="${fitnessInfos.totalPages}">
-                <li class="page-item"><a class="page-link" href="/fitness/info/search?page=${i - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}&fitnessRoutineId=${fitnessRoutineId}">${i}</a></li>
+                <li class="page-item"><a class="page-link" href="/fitness/info/search?page=${i - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}">${i}</a></li>
             </c:forEach>
         <li class="page-item">
-            <a class="page-link" href="/fitness/info/search?page=${fitnessInfos.totalPages - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}&fitnessRoutineId=${fitnessRoutineId}" aria-label="Next">
+            <a class="page-link" href="/fitness/info/search?page=${fitnessInfos.totalPages - 1}&majorCategory=${majorCategory}&detailedCategory=${detailedCategory}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

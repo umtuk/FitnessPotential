@@ -14,6 +14,7 @@
                 <a href="/fitness/diary/${fitnessDiary.id}">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <h3 class="mb-0">${fitnessDiary.title}</h3>
+                        <h3 class="mb-0">${fitnessDiary.year}-${fitnessDiary.month}-${fitnessDiary.day}</h3>
                         <small class="opacity-50 text-nowrap">
                             세트수: ${fitnessDiary.sets}<br>
                             반복횟수: ${fitnessDiary.reps}<br>
@@ -27,6 +28,6 @@
         </c:forEach>
     </div>
 </div>
-<!-- <div class="container-sm">
-    <a href="/fitness/diary/create">create diary</a>
-</div> -->
+<div class="container-sm">
+    <a href="/fitness/diary/select">운동 일지 추가하기</a>
+</div>

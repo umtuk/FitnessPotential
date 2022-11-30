@@ -19,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.List;
 
@@ -152,5 +153,12 @@ public class FitnessRoutineViewController {
             model.addAttribute("unitIndex", unitIndex);
             return new ModelAndView("/fitness/routine/routineStartView", model);
         }
+    }
+
+    @GetMapping("/select")
+    public ModelAndView getFitnessInfoSelectView(@RequestParam Long fitnessRoutineId, HttpSession session, ModelMap model) {
+        session.setAttribute("fitnessInfoStatus", "fitnessRoutineSelect");
+        session.setAttribute("fitnessRoutineId", fitnessRoutineId);
+        return new ModelAndView("forward:/fitness/info/search?page=0&size=10&detailedCategory=전체&majorCategory=전체", model);
     }
 }

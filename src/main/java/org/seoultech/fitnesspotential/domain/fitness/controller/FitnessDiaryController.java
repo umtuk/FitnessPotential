@@ -1,5 +1,6 @@
 package org.seoultech.fitnesspotential.domain.fitness.controller;
 
+import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryInfo;
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPostRequest;
 import org.seoultech.fitnesspotential.domain.fitness.dto.diary.FitnessDiaryPutRequest;
 import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessDiary;
@@ -27,8 +28,13 @@ public class FitnessDiaryController {
     public ResponseEntity<FitnessDiary> getFitnessDiary(@PathVariable Long id) {
         return new ResponseEntity<>(fitnessDiaryService.getFitnessDiary(id), HttpStatus.OK);
     }
+    
+    @GetMapping("/info")
+    public ResponseEntity<Iterable<FitnessDiaryInfo>> getFitnessDiaryInfos() {
+        return new ResponseEntity<>(fitnessDiaryService.getFitnessDiaryInfos(0L), HttpStatus.OK);
+    }
 
-    @GetMapping("/search")//pageable -> size(한페이지에 몇개의 element를 담을건지), page, sort
+    @GetMapping("/search")
     public ResponseEntity<Iterable<FitnessDiary>> getFitnessDiaries(@RequestParam Integer year, @RequestParam Integer month, @RequestParam Integer day) {
         Iterable<FitnessDiary> fitnessDiaries = fitnessDiaryService.getFitnessDiaries(year, month, day, 0L);
         return !fitnessDiaries.iterator().hasNext() ?

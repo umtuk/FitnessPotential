@@ -19,6 +19,6 @@
     <c:set var="units" value="${fitnessRoutine.units}" scope="request"></c:set>
     <jsp:include page="/fitness/routine/entity/units.jsp"></jsp:include>
 
-    <a href="/fitness/info/selection?fitnessRoutineId=${fitnessRoutine.id}"><h3>운동 추가하기</h3></a>
+    <a href="/fitness/routine/select?fitnessRoutineId=${fitnessRoutine.id}"><h3>운동 추가하기</h3></a>
     <a href="/fitness/routine/start?fitnessRoutineId=${fitnessRoutine.id}&unitIndex=0"><h2>운동 루틴 시작하기</h2></a>
 </div>

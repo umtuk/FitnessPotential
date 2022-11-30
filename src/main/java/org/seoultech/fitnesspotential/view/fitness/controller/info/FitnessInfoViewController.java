@@ -17,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Set;
 
 @Slf4j
@@ -34,25 +35,19 @@ public class FitnessInfoViewController {
     }
 
     @GetMapping
-    public ModelAndView getDefaultFitnessInfoView(ModelMap model) {
+    public ModelAndView getDefaultFitnessInfoView(HttpSession session, ModelMap model) {
+        session.setAttribute("fitnessInfoStatus", "fitnessInfoSelect");
         return new ModelAndView("forward:/fitness/info/search?page=0&size=10&detailedCategory=전체&majorCategory=전체", model);
-    }
-
-    @GetMapping("/selection")
-    public ModelAndView getDefaultFitnessInfoSelectionView(@RequestParam Long fitnessRoutineId, ModelMap model) {
-        return new ModelAndView("forward:/fitness/info/search?page=0&size=10&detailedCategory=전체&majorCategory=전체&fitnessUnitId=" + fitnessRoutineId, model);
     }
 
     @GetMapping("/search")
     public ModelAndView getFitnessInfosView(@RequestParam String majorCategory,
                                             @RequestParam String detailedCategory,
-                                            @RequestParam(required = false) Long fitnessRoutineId,
                                             @PageableDefault Pageable pageable, ModelMap model){
         Page<FitnessInfoSummary> fitnessInfos = fitnessInfoSummaryService.getFitnessInfoSummaries(majorCategory, detailedCategory, pageable);
         model.addAttribute("fitnessInfos", fitnessInfos);
         model.addAttribute("majorCategory", majorCategory);
         model.addAttribute("detailedCategory", detailedCategory);
-        model.addAttribute("fitnessRoutineId", fitnessRoutineId);
         return new ModelAndView("fitness/info/searchView", model);
     }
 
