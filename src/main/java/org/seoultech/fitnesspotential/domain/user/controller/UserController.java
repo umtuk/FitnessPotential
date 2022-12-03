@@ -22,14 +22,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+    @GetMapping("/my")
+    public ResponseEntity<User> getUser(@RequestAttribute(name = "user") User user) {
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

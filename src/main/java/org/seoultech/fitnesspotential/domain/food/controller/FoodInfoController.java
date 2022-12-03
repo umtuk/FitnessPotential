@@ -2,7 +2,6 @@ package org.seoultech.fitnesspotential.domain.food.controller;
 
 import org.seoultech.fitnesspotential.domain.food.dto.FoodInfoCategoryResponse;
 import org.seoultech.fitnesspotential.domain.food.entity.FoodInfo;
-import org.seoultech.fitnesspotential.domain.food.entity.FoodInfoCategory;
 import org.seoultech.fitnesspotential.domain.food.service.FoodInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +36,7 @@ public class FoodInfoController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<FoodInfoCategoryResponse> getFoodInfoDetailedCategories() {
+    public ResponseEntity<FoodInfoCategoryResponse> getFoodInfoCategories() {
         return new ResponseEntity<>(foodInfoService.getFoodInfoCategories(), HttpStatus.OK);
     }
 }

@@ -25,12 +25,10 @@ import java.util.Map;
 @Service
 public class UserOAuth2Service extends DefaultOAuth2UserService {
 
-    private final HttpSession httpSession;
     private final UserRepository userRepository;
 
     @Autowired
-    public UserOAuth2Service(HttpSession httpSession, UserRepository userRepository) {
-        this.httpSession = httpSession;
+    public UserOAuth2Service(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -1,6 +1,5 @@
 package org.seoultech.fitnesspotential.global.config;
 
-import org.seoultech.fitnesspotential.domain.fitness.entity.FitnessUnit;
 import org.seoultech.fitnesspotential.domain.user.service.impl.UserOAuth2Service;
 import org.seoultech.fitnesspotential.domain.user.util.security.handler.OAuth2AuthenticationSuccessHandler;
 import org.seoultech.fitnesspotential.global.util.secutiry.access.*;
@@ -10,9 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -21,6 +17,7 @@ public class SecurityConfig {
 
     private final UserOAuth2Service oAuth2UserService;
     private final OAuth2AuthenticationSuccessHandler successHandler;
+    private final RestControllerConfig restControllerConfig;
 
     private final CommunityOnlyMeAccess communityOnlyMeAccess;
     private final CommentOnlyMeAccess commentOnlyMeAccess;
@@ -33,6 +30,7 @@ public class SecurityConfig {
     @Autowired
     public SecurityConfig(UserOAuth2Service oAuth2UserService,
                           OAuth2AuthenticationSuccessHandler successHandler,
+                          RestControllerConfig restControllerConfig,
                           CommunityOnlyMeAccess communityOnlyMeAccess,
                           CommentOnlyMeAccess commentOnlyMeAccess,
                           FitnessDiaryOnlyMeAccess fitnessDiaryOnlyMeAccess,
@@ -42,6 +40,7 @@ public class SecurityConfig {
                           FoodDiaryOnlyMeAccess foodDiaryOnlyMeAccess) {
         this.oAuth2UserService = oAuth2UserService;
         this.successHandler = successHandler;
+        this.restControllerConfig = restControllerConfig;
         this.communityOnlyMeAccess = communityOnlyMeAccess;
         this.commentOnlyMeAccess = commentOnlyMeAccess;
         this.fitnessDiaryOnlyMeAccess = fitnessDiaryOnlyMeAccess;
@@ -53,6 +52,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        String basePath = restControllerConfig.getBasePath();
+
         http
                 .csrf().disable()
 

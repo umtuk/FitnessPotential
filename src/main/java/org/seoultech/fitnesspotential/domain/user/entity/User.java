@@ -88,6 +88,18 @@ public class User implements UserDetails {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", socialId=" + socialId +
+                ", provider='" + provider + '\'' +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
+                ", refreshToken='" + refreshToken + '\'' +
+                '}';
+    }
+
     public static class UserBuilder {
 
         private Long id;
