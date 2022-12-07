@@ -24,6 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry
                 .addInterceptor(bearerAuthInterceptor)
                 .addPathPatterns(restControllerConfig.getBasePath() + "/**")
+                .excludePathPatterns("/api/v1/user/login")
         ;
     }
 }

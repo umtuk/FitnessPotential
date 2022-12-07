@@ -59,7 +59,7 @@ public class SecurityConfig {
 
                 .authorizeRequests()
 
-                .antMatchers("/", "/login/**").permitAll()
+                .antMatchers("/", "/login/**", "/api/v1/user/login/**").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/community/comment/**").hasRole("USER")
                 .antMatchers(HttpMethod.POST, "/community/comment/**").hasRole("USER")
