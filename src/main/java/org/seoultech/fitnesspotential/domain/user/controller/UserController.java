@@ -81,6 +81,7 @@ public class UserController {
         User user;
         if (!userService.existsBySocialIdAndProvider(socialId, provider)) {
             UserPostRequest userPostRequest = UserPostRequest.builder()
+                    .socialId(socialId)
                     .nickname(nickname)
                     .profileImageUrl(profile_image)
                     .provider(provider)
