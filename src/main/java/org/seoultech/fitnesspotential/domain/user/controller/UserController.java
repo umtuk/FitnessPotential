@@ -66,6 +66,8 @@ public class UserController {
             result += line;
         }
 
+        log.info("{}", result);
+
         JsonElement element = JsonParser.parseString(result);
 
         JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
