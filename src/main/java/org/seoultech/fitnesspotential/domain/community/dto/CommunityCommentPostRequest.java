@@ -19,8 +19,8 @@ public class CommunityCommentPostRequest {
     private Long parentCommentId;
 
     @NotNull
-    @Size(min = 5, max = 512)
-    @ReplaceAllSize(min = 5, max = 150, regex = HtmlRegex.HTML_TAG_REGEX, replacement = "")
+    @Size(min = 1, max = 512)
+    @ReplaceAllSize(min = 1, max = 150, regex = HtmlRegex.HTML_TAG_REGEX, replacement = "")
     private String content;
 
     @Builder

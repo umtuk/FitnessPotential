@@ -14,7 +14,7 @@ import java.util.List;
 public class FitnessDiaryPutRequest {
 
     @NotNull
-    @Size(min = 5, max = 64)
+    @Size(min = 1, max = 64)
     private String title;
 
     @NotNull

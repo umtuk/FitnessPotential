@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
 public class FoodDiaryPostRequest {
 
     @NotNull
-    @Size(min=5, max=1024)
+    @Size(min=1, max=1024)
     private String content;
 
     @NotNull

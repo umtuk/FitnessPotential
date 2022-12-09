@@ -16,17 +16,17 @@ import java.util.List;
 public class CommunityPutRequest {
 
     @NotNull
-    @Size(min = 5, max = 64)
+    @Size(min = 1, max = 64)
     private String title;
 
     @NotNull
     @Size(max = 1024)
-    @ReplaceAllSize(min = 10, max = 300, regex = HtmlRegex.HTML_TAG_REGEX, replacement = "")
+    @ReplaceAllSize(min = 1, max = 300, regex = HtmlRegex.HTML_TAG_REGEX, replacement = "")
     private String content;
 
     @NotNull
-    @Size(min = 1, max = 10)
-    private List<@Size(min = 4, max = 64) String> tags;
+    @Size(max = 10)
+    private List<@Size(min = 1, max = 64) String> tags;
 
     @Builder
     public CommunityPutRequest(String title, String content, List<String> tags) {
