@@ -23,7 +23,7 @@ public class FoodDiaryPostRequest {
     private Integer intake;
 
     @NotNull
-    @Size(min=2, max=10)
+    @Size(min=1, max=10)
     private String intakeUnit;
 
     @NotNull
